@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% load static %}
+<html style="font-size: 16px;" lang="en-NG">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Online Pharmacy
+        Buy Medicines Online
+        Prescription Drugs
+        Over-the-Counter Medications
+        Health Supplements
+        Pharmacy Near Me
+        Affordable Medicines
+        Prescription Refill
+        Health and Wellness Products
+        Medical Supplies
+        MAMS">
+    <meta name="description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
+        Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
+        Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
+        Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
+    <title>Products</title>
+    <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'css/Products.css' %}" media="screen">
+<!--    <script class="u-script" type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}" defer=""></script>-->
+<!--    <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>-->
+
+    <meta name="generator" content="Nicepage 6.13.11, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i|Palanquin+Dark:400,500,600,700">
+
+
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "WebSite6300048",
+        "logo": "images/default-logo.png"
+    }</script>
+    <meta name="theme-color" content="#1f2645">
+    <meta property="og:title" content="Products">
+    <meta property="og:description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
+Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
+Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
+Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
+    <meta property="og:type" content="website">
+    <meta data-intl-tel-input-cdn-path="intlTelInput/">
+</head>
+<body data-path-to-root="./" data-include-products="true" class="u-body u-overlap u-xl-mode" data-lang="en">
+{% include 'products/navbar.html' %}
+<section class="u-clearfix u-lightbox u-section-1" id="sec-16e0">
+    <div class="u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
+        <div class="u-container-layout u-valign-middle u-container-layout-1">
+            <h3 class="u-text u-text-default u-text-1">Product Categories</h3>
+        </div>
+    </div><!--products--><!--products_options_json--><!--{"type":"Recent","source":"","tags":"","count":""}-->
+    <!--/products_options_json-->
+    <div class="custom-expanded u-layout-grid u-pagination-center u-products u-sorting-right u-products-1"
+         data-site-sorting-prop="created" data-site-sorting-order="desc" data-products-datasource="site"
+         data-items-per-page="4" data-products-id="1">
+        <div class="has-sorting u-list-control"><!--products_sorting-->
+            <div class="u-sorting">
+                <select name="sorting" class="u-input u-select-sorting">
+                    <option value="title-asc">Name, A to Z</option>
+                    <option value="title-desc">Name, Z to A</option>
+                    <option value="price-asc">Price, low to high</option>
+                    <option value="price-desc">Price, high to low</option>
+                    <option value="created-asc">Date, old to new</option>
+                    <option value="created-desc">Date, new to old</option>
+                    <option value="created-desc">Date, new to old</option>
+                </select>
+                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                     viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+            </div><!--/products_sorting-->
+        </div>
+        <div class="u-repeater u-repeater-1">
+            <!--product_item-->
+            {% for product in products %}
+            <div class="u-align-center u-container-align-center u-container-style u-products-item u-repeater-item"
+                 data-product-id="4">
+                <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+                    <!--product_image-->
+                    <a class="u-product-title-link" href="{{product.get_absolute_url}}">
+                        <img alt=""
+                             class="u-expanded-width u-image u-image-contain u-image-default
+                             u-product-control lazyload u-image-1"
+                             data-src="{{product.image.url}}"
+                             src="{{product.image.url}}"></a>
+                    <!--/product_image--><!--product_title-->
+                    <h4 class="u-align-center u-product-control u-text u-text-default u-text-2">
+                        <a class="u-product-title-link" href="{{product.get_absolute_url}}">{{product.name|truncatewords:3}}</a>
+                    </h4><!--/product_title--><!--product_price-->
+                    <div class="u-align-center u-product-control u-product-price u-product-price-1"
+                         data-add-zero-cents="true">
+                        <div class="u-price-wrapper u-spacing-10"><!--product_old_price-->
+<!--                            <div class="u-old-price" style="text-decoration: line-through !important;">₦{{product.price}}</div>-->
+                            <!--/product_old_price--><!--product_regular_price-->
+                            <div class="u-price u-text-custom-color-5" style="font-size: 1.25rem; font-weight: 700;">
+                                ₦{{product.price}}
+                            </div><!--/product_regular_price-->
+                        </div>
+                    </div><!--/product_price--><!--product_button--><!--options_json-->
+                    <!--{"clickType":"buy-now","content":""}--><!--/options_json-->
+                    <a href="#sec-e50a"
+                       class="u-align-center u-btn u-button-style u-hover-feature u-none u-product-control u-btn-1 u-dialog-link u-payment-button"
+                       data-product-button-click-type="buy-now" data-product-id="4"
+                       data-product="{&quot;id&quot;:&quot;4&quot;,&quot;name&quot;:&quot;leather-gloves&quot;,&quot;title&quot;:&quot;Leather Gloves&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;fullDescription&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;20&quot;,&quot;oldPrice&quot;:&quot;25&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;USD&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;isFeatured&quot;:false,&quot;categories&quot;:[&quot;3&quot;],&quot;images&quot;:[{&quot;url&quot;:&quot;images/776587db.svg&quot;}],&quot;created&quot;:1720753868684,&quot;updated&quot;:1720753868684,&quot;isDefault&quot;:true,&quot;categoriesData&quot;:[{&quot;link&quot;:&quot;./products/products.html#/1///3&quot;,&quot;title&quot;:&quot;Accessories&quot;}]}">
+                        <!--product_button_content-->Add to Cart<!--/product_button_content--></a><!--/product_button-->
+                </div>
+            </div><!--/product_item--><!--product_item-->
+            {% endfor %}
+        </div>
+        <div class="u-list-control"></div>
+    </div><!--/products-->
+
+
+</section>
+<style class="u-overlap-style">.u-overlap:not(.u-sticky-scroll) .u-header {
+background-color: #ffffff !important
+}
+</style>
+
+
+<footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-7bae">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <p class="u-small-text u-text u-text-variant u-text-1">Sample text. Click to select the text box. Click again or
+            double click to start editing the text.</p>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!doctype html>
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Online Pharmacy
+        Buy Medicines Online
+        Prescription Drugs
+        Over-the-Counter Medications
+        Health Supplements
+        Pharmacy Near Me
+        Affordable Medicines
+        Prescription Refill
+        Health and Wellness Products
+        Medical Supplies
+        MAMS">
+    <meta name="description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
+        Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
+        Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
+        Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
+
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="icon" href="{% static 'images/falcon_LGfm6ox.png' %}">
+
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "MAMS"
+    }</script>
+    <meta name="theme-color" content="#1f2645">
+    <meta property="og:title" content="Signup">
+    <meta property="og:description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
+Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
+Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
+Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
+    <meta property="og:type" content="website">
+    <meta data-intl-tel-input-cdn-path="intlTelInput/">
+
+    <title>
+        MAMS | Sign up
+    </title>
+</head>
+
+
+<body>
+<style>
+    a {color: #004d6e;}
+    a:hover{color:#004d6e}
+    .btn{
+        background: #004d6e;
+        border-color: #004d6e;
+        color: #fff;
+    }
+    .btn:hover{
+        background: #003952;
+        border-color: #003952;
+        color: #fff;
+    }
+</style>
+
+<div class="row no-gutters">
+    <div class="col-6 col-lg-8 col-md-8 d-none d-lg-block d-md-block" style="position: fixed; top: 0;
+            left: 0;overflow: hidden;height:100vh">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-interval="5000">
+                    <img src="https://img.freepik.com/premium-photo/doctor-writing-medical-prescription-stock-photo_1261155-114.jpg?w=1060"
+                         class="d-block w-100" alt="First slide">
+                    <div class="carousel-caption d-none d-md-flex">
+                        <h1 class="text-light mt-3" style="font-weight: 300;">
+                            We provide a variety of prescription drugs, health supplements, and medical supplies to meet
+                            all your health needs.
+
+                            Get your prescriptions refilled and buy over-the-counter medications online.
+                            Quality medications and supplements delivered to your door.
+                        </h1>
+                        <!-- <p>Some representative placeholder content for the first slide.</p>-->
+                    </div>
+                </div>
+                <div class="carousel-item" data-interval="5000">
+                    <img src="https://img.freepik.com/premium-photo/doctor-writing-medical-prescription_1261155-120.jpg?w=740"
+                         class="d-block w-100" alt="Second slide">
+                    <div class="carousel-caption d-none d-md-flex">
+                        <h1 class="text-light" style="font-weight: 300;">
+                            Your trusted online pharmacy for prescription and over-the-counter medications. Fast
+                            delivery, affordable prices, and a wide range of health products.
+                            Order medicines online with ease.
+
+                        </h1>
+                    </div>
+                </div>
+                <div class="carousel-item" data-interval="5000">
+                    <img src="https://img.freepik.com/free-photo/scene-from-care-job-with-young-child-patient-being-take-care_23-2151224132.jpg?t=st=1720775242~exp=1720778842~hmac=1e804f02ca8f451aef917a9d74c0b01b0218224f5b46fdccc3d74f470a861710&amp;w=1060" class="d-block w-100" alt="Third slide">
+                    <div class="carousel-caption d-none d-md-flex">
+                        <h1 class="text-light" style="font-weight: 300;">
+                            Reliable, convenient, and affordable pharmacy services.
+                            Discover a wide range of health and wellness products at our online pharmacy.
+
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-4 d-flex" style="overflow-y: auto;overflow-x: hidden;
+    position: absolute; top: 0;
+            right: 0;">
+        <div class="container mt-5 ml-5">
+            <a href="/">
+                <img src="{% static 'images/falcon_LGfm6ox.png' %}" height="50" width="50" alt="">
+            </a>
+            <h1 class="mt-3 ml-2">
+                <b>Create your account</b>
+                <p style="font-size: 15px">
+                    Let's get started with your details.</p>
+            </h1>
+            <div class="col-10">
+                <form id="login-form" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <br>
+                        <br>
+
+                        {{ form|crispy }}
+
+                        <small class="text-muted float-left">
+                            Show password
+                        </small>
+                        <br>
+                        <label class="switch">
+                            <input type="checkbox" id="togglePassword">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                    <br>
+                    <button style="height: 59" id="submit" type="submit" class="btn py-3 btn-block">
+                        <div class="spinner-border text-light hidden" id="spinner" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <span id="button-text">CREATE AN ACCOUNT</span>
+                    </button>
+                    <style>
+                        .spinner-border {
+                            width: 1.5rem;
+                            height: 1.5rem;
+                        }
+                    </style>
+                </form>
+                <div class="border-top mt-2 text-left">
+                    <p class="text-muted">Already have an account?
+                        <a class="ml-2 text-decoration-none"
+                           href="{% url 'login' %}">Login</a>
+                    </p>
+                </div>
+                <br>
+                <div class="or-container">
+                    <hr>
+                    <span>OR</span>
+                </div>
+                <br>
+                <a href="{% provider_login_url 'google' %}" class="py-3 mt-2 btn btn-block" style="height: 59">
+                    <img src="{% static 'images/300221.png' %}" CLASS="mr-2" width="32" height="32" alt="">
+                    CONTINUE WITH GOOGLE</a>
+                <br>
+                <br>
+            </div>
+        </div>
+
+    </div>
+</div>
+<style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 14px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 13px;
+      width: 13px;
+      left: 2px;
+      right: 14px;
+      align-items: center;
+
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    .slider:after {
+        right: 4px;
+    }
+    input:checked + .slider {
+      background-color: #004d6e;
+
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(24px);
+      -ms-transform: translateX(24px);
+      transform: translateX(24px);
+
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 14px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+
+</style>
+
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#id_password1');
+    const password_confirm = document.querySelector('#id_password2');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        const password_confirm_type = password_confirm.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        password_confirm.setAttribute('type', password_confirm_type);
+        // toggle the eye slash icon
+    });
+</script>
+
+<style>
+    .or-container {
+      text-align: center; /* Center the content horizontally */
+      position: relative; /* Enable relative positioning for child elements */
+    }
+
+    .or-container hr {
+      border: .5px solid lightgrey; /* Adjust border style as needed */
+      width: 100%; /* Set the desired width for the line */
+      margin: 0 auto; /* Center the line horizontally */
+      /* Adjust top and bottom margins for spacing */
+      margin-bottom: 5px;
+    }
+
+    .or-container span {
+      background-color: white; /* Hide text behind the line */
+      padding: 0 15px; /* Add padding around the text */
+      position: absolute; /* Make the text element absolute-positioned */
+      top: 80%; /* Position the text vertically in the middle */
+      transform: translateY(-50%); /* Adjust vertical positioning if needed */
+    }
+
+    /* CUSTOMIZE THE CAROUSEL
+    -------------------------------------------------- */
+
+    /* Carousel base class */
+    .carousel {
+      margin-bottom: .5rem;
+    }
+    /* Since positioning the image, we need to help out the caption */
+    .carousel-caption {
+        margin-top: 3em;;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        color: white;
+
+
+    }
+    .carousel-caption p{
+        text-size: 24px;
+    }
+
+    /* Declare heights because of positioning of img element */
+    .carousel-item {
+      height: 31rem;
+    }
+
+    @media (min-width: 48em) {
+      .carousel-item {
+        height: 100vh;
+        background-color: black;
+      }
+    }
+
+    .carousel-item > img {
+      position: absolute;
+      min-width: 100%;
+      height: 100%;
+      max-height: 100%;
+      cursor: pointer;
+      opacity:.5;
+      background-blend-mode: multiply;
+      object-fit:cover;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .carousel-item > img:hover{
+        opacity:.5;
+    }
+
+
+    .hidden, li {
+        display: none;
+    }
+    label {
+        float:left
+    }
+    ul {
+
+    .brand-logo {
+        margin-top: 20px; /* Adjust spacing if needed */
+    }
+
+</style>
+<script>
+    let paymentForm = document.getElementById('login-form');
+	if (paymentForm) {
+		paymentForm.addEventListener('submit', function () {
+		    console.log("login button clicked");
+			changeLoadingState(true);
+
+	    }
+	  );
+	}
+
+    var changeLoadingState = function(isLoading) {
+        if (isLoading) {
+            document.getElementById("submit").disabled = true;
+            document.querySelector("#spinner").classList.remove("hidden");
+            document.querySelector("#button-text").classList.add("hidden");
+        } else {
+            document.getElementById("submit").disabled = false;
+            document.querySelector("#spinner").classList.add("hidden");
+            document.querySelector("#button-text").classList.remove("hidden");
+        }
+    };
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>

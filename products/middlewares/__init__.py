@@ -1,0 +1,1 @@
+from .viewedproducts import RecentlyViewedProductsMiddleware

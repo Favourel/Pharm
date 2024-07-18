@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% load static %}
+{% load socialaccount %}
+<html style="font-size: 16px;" lang="en-NG">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Online Pharmacy
+        Buy Medicines Online
+        Prescription Drugs
+        Over-the-Counter Medications
+        Health Supplements
+        Pharmacy Near Me
+        Affordable Medicines
+        Prescription Refill
+        Health and Wellness Products
+        Medical Supplies
+        MAMS">
+    <meta name="description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
+        Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
+        Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
+        Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
+
+    <title>MAMS | Login</title>
+    <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'css/Login.css' %}" media="screen">
+
+    <meta name="generator" content="Nicepage 6.13.11, nicepage.com">
+    <meta name="referrer" content="origin">
+    <link id="u-theme-google-font" rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i|Palanquin+Dark:400,500,600,700">
+
+
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "MAMS"
+    }</script>
+    <meta name="theme-color" content="#1f2645">
+    <meta property="og:title" content="Login">
+    <meta property="og:description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
+Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
+Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
+Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
+    <meta property="og:type" content="website">
+    <meta data-intl-tel-input-cdn-path="intlTelInput/">
+</head>
+<body data-path-to-root="./" data-include-products="true" class="u-body u-xl-mode" data-lang="en">
+<section class="u-clearfix u-section-1" id="carousel_f808">
+    <div class="u-custom-color-3 u-expanded-height u-expanded-height-lg u-expanded-height-xl u-shape u-shape-rectangle u-shape-1"></div>
+    <div class="u-list u-list-1">
+        <div class="u-repeater u-repeater-1">
+            <div class="u-container-style u-list-item u-repeater-item u-white">
+                <div class="u-container-layout u-similar-container u-container-layout-1">
+                    <h3 class="u-align-center u-custom-font u-font-georgia u-text u-text-1">Hey, welcome back!<br>sign
+                        in with your right details.
+                    </h3>
+                    <p class="u-text u-text-2"> _________________OR________________</p>
+                    <a href="{% provider_login_url 'google' %}"
+                       class="u-active-custom-color-1 u-align-center u-border-2 u-border-black u-btn u-button-style u-hover-custom-color-1 u-none u-text-hover-white u-btn-1">&nbsp;
+                        &nbsp; &nbsp; &nbsp; &nbsp;CONTINUE WITH GOOGLE </a><span
+                        class="u-file-icon u-icon u-icon-1"><img src="{% static 'images/300221.png' %}" alt=""></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="u-align-left u-container-style u-group u-shape-rectangle u-white u-group-1">
+        <div class="u-container-layout u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-container-layout-2">
+            <img class="u-expanded-width u-image u-image-default u-preserve-proportions lazyload u-image-1" alt=""
+                 data-image-width="740" data-image-height="740"
+                 src="https://img.freepik.com/free-vector/login-concept-illustration_114360-4525.jpg?t=st=1720861671~exp=1720865271~hmac=ffde0f92c972c9f90f428715a6b28b292815fc755055bdb3899f5353cb55a12b&amp;w=740">
+        </div>
+    </div>
+    <div class="custom-expanded u-form u-form-1">
+        <form action="{% url 'login' %}"
+              class="u-clearfix u-form-spacing-24 u-form-vertical u-inner-form"
+              style="padding: 24px;" method="post"
+              name="form">
+            {% csrf_token %}
+            <div class="u-align-center u-form-group u-form-submit">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li
+                            {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="u-form-group u-form-name u-label-none">
+                <label for="email-3b9a" class="u-label">Email</label>
+                <input type="text" placeholder="Enter your email address" id="email-3b9a" name="username"
+                       class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1"
+                       required="">
+            </div>
+            <div class="u-form-group u-label-none">
+                <label for="password-3b9a" class="u-label">Password</label>
+                <input type="text" placeholder="Enter your password" id="password-3b9a" name="password"
+                       class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2"
+                       required="required">
+            </div>
+            <div class="u-align-center u-form-group u-form-submit">
+                <!--                <a href="#"-->
+                <!--                   class="u-active-custom-color-5 u-border-2 u-border-grey-dark-1 u-border-no-left-->
+                <!--                   u-border-no-right u-border-no-top u-btn u-btn-rectangle u-btn-submit u-button-style-->
+                <!--                   u-custom-color-3 u-hover-custom-color-5 u-btn-2">LOGIN</a>-->
+                <!--                <input type="submit" value="Sign in" class="u-form-control-hidden">-->
+
+                <button id="submit" type="submit" class="u-active-custom-color-5 u-border-2 u-border-grey-dark-1 u-border-no-left
+                   u-border-no-right u-border-no-top u-btn u-btn-rectangle u-btn-submit u-button-style
+                   u-custom-color-3 u-hover-custom-color-5 u-btn-2">
+                    <div class="spinner-border text-light hidden" id="spinner" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+
+                    <span id="button-text">LOGIN</span>
+                </button>
+
+            </div>
+
+            <input type="hidden" value="" name="recaptchaResponse">
+            <input type="hidden" name="formServices" value="5cd3ad9b-c0ca-7214-8a5c-d9ab489eeac0">
+        </form>
+    </div>
+    <a href="{% provider_login_url 'google' %}"
+       class="u-active-custom-color-1 u-border-2 u-border-black u-btn u-button-style
+       u-hidden u-hover-custom-color-1 u-none u-text-hover-white u-btn-3">
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CONTINUE WITH GOOGLE. </a><span
+        class="u-file-icon u-hidden u-icon u-icon-2"><img src="{% static 'images/300221.png' %}" alt=""></span>
+</section>
+
+
+</body>
+</html>

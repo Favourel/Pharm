@@ -1,0 +1,74 @@
+{% load static %}
+{% load humanize %}
+
+<link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
+<!--<link rel="stylesheet" href="{% static 'css/Products.css' %}" media="screen">-->
+<script class="u-script" type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}" defer=""></script>
+<script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
+
+
+<header class="u-border-2 u-border-white u-clearfix u-header u-sticky u-sticky-190f u-white u-header" id="sec-abaa">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <a href="#" class="u-image u-logo u-image-1">
+            <img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1">
+
+        </a>
+        <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
+            <div class="menu-collapse"
+                 style="font-size: 1rem; letter-spacing: 0px; font-weight: 700; text-transform: uppercase;">
+                <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+                   href="#">
+                    <svg class="u-svg-link" viewBox="0 0 24 24">
+                        <use xlink:href="#menu-hamburger"></use>
+                    </svg>
+                    <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <rect y="1" width="16" height="2"></rect>
+                            <rect y="7" width="16" height="2"></rect>
+                            <rect y="13" width="16" height="2"></rect>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="u-custom-menu u-nav-container-collapse">
+                <div class="u-border-2 u-border-custom-color-3 u-container-style u-custom-color-4 u-inner-container-layout u-opacity u-opacity-80 u-sidenav u-sidenav-1"
+                     data-offcanvas-width="331.25">
+                    <div class="u-inner-container-layout u-sidenav-overflow">
+                        <div class="u-menu-close u-menu-close-1"></div>
+                        <h3 class="u-text u-text-1">LOGO</h3>
+                        <br><br>
+                        <a href="/"
+                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
+                            Home
+                        </a><a href="{% url 'products' %}"
+                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
+                            All Products
+                        </a>
+                        {% for category in categories %}
+                        <a href="/products/?category_name={{ category.name }}"
+                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base
+                           u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius
+                           u-text-body-alt-color u-text-hover-white u-btn-1">
+                            {{category}}
+                        </a>
+                        {% endfor %}
+
+                        <a href="#"
+                           class="u-active-custom-color-6 u-border-2 u-border-hover-
+                           palette-1-base u-border-palette-1-base u-btn u-btn-round
+                           u-button-style u-hover-custom-color-6 u-none u-radius
+                           u-text-body-alt-color u-btn-4">SIGN
+                            UP </a>
+                    </div>
+                </div>
+                <div class="u-black u-menu-overlay u-opacity u-opacity-70" wfd-invisible="true"></div>
+            </div>
+        </nav>
+    </div>
+    <style class="u-sticky-style" data-style-id="190f">.u-sticky-fixed.u-sticky-190f:before, .u-body.u-sticky-fixed .u-sticky-190f:before {
+borders: top right bottom left !important; border-color: #ffffff !important; border-width: 2px !important
+}
+    </style>
+</header>
