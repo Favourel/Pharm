@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views as user_view
 from users.middlewares.auth import LogoutCheckMiddleware
+from django.contrib.auth import views as auth_view
 
 
 urlpatterns = [
@@ -10,6 +11,7 @@ urlpatterns = [
     # path("update_notification/", user_view.update_notification, name="update_notification"),
     path("order-summary/<str:order_id>/", user_view.order_summary, name="order_summary"),
     # path("user/order/", user_view.user_orders, name="user_orders"),
+    path("logout/", auth_view.LogoutView.as_view(), name="logout"),
 
     # path("offline/", user_view.offline, name="offline"),
 ]
