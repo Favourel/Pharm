@@ -1,0 +1,127 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} MAMS | Order Summary{% endblock %}
+{% block content %}
+
+<section class="u-clearfix u-lightbox u-section-1" id="sec-16e0">
+    <div class="u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
+        <div class="u-container-layout u-valign-middle u-container-layout-1">
+            <h3 class="u-text u-text-default u-text-1">
+                Order Summary</h3>
+        </div>
+    </div><!--products--><!--products_options_json--><!--{"type":"Recent","source":"","tags":"","count":""}-->
+    <!--/products_options_json-->
+    <div class="custom-expanded u-layout-grid u-pagination-center u-products u-sorting-right u-products-1"
+         data-site-sorting-prop="created" data-site-sorting-order="desc" data-products-datasource="site"
+         data-items-per-page="4" data-products-id="1">
+
+        <div class="row">
+            <div class="col-lg-6 mb-2">
+                <div class="media mt-5">
+                    <div class="d-flex align-items-center justify-content-center bg-success text-white rounded-circle flex-shrink-0"
+                         style="width: 4rem; height: 4rem; margin-top: -.125rem">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
+                             class="bi bi-check-lg" viewBox="0 0 16 16">
+                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                        </svg>
+                    </div>
+                    <div class="media-body ml-2">
+                        <p class="mb-1" style="font-size: 15px">Order : #{{order.transaction_id}}</p>
+                        <h4><b>Thank you for your order!</b></h4>
+                    </div>
+                </div>
+                <hr>
+                <br>
+                <h5 style="line-height: 1.35;"><b>Delivery</b></h5>
+                <p style="font-size: .875rem !important;">{{order.address}}</p>
+
+                <h5 class="mt-3" style="line-height: 1.35;"><b>Items</b></h5>
+                {% for item in order.order_item.all %}
+                <p style="font-size: .875rem !important;" class="mb-1">
+                    {{ item }}
+                </p>
+                {% endfor %}
+                <h5 class="mt-3" style="line-height: 1.35;"><b>Reference ID</b></h5>
+                <p style="font-size: .875rem !important;">{{order.reference}}</p>
+
+                <br>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="box-element" style="background-color:#fff !important" align="center">
+                    <br>
+                    <br>
+                    <h5><b>You may also like</b></h5>
+                    <div class="row p-3">
+                        {% for product in similar_items %}
+                        <div class="col-lg-6 col-md-6 mb-2 col-12">
+                            <div class="u-align-center u-container-align-center u-container-style u-products-item u-repeater-item"
+                                 data-product-id="4">
+                                <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+                                    <!--product_image-->
+                                    <a class="u-product-title-link" href="{{product.get_absolute_url}}">
+                                        <img alt=""
+                                             class="u-expanded-width u-image u-image-contain u-image-default
+                             u-product-control lazyload u-image-1"
+                                             data-src="{{product.image.url}}"
+                                             src="{{product.image.url}}"></a>
+                                    <!--/product_image--><!--product_title-->
+                                    <h4 class="u-align-center u-product-control u-text u-text-default u-text-2">
+                                        <a class="u-product-title-link" href="{{product.get_absolute_url}}">{{product.name|truncatewords:3}}</a>
+                                    </h4><!--/product_title--><!--product_price-->
+                                    <div class="u-align-center u-product-control u-product-price u-product-price-1"
+                                         data-add-zero-cents="true">
+                                        <div class="u-price-wrapper u-spacing-10"><!--product_old_price-->
+                                            <!--                            <div class="u-old-price" style="text-decoration: line-through !important;">₦{{product.price}}</div>-->
+                                            <!--/product_old_price--><!--product_regular_price-->
+                                            <div class="u-price u-text-custom-color-5"
+                                                 style="font-size: 1.25rem; font-weight: 700;">
+                                                ₦{{product.price|floatformat:2|intcomma}}
+                                            </div><!--/product_regular_price-->
+                                        </div>
+                                    </div><!--/product_price--><!--product_button--><!--options_json-->
+                                    <!--{"clickType":"buy-now","content":""}--><!--/options_json-->
+
+                                    <a hx-get="{% url 'product_detail_modal' product.id %}"
+                                       hx-target="#product-modal .modal-content"
+                                       data-toggle="modal"
+                                       data-target="#product-modal"
+                                       class="u-align-center u-btn u-button-style u-hover-feature u-none
+                               u-product-control u-btn-1">
+                                        <!--product_button_content-->Add to Cart<!--/product_button_content--></a>
+                                    <!--/product_button-->
+                                </div>
+                            </div><!--/product_item--><!--product_item-->
+                        </div><!--/product_item--><!--product_item-->
+                        {% endfor %}
+
+                    </div>
+                    <br>
+                    <a href="{% url 'products' %}" style="letter-spacing: 0.2em; font-weight: bold;
+                    text-transform: uppercase" class="btn btn-outline-blue">
+                        Continue Shopping
+                        <span class="svg-icon svg-icon-sm svg-icon-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none">
+                            <path d="M12.6343 12.5657L8.45001 16.75C8.0358 17.1642 8.0358 17.8358 8.45001 18.25C8.86423 18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z"
+                                  fill="black"></path>
+                        </svg>
+                    </span>
+                    </a>
+                    <br>
+                    <br>
+                </div>
+                <br>
+                <br>
+                <br>
+            </div>
+
+        </div>
+        <div class="u-list-control"></div>
+    </div><!--/products-->
+
+
+</section>
+
+{% endblock %}

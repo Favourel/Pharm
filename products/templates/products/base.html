@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% load static %}
+{% load humanize %}
+<html style="font-size: 16px;" lang="en-NG">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Online Pharmacy
+        Buy Medicines Online
+        Prescription Drugs
+        Over-the-Counter Medications
+        Health Supplements
+        Pharmacy Near Me
+        Affordable Medicines
+        Prescription Refill
+        Health and Wellness Products
+        Medical Supplies
+        MAMS">
+    <meta name="description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
+        Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
+        Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
+        Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'css/Products.css' %}" media="screen">
+    <!--    <script class="u-script" type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}" defer=""></script>-->
+    <!--    <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>-->
+
+    <meta name="generator" content="Nicepage 6.13.11, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i|Palanquin+Dark:400,500,600,700">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "WebSite6300048",
+        "logo": "images/default-logo.png"
+    }</script>
+    <meta name="theme-color" content="#1f2645">
+    <meta property="og:title" content="{% block name %}{% endblock %}">
+    <meta property="og:description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
+Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
+Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
+Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
+    <meta property="og:type" content="website">
+    <meta data-intl-tel-input-cdn-path="intlTelInput/">
+    <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+
+</head>
+<body data-path-to-root="./" data-include-products="true" class="u-body u-overlap u-xl-mode" data-lang="en">
+{% include 'products/navbar.html' %}
+{% block content %}
+
+{% endblock %}
+<style class="u-overlap-style">.u-overlap:not(.u-sticky-scroll) .u-header {
+background-color: #ffffff !important
+}
+</style>
+
+
+<footer class="u-align-center u-clearfix u-footer u-white-80 u-footer bg-secondary text-light" id="sec-7bae">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="container justify-content-between py-2 ">
+            <div class="row pt-5 mt-8">
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6">
+                            <h3 style="color:#004d6e" class="font-weight-light">MAMS Pharmacy</h3>
+                            <p>
+                                Your Health, Our Priority.
+                            </p>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <!--                    <h3 class="font-weight-light">Market Categories</h3>-->
+                            <br>
+                            {% for category in categories %}
+                            <p>{{ category }}</p>
+                            {% endfor %}
+                        </div>
+                        <br>
+                        <div class="col-md-3 col-sm-6">
+                            <!--                    <h3 class="font-weight-light">Features</h3>-->
+                            <br>
+                            <p>Online purchase</p>
+                            <p>Swift delivery service</p>
+                            <p>Secure online payment</p>
+                            <p>Chat on WhatsApp</p>
+                        </div>
+                        <br>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3 border-1">
+                    <div class="widget pb-2">
+                        <a href="tel:2348141686142" style="color:#003952" class="text-decoration-none">
+                            <h3 class="font-weight-light pb-1">
+                                (234) 814-168-6142
+                            </h3>
+                        </a>
+                        <p>Monday–Friday: 9:00am – 6:00pm
+                            Saturday–Sunday: 9:00am – 4:00pm</p>
+                        <br>
+                        <p>
+                            No 1 akinbo street Tolu road ajegunle bondary,
+                            Lagos, Nigeria.
+
+                            117 orodu Street ajegunle boundary, Lagos, Nigeria.
+                        </p>
+                        <br>
+                        <a style="color:#003952" class="text-decoration-none"
+                           href="mailto:medilifecompany@example.com">
+                            medilifecompany@example.com</a>
+
+                    </div>
+                </div>
+            </div>
+            <ul class="list-inline font-size-sm mb-2 py-4 mb-md-0 order-md-2">
+                <hr>
+                <li class="list-inline-item nav-item my-1"><a class="text-decoration-none nav-item"
+                                                              href="#">About</a></li>
+                <li class="list-inline-item my-1"><a class="text-decoration-none" href="#">Terms &amp; Conditions</a>
+                </li>
+                <br>
+            </ul>
+
+        </div>
+    </div>
+</footer>
+
+<!-- Modal -->
+<div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>
+    .hide {
+        display: none;
+    }
+    .box-element, .dropdown-menu{
+        box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+        background-color: ;
+        border-radius: 4px;
+        padding: 8px;
+    }
+    .btn-outline-blue {
+        color: #004d6e !important;
+        border: 1px solid #004d6e !important;
+        border-radius: 3px !important;
+    }
+    .btn-outline-blue:hover {
+        color: #fff !important;
+        background: #004d6e !important;
+        border-color: #004d6e !important;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

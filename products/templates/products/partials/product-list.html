@@ -1,0 +1,44 @@
+{% load static %}
+{% load humanize %}
+<!--product_item-->
+{% for product in products %}
+<div class="col-lg-4 col-md-6 mb-2 col-12">
+    <div class="u-align-center u-container-align-center u-container-style u-products-item u-repeater-item"
+         data-product-id="4">
+        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+            <!--product_image-->
+            <a class="u-product-title-link" href="{{product.get_absolute_url}}">
+                <img alt=""
+                     class="u-expanded-width u-image u-image-contain u-image-default
+                             u-product-control lazyload u-image-1"
+                     data-src="{{product.image.url}}"
+                     src="{{product.image.url}}"></a>
+            <!--/product_image--><!--product_title-->
+            <h4 class="u-align-center u-product-control u-text u-text-default u-text-2">
+                <a class="u-product-title-link" href="{{product.get_absolute_url}}">{{product.name|truncatewords:3}}</a>
+            </h4><!--/product_title--><!--product_price-->
+            <div class="u-align-center u-product-control u-product-price u-product-price-1"
+                 data-add-zero-cents="true">
+                <div class="u-price-wrapper u-spacing-10"><!--product_old_price-->
+                    <!--                            <div class="u-old-price" style="text-decoration: line-through !important;">₦{{product.price}}</div>-->
+                    <!--/product_old_price--><!--product_regular_price-->
+                    <div class="u-price u-text-custom-color-5"
+                         style="font-size: 1.25rem; font-weight: 700;">
+                        ₦{{product.price|floatformat:2|intcomma}}
+                    </div><!--/product_regular_price-->
+                </div>
+            </div><!--/product_price--><!--product_button--><!--options_json-->
+            <!--{"clickType":"buy-now","content":""}--><!--/options_json-->
+
+            <a hx-get="{% url 'product_detail_modal' product.id %}"
+               hx-target="#product-modal .modal-content"
+               data-toggle="modal"
+               data-target="#product-modal"
+               class="u-align-center u-btn u-button-style u-hover-feature u-none
+                               u-product-control u-btn-1">
+                <!--product_button_content-->Add to Cart<!--/product_button_content--></a>
+            <!--/product_button-->
+        </div>
+    </div><!--/product_item--><!--product_item-->
+</div><!--/product_item--><!--product_item-->
+{% endfor %}

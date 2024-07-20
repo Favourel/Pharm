@@ -15,7 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ["name", "price", "product_purchase", "date_posted"]
-    search_fields = ["name", ]
+    search_fields = ["name", "description"]
     list_filter = ['date_posted']
     actions = ['apply_discount', "remove_discount", "export_products"]
     list_per_page = 10

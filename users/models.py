@@ -5,6 +5,9 @@ from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.db import models
 from django.contrib.auth.models import AbstractUser, PermissionsMixin
 
+from products.models import Checkout
+
+
 # from products.models import Checkout
 
 # Create your models here.
@@ -59,7 +62,7 @@ class Notification(models.Model):
                              related_name="noti_to_user")
 
     notification_type = models.IntegerField(choices=NOTIFICATION_TYPES)
-    # orders = models.ManyToManyField(Checkout, blank=True)
+    orders = models.ManyToManyField(Checkout, blank=True)
 
     date_posted = models.DateTimeField(default=datetime.now)
     is_seen = models.BooleanField(default=False)

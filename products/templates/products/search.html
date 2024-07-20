@@ -15,7 +15,7 @@
     <div class="custom-expanded u-layout-grid u-pagination-center u-products u-sorting-right u-products-1"
          data-site-sorting-prop="created" data-site-sorting-order="desc" data-products-datasource="site"
          data-items-per-page="4" data-products-id="1">
-        {% if products|length > 0 %}
+        {% if result_product|length > 0 %}
         <div class="has-sorting u-list-control"><!--products_sorting-->
             <div class="u-sorting">
                 <select class="form-control" hx-get="{% url 'filter_products' %}"
@@ -33,7 +33,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-3 phone_size">
+            <div class="col-lg-3">
                 <div class="u-sticky" style="top:0">
                     <div class="card shadow p-3">
                         <h5><b>Categories</b></h5>
@@ -85,7 +85,7 @@
                                 <br>
                                 <div class="autocomplete">
                                     <input type="submit" class="btn btn-info btn-block" name="range-value"
-                                           value="Filter"/>
+                                           value="Search"/>
                                 </div>
                             </div>
                         </form>
@@ -95,7 +95,7 @@
             <div class="col-lg-9">
                 <div class="row" id="product-list">
                     <!--product_item-->
-                    {% for product in products %}
+                    {% for product in result_product %}
                     <div class="col-lg-4 col-md-6 mb-2 col-12">
                         <div class="u-align-center u-container-align-center u-container-style u-products-item u-repeater-item"
                              data-product-id="4">
@@ -368,13 +368,7 @@
         {% endif %}
     </div><!--/products-->
 
-    <style>
-        @media only screen and (max-width: 1000px){
-            .phone_size{
-                display: none;
-            }
-        }
-    </style>
+
 </section>
 
 {% endblock %}

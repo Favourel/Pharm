@@ -11,6 +11,7 @@ from django.core.paginator import Paginator
 from django.db.models import Max, Q
 from django.views.decorators.csrf import csrf_exempt
 
+from .forms import CheckoutForm
 from .models import Category, Product, Checkout, Order
 from users.models import Notification
 from .filters import ProductPriceFilter
@@ -31,14 +32,14 @@ def home_page(request):
 def products_view(request):
     categories = Category.getAllCategory()
     products = Product.objects.all().order_by("-date_posted")
-    maximum_price = Product.objects.all().aggregate(Max("price"))["price__max"]
-    half_max_price = maximum_price / 2 if maximum_price else 0
+    maximum_price = Product.objects.all().aggregate(Max("price"))
+    half_max_price = maximum_price["price__max"] / 2
 
     def get_filtered_products(queryset):
         price_filter = ProductPriceFilter(request.GET, queryset=queryset)
         return price_filter.qs, price_filter
 
-    def get_paginated_products(queryset, page_size=9):
+    def get_paginated_products(queryset, page_size=12):
         paginator = Paginator(queryset, page_size)
         page_number = request.GET.get('page')
         return paginator.get_page(page_number)
@@ -72,43 +73,6 @@ def products_view(request):
         }
         return render(request, 'products/product.html', context)
 
-    if request.GET.get('ratings'):
-        ratings_query = request.GET.get('ratings')
-        ratings_filtered_products = Product.objects.filter(rating_count=ratings_query).distinct()
-        filtered_ratings_products, price_filter = get_filtered_products(ratings_filtered_products)
-        paginated_ratings_products = get_paginated_products(filtered_ratings_products)
-        context = {
-            "products": paginated_ratings_products,
-            "price_filter": price_filter,
-            "categories": categories,
-            "maximum_price": maximum_price,
-            "half_max_price": half_max_price,
-            "rating_query": ratings_query,
-            "notification": notifications,
-            "notification_count": notification_count,
-            "check_out_list": check_out_list,
-            "get_cart_items": total_cart_items(request)
-        }
-        return render(request, 'products/product.html', context)
-
-    if request.GET.get('date_posted'):
-        date_posted_query = request.GET.get('date_posted')
-        date_posted_products = Product.objects.all().order_by(f"-{date_posted_query}")
-        filtered_date_posted_products, price_filter = get_filtered_products(date_posted_products)
-        paginated_date_posted_products = get_paginated_products(filtered_date_posted_products)
-        context = {
-            "products": paginated_date_posted_products,
-            "categories": categories,
-            "maximum_price": maximum_price,
-            "half_max_price": half_max_price,
-            "rating_query": date_posted_query,
-            "notification": notifications,
-            "notification_count": notification_count,
-            "check_out_list": check_out_list,
-            "get_cart_items": total_cart_items(request)
-        }
-        return render(request, 'products/product.html', context)
-
     context = {
         "notification": notifications,
         "notification_count": notification_count,
@@ -124,9 +88,27 @@ def products_view(request):
     return render(request, "products/product.html", context)
 
 
+def filter_products(request):
+    sort_by = request.GET.get('sort_by', 'product-purchase')
+    if sort_by == 'product-purchase':
+        products = Product.objects.all().order_by('-product_purchase')
+    elif sort_by == 'created-desc':
+        products = Product.objects.all().order_by('-date_posted')
+    elif sort_by == 'price-asc':
+        products = Product.objects.all().order_by('price')
+    elif sort_by == 'price-desc':
+        products = Product.objects.all().order_by('-price')
+    else:
+        products = Product.objects.all()
+
+    return render(request, 'products/partials/product-list.html', {'products': products})
+
+
 @login_required
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
+    categories = Category.getAllCategory()
+
     recently_viewed_products = []
     if 'recently_viewed_products' in request.session:
         recently_viewed_ids = request.session['recently_viewed_products']
@@ -145,31 +127,91 @@ def product_detail(request, pk):
     context = {
         "recently_viewed_products": recently_viewed_products,
         "product": product,
+        "categories": categories,
         "cart_item_quantity": cart_item_quantity
     }
     return render(request, "products/product_detail.html", context)
 
 
+@login_required
+def search_view(request):
+    notification = Notification.objects.filter(user=request.user, is_seen=False).order_by("-id")[:10]
+    notification_count = Notification.objects.filter(user=request.user, is_seen=False).count()
+
+    if request.method == "GET":
+        # query = request.GET.get('q')
+        query = request.GET.get('q')
+        submitbutton = request.GET.get('submit')
+        if query is not None:
+
+            # search_results = SearchQuerySet().filter(content=query)
+            # print(search_results)
+            # context = {'query': query, 'search_results': search_results}
+
+            lookups_product = Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query)
+            result_product = Product.objects.filter(lookups_product).distinct()
+            check_out_list = Checkout.objects.filter(user=request.user, complete=False).order_by("-id")
+            get_cart_total = sum([item.get_total for item in check_out_list])
+
+            categories = Category.getAllCategory()
+
+            maximum_price = Product.objects.filter(lookups_product).distinct().aggregate(Max("price"))
+            half_max_price = maximum_price["price__max"] / 2
+
+            price_filter = ProductPriceFilter(request.GET, queryset=result_product)
+            result_product = price_filter.qs
+
+            context = {
+                "check_out_list": check_out_list,
+                "get_cart_total": get_cart_total,
+                'submitbutton': submitbutton,
+                'half_max_price': half_max_price,
+                "maximum_price": maximum_price,
+
+                "products": result_product,
+                "categories": categories,
+                "query": query,
+                "notification_count": notification_count,
+                "notification": notification,
+                "get_cart_items": total_cart_items(request)
+            }
+            return render(request, "products/product.html", context)
+        else:
+            context = {
+                'submitbutton': submitbutton,
+                "notification_count": notification_count,
+                "notification": notification,
+                "get_cart_items": total_cart_items(request)
+            }
+            return render(request, 'products/product.html', context)
+    return render(request, "products/product.html", {})
+
+
 @csrf_exempt
 def add_to_cart(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        product_id = data.get('product_id')
-        quantity = data.get('quantity')
+        try:
+            data = json.loads(request.body)
+            product_id = data.get('product_id')
+            quantity = data.get('quantity')
 
-        if product_id and quantity:
-            product = Product.objects.get(id=product_id)
+            if product_id and quantity:
+                product = get_object_or_404(Product, id=product_id)
 
-            cart_item, created = Checkout.objects.get_or_create(
-                user=request.user,
-                product=product,
-                complete=False,
-            )
-            cart_item.quantity = quantity
-            cart_item.save()
-            return JsonResponse({'success': True})
-        else:
-            return JsonResponse({'success': False, 'error': 'Invalid data'})
+                cart_item, created = Checkout.objects.get_or_create(
+                    user=request.user,
+                    product=product,
+                    complete=False,
+                )
+                cart_item.quantity = quantity
+                cart_item.save()
+                return JsonResponse({'success': True, 'message': f'{product.name} (x{quantity}) added to cart.'})
+            else:
+                return JsonResponse({'success': False, 'error': 'Invalid data'})
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            print(f"Request body: {request.body}")
+            return JsonResponse({'success': False, 'error': 'Invalid JSON data'})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
 
@@ -195,17 +237,18 @@ def checkout(request):
     notification_count = Notification.objects.filter(user=request.user, is_seen=False).count()
     check_out_list = Checkout.objects.filter(user=request.user, complete=False).order_by("-id")
     get_cart_total = sum([item.get_total for item in check_out_list])
-    # if get_cart_total >= 50000:
-    #     get_shipping_fee = 0
-    # else:
-    #     get_shipping_fee = sum([item.product.shipping_fee for item in check_out_list])
-    # form = AddressForm()
-    # form_coupon = ApplyCouponForm()
+
+    initial_data = {'address': request.user.address} if request.user.address else {}
+    form = CheckoutForm(initial=initial_data)
+
+    categories = Category.getAllCategory()
+
     context = {
         "notification_count": notification_count,
         "notification": notification,
         "items": check_out_list,
-        # "form": form,
+        "form": form,
+        "categories": categories,
         # "form_coupon": form_coupon,
         "check_out_list": check_out_list,
 
@@ -245,6 +288,10 @@ def process_order(request):
     order.default_price = sum([item.get_total for item in check_out_list])
     order.save()
 
+    # Update user's address
+    request.user.address = address
+    request.user.save()
+
     product_queryset = []
     for item in check_out_list:
         product_queryset.append(item.product.product_purchase + item.quantity)
@@ -253,10 +300,50 @@ def process_order(request):
 
     notification = Notification.objects.create(
         user=request.user,
-        notification_type=1
+        notification_type=2
     )
     notification.orders.set([item for item in check_out_list])
     notification.save()
-    # return redirect('order_summary', order_id=order.id)
 
     return JsonResponse({'message': 'Payment complete!', 'redirect': f'{order.get_absolute_url()}'}, safe=False)
+
+
+def product_detail_modal(request, pk):
+    product = get_object_or_404(Product, id=pk)
+    try:
+        cart_item = Checkout.objects.get(
+            user=request.user,
+            product=product,
+            complete=False,
+        )
+        cart_item_quantity = cart_item.quantity
+    except (Checkout.DoesNotExist):
+        cart_item_quantity = 1
+
+    context = {
+        "cart_item_quantity": cart_item_quantity,
+        "product": product
+    }
+
+    return render(request, 'products/partials/product-detail.html',
+                  context)
+
+
+@csrf_exempt
+def addtocart(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('pk')
+        quantity = int(request.POST.get('quantity', 1))
+
+        product = Product.objects.get(id=product_id)
+
+        # Add the product to the cart (implement your cart logic here)
+        create_object, created = Checkout.objects.get_or_create(
+            user=request.user,
+            product=product,
+            complete=False,
+        )
+        create_object.quantity = quantity
+        # create_object.price = (create_object.quantity * create_object.product.price)
+        create_object.save()
+        return JsonResponse({'status': 'success'})

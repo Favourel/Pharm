@@ -1,87 +1,32 @@
-<!doctype html>
+{% extends 'products/base.html' %}
 {% load static %}
 {% load humanize %}
+
 {% load crispy_forms_tags %}
-
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="keywords" content="Online Pharmacy
-        Buy Medicines Online
-        Prescription Drugs
-        Over-the-Counter Medications
-        Health Supplements
-        Pharmacy Near Me
-        Affordable Medicines
-        Prescription Refill
-        Health and Wellness Products
-        Medical Supplies
-        MAMS">
-    <meta name="description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
-        Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
-        Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
-        Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
-
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="icon" href="{% static 'images/falcon_LGfm6ox.png' %}">
-
-    <script type="application/ld+json">{
-        "@context": "http://schema.org",
-        "@type": "Organization",
-        "name": "MAMS"
-    }</script>
-    <meta name="theme-color" content="#1f2645">
-    <meta property="og:title" content="Cart & Checkout">
-    <meta property="og:description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
-Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
-Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
-Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
-    <meta property="og:type" content="website">
-    <meta data-intl-tel-input-cdn-path="intlTelInput/">
-
-    <title>
-        MAMS | Cart & Checkout
-    </title>
-</head>
-
-
-<body>
-
+{% block title %} MAMS | Cart & Checkout {% endblock %}
+{% block name %} MAMS | Cart & Checkout {% endblock %}
+{% block content %}
 <script src="https://js.paystack.co/v1/inline.js"></script>
 
-<style>
-    .section {
-       background: #004d6e;
-       border-color: #004d6e;
-       color: #fff;
-       position: relative;
-    }
-    .search-category {
-         position: absolute;
-         top: 190px;
-         width: 73%;
-         margin-bottom: 35rem !important;
-    }
-</style>
-<div class="section">
-    <div class="container py-5" style="height: 18vh;">
-        <h1><b>Cart & Checkout</b></h1>
-    </div>
-</div>
-<!--<br><br><br>-->
-<div class="container mb-5">
-    <div class="search-category">
-        <div class="row screen">
-            <br>
-            <div class="col-lg-9 mt-5">
+<section class="u-clearfix u-lightbox u-section-1" id="sec-16e0">
+    <div class="u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
+        <div class="u-container-layout u-valign-middle u-container-layout-1">
+            <h3 class="u-text u-text-default u-text-1">
+                Cart & Checkout</h3>
+        </div>
+    </div><!--products--><!--products_options_json--><!--{"type":"Recent","source":"","tags":"","count":""}-->
+    <!--/products_options_json-->
+    <div class="custom-expanded u-layout-grid u-pagination-center u-products u-sorting-right u-products-1"
+         data-site-sorting-prop="created" data-site-sorting-order="desc" data-products-datasource="site"
+         data-items-per-page="4" data-products-id="1">
+
+        <div class="row">
+
+            <div class="col-lg-9 mt-3">
+                <a href="{% url 'products' %}"
+                   class="btn mb-3 ">Continue
+                    browsing
+                </a>
                 <br>
                 {% if items %}
                 <section>
@@ -261,22 +206,23 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
 
                 </section>
                 <br>
-                <br>
 
                 <section>
                     <h5><b>Delivery address</b></h5>
                     <br>
                     <div class="box-element">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        {{ form | crispy }}
-                    </form></div>
+                        <form action="" method="post" id="myFormAddress">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                        </form>
+                    </div>
+                    <br>
                 </section>
                 {% else %}
                 <h2><b>Nothing to see here!</b></h2>
                 <br>
                 <a style="letter-spacing: 0.2em; font-weight: bold;
-                    text-transform: uppercase" class="btn" href="{% url 'products' %}">
+                    text-transform: uppercase" class="btn btn-outline-blue" href="{% url 'products' %}">
                     Start shopping</a>
                 {% endif %}
             </div>
@@ -316,12 +262,12 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                         entered.
                     </li>
                     <li class="text-muted">
-                        Free delivery for goods over ₦30,000.
+                        Free delivery for goods over ₦50,000.
                     </li>
-                    <li class="text-muted">Delivery takes 2-3 days</li>
                     <br>
                     {% if items|length > 0 %}
-                    <a type="submit" onclick="payWithPaystack()" id="make-payment"
+                    <a type="submit" onclick="payWithPaystack()"
+                       id="make-payment"
                        class="btn py-3 btn-block">
                         <div class="spinner-border text-light hide" id="spinner" role="status">
                             <span class="sr-only">Loading...</span>
@@ -356,11 +302,13 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                 <br>
                 <br>
             </div>
+
         </div>
-    </div>
-</div>
-<br>
-<br>
+        <div class="u-list-control"></div>
+    </div><!--/products-->
+
+</section>
+
 <style>
     .hide {
         display: none;
@@ -370,6 +318,16 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
         background-color: ;
         border-radius: 4px;
         padding: 8px;
+    }
+    .btn-outline-blue {
+        color: #004d6e; !important;
+        border: 1px solid #004d6e; !important;
+        border-radius: 3px !important;
+    }
+    .btn-outline-blue:hover {
+        color: #fff !important;
+        background: #004d6e; !important;
+        border-color: #004d6e; !important;
     }
 </style>
 <script type="text/javascript">
@@ -396,20 +354,30 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
     const inputElement = document.getElementById('my-address');
     const paymentForm = document.getElementById('make-payment');
     paymentForm.addEventListener("click", payWithPaystack, false);
+
     function payWithPaystack(e) {
       e.preventDefault();
+
+      const form = document.getElementById('myFormAddress');
+
+      // Check form validity before proceeding
+      if (!form.checkValidity()) {
+        const firstInvalid = form.querySelector(':required:invalid');
+        if (firstInvalid) {
+          firstInvalid.focus();
+          return; // Prevent opening Paystack if form is invalid
+        }
+      }
 
       let handler = PaystackPop.setup({
         key: '{{paystack_public_key}}', // Replace with your public key
         email: '{{ request.user.email }}',
         currency: 'NGN',
         amount: '{{ get_cart_total }}' * 100,
-        ref: '{{ payment.ref }}', // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-        //ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-        // label: "Optional string that replaces customer email"
-        onClose: function(){
-          alert('There was an error with processing payment. Kindly refresh page and run again');
-        },
+        ref: '{{ payment.ref }}', // Replace with a unique reference if needed
+        //onClose: function(){
+        //  alert('There was an error with processing payment. Kindly refresh page and run again');
+        //},
         callback: function(response){
           let message = 'Payment complete! Reference: ' + response.reference;
 
@@ -418,7 +386,7 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                 }
             var url = '{% url 'process_order' %}'
 
-            const enteredValue = inputElement.value;
+            const enteredValue = inputElement.value; // Replace with logic to get address value
 
             fetch(url,
                 {
@@ -447,15 +415,6 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
 
       handler.openIframe();
     }
-</script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-</body>
+</script>
+{% endblock %}

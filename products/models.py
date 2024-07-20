@@ -27,7 +27,7 @@ class Product(models.Model):
     price = models.FloatField(default=0)
     description = RichTextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(default='2placeholder_test_b9l9NT5.png', upload_to='product_images')
+    image = models.ImageField(default='thumbnail-placeholder-500x334.jpg', upload_to='product_images')
 
     rating_count = models.FloatField(default=0)
     product_purchase = models.IntegerField(default=0)
@@ -99,8 +99,8 @@ class Order(models.Model):
     def __str__(self):
         return f'{self.user}'
 
-    # def get_absolute_url(self):
-    #     return reverse("order_summary", kwargs={"order_id": self.transaction_id})
+    def get_absolute_url(self):
+        return reverse("order_summary", kwargs={"order_id": self.transaction_id})
 
     @property
     def total_order_item_price(self):

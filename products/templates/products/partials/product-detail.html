@@ -1,0 +1,98 @@
+{% load humanize %}
+<div class="modal-body">
+    <div class="row">
+        <div class="col">
+            <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-dark">
+            <h4>{{ product.name }}</h4>
+            <p>₦{{ product.price|floatformat:2|intcomma }}</p></a>
+        </div>
+        <div class="col-auto">
+        <div class="d-flex align-middle mt-3 align-bottom justify-content-center float-bottom" align="center">
+            <button class="btn btn-sm btn-blue" onclick="changeQuantity(-1)">-</button>
+            <input type="number" id="quantity" style="height:2em" class="form-control mx-2" value="{{ cart_item_quantity }}"
+                   min="1" max="10" data-product-id="{{ product.id }}">
+            <button class="btn btn-sm btn-blue" onclick="changeQuantity(1)">+</button>
+        </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <button type="button" class="btn btn-block py-2 btn-outline-secondary" data-dismiss="modal">Close</button>
+        </div>
+        <div class="col-6">
+            <button type="button" class="btn btn-block py-2 btn-blue" id="add-to-cart-btn">
+                Add Cart
+            </button>
+        </div>
+    </div>
+    <div id="confirmation-message" class="mt-3"></div>
+</div>
+<style>
+    .btn-blue {
+        background: #004d6e;
+        border-color: #004d6e;
+        color: #fff;
+    }
+    .btn-blue:hover {
+        background: #003952;
+        border-color: #003952;
+        color: #fff;
+    }
+</style>
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCookie('csrftoken');
+
+function changeQuantity(amount) {
+    const quantityInput = document.getElementById('quantity');
+    let currentQuantity = parseInt(quantityInput.value);
+    currentQuantity += amount;
+    if (currentQuantity < 1) currentQuantity = 1;
+    quantityInput.value = currentQuantity;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+        const quantityInput = document.getElementById('quantity');
+        const productId = quantityInput.getAttribute('data-product-id');
+        const quantity = quantityInput.value;
+
+        fetch(`/add_to_cart/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                quantity: quantity
+            })
+        }).then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  document.getElementById('confirmation-message').innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+              } else {
+                  document.getElementById('confirmation-message').innerHTML = `<div class="alert alert-danger">Error adding to cart: ${data.error}</div>`;
+              }
+          }).catch(error => {
+              console.error('Error:', error);
+              document.getElementById('confirmation-message').innerHTML = `<div class="alert alert-danger">Error processing request</div>`;
+          });
+    });
+});
+</script>

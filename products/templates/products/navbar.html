@@ -9,27 +9,42 @@
 
 <header class="u-border-2 u-border-white u-clearfix u-header u-sticky u-sticky-190f u-white u-header" id="sec-abaa">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <a href="#" class="u-image u-logo u-image-1">
+        <a href="/" class="u-image u-logo u-image-1">
             <img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1">
 
         </a>
         <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
             <div class="menu-collapse"
                  style="font-size: 1rem; letter-spacing: 0px; font-weight: 700; text-transform: uppercase;">
-                <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-                   href="#">
-                    <svg class="u-svg-link" viewBox="0 0 24 24">
-                        <use xlink:href="#menu-hamburger"></use>
-                    </svg>
-                    <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px"
-                         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-                        <g>
-                            <rect y="1" width="16" height="2"></rect>
-                            <rect y="7" width="16" height="2"></rect>
-                            <rect y="13" width="16" height="2"></rect>
-                        </g>
-                    </svg>
-                </a>
+                <div class="row">
+                    <div class="col">
+                        <svg type="button" data-target="#kt_header_search_modal"
+
+                             data-toggle="modal" xmlns="http://www.w3.org/2000/svg" width="23" height="23"
+                             fill="currentColor"
+                             class="bi mt-1 bi-search" viewBox="0 0 16 16" style="cursor:pointer">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </div>
+                    <div class="col-auto">
+                        <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+                           href="#">
+                            <svg class="u-svg-link" viewBox="0 0 24 24">
+                                <use xlink:href="#menu-hamburger"></use>
+                            </svg>
+                            <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px"
+                                 y="0px"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                                <g>
+                                    <rect y="1" width="16" height="2"></rect>
+                                    <rect y="7" width="16" height="2"></rect>
+                                    <rect y="13" width="16" height="2"></rect>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
             </div>
 
             <div class="u-custom-menu u-nav-container-collapse">
@@ -43,7 +58,7 @@
                            class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
                             Home
                         </a><a href="{% url 'products' %}"
-                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
+                               class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
                             All Products
                         </a>
                         {% for category in categories %}
@@ -72,3 +87,159 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
 }
     </style>
 </header>
+
+<div class="modal modal-edit bg-white fade show" tabindex="-1"  role="dialog"
+     id="kt_header_search_modal" aria-hidden="true"
+     aria-modal="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content align-items-center justify-content-center modal-custom-content"
+             >
+            <div class="container mt-0">
+                <div class="modal-header d-flex justify-content-end">
+                    <!--begin::Close-->
+                    <div data-dismiss="modal" aria-label="Close"
+                         style="cursor: pointer">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                 fill="#fff">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                      transform="rotate(-45 6 17.3137)" fill="black"></rect>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                      fill="black"></rect>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <!--begin::Search-->
+                    <form action="{% url 'search' %}" class="d-flex pb-10" autocomplete="on" method="GET"
+                          value="{{request.GET.q}}">
+                        <!--                        <input value="{{request.GET.q}}" autofocus="" type="text"-->
+                        <!--                               class="form-control bg-transparent border-0 fs-4x text-center fw-normal"-->
+                        <!--                               name="q" placeholder="Search...">-->
+
+                        <input value="{{request.GET.q}}" autofocus="" type="text" placeholder="Search..."
+                               name="q"
+                               class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1">
+                        <div class="autocomplete" style="width:300px; display:none;">
+                            <input type="submit" name="submit" value="Search"/>
+                        </div>
+                    </form>
+                    <br>
+                    <br>
+
+                    <h4 class="text-dark mt-3 mb-3"><b>Popular search</b></h4>
+                    <!--begin::List Widget 5-->
+
+                    <!--begin::Item-->
+                    <div class="d-flex mb-6">
+                        <!--begin::Icon-->
+                        <div class="me-1">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                            <span class="svg-icon svg-icon-sm svg-icon-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <path d="M12.6343 12.5657L8.45001 16.75C8.0358
+                                    17.1642 8.0358 17.8358 8.45001 18.25C8.86423
+                                    18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z"
+                                          fill="black"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Content-->
+                        <div class="d-flex flex-column">
+                            <a href="/search/?q=Medicine&submit=Search"
+                               class="fs-6 fw-bolder text-hover-primary text-gray-800 mb-2">
+                                Medicine</a>
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex mb-6">
+                        <!--begin::Icon-->
+                        <div class="me-1">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                            <span class="svg-icon svg-icon-sm svg-icon-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <path d="M12.6343 12.5657L8.45001 16.75C8.0358 17.1642 8.0358 17.8358 8.45001 18.25C8.86423 18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z"
+                                          fill="black"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Content-->
+                        <div class="d-flex flex-column">
+                            <a href="/search/?q=Cough&submit=Search"
+                               class="fs-6 fw-bolder text-hover-primary text-gray-800 mb-2">
+                                Cough</a>
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex mb-6">
+                        <!--begin::Icon-->
+                        <div class="me-1">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                            <span class="svg-icon svg-icon-sm svg-icon-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <path d="M12.6343 12.5657L8.45001 16.75C8.0358 17.1642 8.0358 17.8358 8.45001 18.25C8.86423 18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z"
+                                          fill="black"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Content-->
+                        <div class="d-flex flex-column">
+                            <a href="/search/?q=Headache&submit=Search"
+                               class="fs-6 fw-bolder text-hover-primary text-gray-800 mb-2">
+                                Headache</a>
+                        </div>
+                        <!--end::Content-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.modal-custom-content {
+    border: 0 !important;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    right: 0;
+    top: 0;
+    margin-top: 0;
+}
+
+@media (min-width: 992px) {
+    .modal-custom-content {
+        width: 100vw;
+        height: 100vh;
+    }
+}
+
+@media (max-width: 991px) {
+    .modal-custom-content {
+        width: 100vw;
+        height: 100vh;
+    }
+}
+
+.modal-edit .modal-dialog {
+    max-width: 100%;
+    margin: 0;
+}
+
+
+</style>

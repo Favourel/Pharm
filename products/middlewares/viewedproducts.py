@@ -22,8 +22,8 @@ class RecentlyViewedProductsMiddleware:
 
             recently_viewed_products.insert(0, product_id)
 
-            if len(recently_viewed_products) > 4:
-                recently_viewed_products = recently_viewed_products[:4]
+            if len(recently_viewed_products) > 5:
+                recently_viewed_products = recently_viewed_products[:5]
 
             request.session['recently_viewed_products'] = recently_viewed_products
         return None
