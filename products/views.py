@@ -22,13 +22,13 @@ from .utils import total_cart_items
 
 
 def home_page(request):
+    categories = Category.getAllCategory()
     context = {
-
+        "categories": categories
     }
     return render(request, "products/home.html", context)
 
 
-@login_required
 def products_view(request):
     categories = Category.getAllCategory()
     products = Product.objects.all().order_by("-date_posted")
@@ -45,45 +45,53 @@ def products_view(request):
         return paginator.get_page(page_number)
 
     def get_user_data(user):
-        notifications = Notification.objects.filter(user=user, is_seen=False).order_by("-id")[:10]
-        notification_count = notifications.count()
-        check_out_list = Checkout.objects.filter(user=user, complete=False).order_by("-id")
-        get_cart_total = sum([item.get_total for item in check_out_list])
-        return notifications, notification_count, check_out_list, get_cart_total
+        if request.user.is_authenticated:
+            notifications = Notification.objects.filter(user=user, is_seen=False).order_by("-id")[:10]
+            notification_count = notifications.count()
+            check_out_list = Checkout.objects.filter(user=user, complete=False).order_by("-id")
+            get_cart_total = sum([item.get_total for item in check_out_list])
+
+            return notifications, notification_count, check_out_list, get_cart_total
 
     filtered_products, price_filter = get_filtered_products(products)
     paginated_products = get_paginated_products(filtered_products)
 
-    notifications, notification_count, check_out_list, get_cart_total = get_user_data(request.user)
-
+    if request.user.is_authenticated:
+        get_cart_items =  total_cart_items(request)
+        notifications, notification_count, check_out_list, get_cart_total = get_user_data(request.user)
+    else:
+        get_cart_items = 0
     if request.GET.get('category_name'):
         category_products = Product.getProductByFilter(request.GET['category_name']).order_by('-id')
         filtered_category_products, price_filter = get_filtered_products(category_products)
         paginated_category_products = get_paginated_products(filtered_category_products)
+        if request.user.is_authenticated:
+            get_cart_items = total_cart_items(request)
+        else:
+            get_cart_items = 0
         context = {
             "categories": categories,
-            "notification": notifications,
-            "notification_count": notification_count,
+
             "products": paginated_category_products,
             "maximum_price": maximum_price,
             "half_max_price": half_max_price,
-            "get_cart_items": total_cart_items(request),
-            "check_out_list": check_out_list,
-            "get_cart_total": get_cart_total,
+            "get_cart_items": get_cart_items,
+
         }
         return render(request, 'products/product.html', context)
 
     context = {
-        "notification": notifications,
-        "notification_count": notification_count,
+        # "notification": notifications,
+        # "notification_count": notification_count,
         "categories": categories,
         "products": paginated_products,
         "price_filter": price_filter,
         "maximum_price": maximum_price,
         "half_max_price": half_max_price,
-        "check_out_list": check_out_list,
-        "get_cart_total": get_cart_total,
-        "get_cart_items": total_cart_items(request),
+        # "check_out_list": check_out_list,
+        # "get_cart_total": get_cart_total,
+        "get_cart_items": get_cart_items
+
     }
     return render(request, "products/product.html", context)
 
@@ -128,7 +136,8 @@ def product_detail(request, pk):
         "recently_viewed_products": recently_viewed_products,
         "product": product,
         "categories": categories,
-        "cart_item_quantity": cart_item_quantity
+        "cart_item_quantity": cart_item_quantity,
+        "get_cart_items": total_cart_items(request),
     }
     return render(request, "products/product_detail.html", context)
 
@@ -213,6 +222,50 @@ def add_to_cart(request):
             print(f"Request body: {request.body}")
             return JsonResponse({'success': False, 'error': 'Invalid JSON data'})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
+
+@login_required
+def add_to_checkout(request, pk):
+    user = request.user
+    product = get_object_or_404(Product, pk=pk)
+    # checkout_list = Checkout.objects.filter(user=user, complete=False)
+
+    create_object, created = Checkout.objects.get_or_create(
+        user=user,
+        product=product,
+        complete=False,
+    )
+    create_object.quantity = (create_object.quantity + 1)
+    create_object.price = (create_object.quantity * create_object.product.price)
+    create_object.save()
+    if create_object.quantity > 1:
+        messages.success(request, f'"{product}" quantity has been updated!')
+    else:
+        messages.success(request, f'"{product}" has been added to your cart!')
+    return redirect("checkout")
+
+
+@login_required
+def remove_from_checkout(request, pk):
+    customer = request.user
+    product = get_object_or_404(Product, pk=pk)
+    orderItem, created = Checkout.objects.get_or_create(user=customer, product=product, complete=False)
+    if Checkout.objects.filter(user=customer, product=product).exists():
+        if orderItem.quantity <= 0:
+            orderItem.delete()
+            messages.success(request, f"'{product.name}' has been removed from your cart/checkout")
+            return redirect("checkout")
+        if orderItem.quantity >= 1:
+            orderItem.quantity = (orderItem.quantity - 1)
+            orderItem.price = (orderItem.quantity * orderItem.product.price)
+            orderItem.save()
+            messages.success(request, f"'{product.name}' quantity has been reduced from your cart/checkout")
+            return redirect("checkout")
+    else:
+        messages.success(request, f"'{product.name}' has been removed from your cart/checkout")
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+    return render(request, 'products/checkout.html', {})
 
 
 @login_required
@@ -327,23 +380,3 @@ def product_detail_modal(request, pk):
 
     return render(request, 'products/partials/product-detail.html',
                   context)
-
-
-@csrf_exempt
-def addtocart(request):
-    if request.method == 'POST':
-        product_id = request.POST.get('pk')
-        quantity = int(request.POST.get('quantity', 1))
-
-        product = Product.objects.get(id=product_id)
-
-        # Add the product to the cart (implement your cart logic here)
-        create_object, created = Checkout.objects.get_or_create(
-            user=request.user,
-            product=product,
-            complete=False,
-        )
-        create_object.quantity = quantity
-        # create_object.price = (create_object.quantity * create_object.product.price)
-        create_object.save()
-        return JsonResponse({'status': 'success'})

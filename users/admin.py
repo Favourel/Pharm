@@ -8,19 +8,19 @@ from django.contrib.auth.models import Group
 
 
 class UserAdmin(BaseUserAdmin):
-    list_display = ('email', 'is_staff', 'is_superuser', 'is_active', 'date_joined')
-    search_fields = ('email', 'phone_number')
+    list_display = ('email', 'first_name', 'is_staff', 'is_superuser', 'is_active', 'date_joined')
+    search_fields = ('email', 'phone_number', 'first_name')
     ordering = ('email',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('phone_number', 'picture_url', 'address')}),
+        ('Personal info', {'fields': ('first_name', 'phone_number', 'picture_url', 'address')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser',)}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'phone_number', 'picture_url', 'address'),
+            'fields': ('email', 'password1', 'password2', 'phone_number', 'picture_url', 'address', 'first_name'),
         }),
     )
     

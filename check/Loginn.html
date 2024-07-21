@@ -20,12 +20,11 @@ MAMS">
 Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
 Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
 Discover a wide range of health and wellness products at our online pharmacy. Quality medications and supplements delivered to your door.">
-    <title>MAMS | Login</title>
+    <title>Login</title>
     <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'css/Login.css' %}" media="screen">
-
-    <!--    <script class="u-script" type="text/javascript" src="jquery-1.9.1.min.js" defer=""></script>-->
-    <!--    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>-->
+<!--    <script class="u-script" type="text/javascript" src="jquery-1.9.1.min.js" defer=""></script>-->
+<!--    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>-->
     <meta name="generator" content="Nicepage 6.13.11, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i|Palanquin+Dark:400,500,600,700">
@@ -37,7 +36,7 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
         "name": "WebSite6300048"
     }</script>
     <meta name="theme-color" content="#1f2645">
-    <meta property="og:title" content="MAMS | Login">
+    <meta property="og:title" content="Login">
     <meta property="og:description" content="Your trusted online pharmacy for prescription and over-the-counter medications. Fast delivery, affordable prices, and a wide range of health products.
 Order medicines online with ease. We provide a variety of prescription drugs, health supplements, and medical supplies to meet all your health needs.
 Get your prescriptions refilled and buy over-the-counter medications online. Reliable, convenient, and affordable pharmacy services.
@@ -60,29 +59,28 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                     <h3 class="u-align-center u-custom-font u-font-georgia u-text u-text-1">Hey, welcome back!<br>sign
                         in with your right details.
                     </h3>
-                    <p class="u-text u-text-2"> _____________OR______________</p>
+                    <p class="u-text u-text-default-lg u-text-default-xl u-text-2">
+                        <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-2"
+                           href="Forgot password?">Forgot password?</a>
+                    </p>
+                    <p class="u-text u-text-default-lg u-text-default-xl u-text-3">Don't have an account?&nbsp;<span
+                            style="font-weight: 700;"> Sign up</span>
+                    </p>
+                    <p class="u-text u-text-4"> _________________OR________________</p>
                     <a href="{% provider_login_url 'google' %}"
-                       class="u-active-custom-color-1 u-align-center u-border-2 u-border-black u-btn u-button-style u-hover-custom-color-1 u-none u-text-hover-white u-btn-2">&nbsp;
+                       class="u-active-custom-color-1 u-align-center u-border-2 u-border-black u-btn u-button-style u-hover-custom-color-1 u-none u-text-hover-white u-btn-3">&nbsp;
                         &nbsp; &nbsp; &nbsp; &nbsp;CONTINUE WITH GOOGLE </a><span
                         class="u-file-icon u-icon u-icon-2">
                     <img src="{% static 'images/300221.png' %}" alt=""></span>
-                    <p class="u-text u-text-default-lg u-text-default-xl u-text-3">Don't have an account?&nbsp;<span
-                            style="font-weight: 700;">
-                        <a href="{% url 'signup' %}">Sign up</a></span>
-                    </p>
-                    <p class="u-text u-text-default-lg u-text-default-xl u-text-4">
-                        <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
-                           href="{% url 'account_reset_password' %}">Forgot password?</a>
-                    </p>
                 </div>
             </div>
         </div>
     </div>
     <div class="u-align-left u-container-style u-group u-shape-rectangle u-white u-group-1">
         <div class="u-container-layout u-valign-bottom-md u-valign-bottom-sm u-valign-bottom-xs u-container-layout-2">
-            <a href="/"><img class="u-image u-image-contain u-image-default u-preserve-proportions lazyload u-image-1" alt=""
+            <img class="u-image u-image-contain u-image-default u-preserve-proportions lazyload u-image-1" alt=""
                  data-image-width="128" data-image-height="128"
-                 src="{% static 'images/300221.png' %}"></a>
+                 src="{% static 'images/300221.png' %}">
             <img class="u-expanded-width u-image u-image-default u-preserve-proportions lazyload u-image-2" alt=""
                  data-image-width="740" data-image-height="740"
                  src="https://img.freepik.com/free-vector/login-concept-illustration_114360-4525.jpg?t=st=1720861671~exp=1720865271~hmac=ffde0f92c972c9f90f428715a6b28b292815fc755055bdb3899f5353cb55a12b&amp;w=740">
@@ -106,11 +104,11 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                        required="required">
             </div>
             <div class="u-align-center u-form-group u-form-submit">
-                <!--                <a href="#"-->
-                <!--                   class="u-active-custom-color-5 u-border-2 u-border-grey-dark-1 u-border-no-left -->
-                <!--                   u-border-no-right u-border-no-top u-btn u-btn-rectangle u-btn-submit u-button-style -->
-                <!--                   u-custom-color-3 u-hover-custom-color-5 u-btn-4">Submit</a>-->
-                <!--                <input type="submit" value="submit" class="u-form-control-hidden">-->
+<!--                <a href="#"-->
+<!--                   class="u-active-custom-color-5 u-border-2 u-border-grey-dark-1 u-border-no-left -->
+<!--                   u-border-no-right u-border-no-top u-btn u-btn-rectangle u-btn-submit u-button-style -->
+<!--                   u-custom-color-3 u-hover-custom-color-5 u-btn-4">Submit</a>-->
+<!--                <input type="submit" value="submit" class="u-form-control-hidden">-->
 
                 <button id="submit" type="submit" class="u-active-custom-color-5 u-border-2 u-border-grey-dark-1 u-border-no-left
                    u-border-no-right u-border-no-top u-btn u-btn-rectangle u-btn-submit u-button-style
@@ -122,7 +120,10 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                     <span id="button-text">LOGIN</span>
                 </button>
             </div>
-
+            <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent.</div>
+            <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try
+                again.
+            </div>
             <input type="hidden" value="" name="recaptchaResponse">
         </form>
     </div>

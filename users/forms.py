@@ -16,3 +16,13 @@ class CustomAuthenticationForm(AuthenticationForm):
         strip=False,
         widget=forms.PasswordInput,
     )
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["email", "first_name",
+                  "address", "phone_number",
+                  # "password"
+                  ]
+

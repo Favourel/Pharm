@@ -1,0 +1,126 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+{% block title %} MAMS | {{request.user}} profile {% endblock %}
+{% block name %} MAMS | {{request.user}} profile {% endblock %}
+{% block content %}
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<section class="u-clearfix u-lightbox u-section-1" id="sec-16e0">
+    <div class="u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
+        <div class="u-container-layout u-valign-middle u-container-layout-1">
+            <h3 class="u-text u-text-default u-text-1">
+                {% if 0 >= now %}
+                Good morning,
+                {% elif now < 11.1 %}
+                Good morning,
+                {% elif 12 >= now %}
+                Good afternoon,
+                {% elif now < 15.1 %}
+                Good afternoon,
+                {% elif 16 >= now %}
+                Good evening,
+                {% elif now < 19.1 %}
+                Good evening,
+                {% elif 20 >= now %}
+                Good night,
+                {% elif now < 23.1 %}
+                Good night,
+                {% endif %}
+                {% if request.user.first_name %}
+                {{ request.user.first_name }} 😉!
+                {% elif request.user.email %}
+                {{ request.user.email }}😉! {% endif %}</h3>
+        </div>
+    </div><!--products--><!--products_options_json--><!--{"type":"Recent","source":"","tags":"","count":""}-->
+    <!--/products_options_json-->
+    <div class="custom-expanded u-layout-grid u-pagination-center u-products u-sorting-right u-products-1"
+         data-site-sorting-prop="created" data-site-sorting-order="desc" data-products-datasource="site"
+         data-items-per-page="4" data-products-id="1">
+
+        <div class="row">
+
+            <div class="col-lg-9 mt-3">
+                <form action="{% url 'users_profile' %}" method="post">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button id="submit" type="submit" class="u-active-custom-color-5 u-border-2 u-border-grey-dark-1 u-border-no-left
+                           u-border-no-right u-border-no-top u-btn u-btn-rectangle u-btn-submit u-button-style
+                           u-custom-color-3 u-hover-custom-color-5 u-btn-4">
+                                <div class="spinner-border text-light hidden" id="spinner" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+
+                        <span id="button-text">SAVE CHANGES</span>
+                    </button>
+                    <style>
+                        .hidden {
+                            display: none;
+                        }
+                        .spinner-border {
+                            width: 1.5rem;
+                            height: 1.5rem;
+                        }
+                    </style>
+                </form>
+
+            </div>
+            <br>
+            <div class="col-lg-3 ">
+                <!--            <div class="sticky-top" style="top: 9px">-->
+                <div class="box-element" style="background-color:#fff !important">
+
+                    <a class="list-item my-1 text-dark text-decoration-none"
+                       href="#">
+                        <h6>Account Details</h6>
+                        <hr>
+                    </a>
+                    <a class="list-item my-1 text-dark text-decoration-none"
+                       href="#">
+                        <h6>Orders</h6>
+                        <hr>
+                    </a>
+                    <a class="list-item my-1 text-dark text-decoration-none"
+                       href="{% url 'logout' %}">
+                        <h6>Logout</h6>
+                    </a>
+                </div>
+
+                <br>
+
+                <br>
+                <br>
+                <br>
+            </div>
+
+        </div>
+        <div class="u-list-control"></div>
+    </div><!--/products-->
+
+</section>
+
+<style>
+    .hide {
+        display: none;
+    }
+    .box-element, .dropdown-menu{
+        box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+        background-color: ;
+        border-radius: 4px;
+        padding: 8px;
+    }
+    .btn-outline-blue {
+        color: #004d6e; !important;
+        border: 1px solid #004d6e; !important;
+        border-radius: 3px !important;
+    }
+    .btn-outline-blue:hover {
+        color: #fff !important;
+        background: #004d6e; !important;
+        border-color: #004d6e; !important;
+    }
+</style>
+
+{% endblock %}

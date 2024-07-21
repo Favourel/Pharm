@@ -1,11 +1,16 @@
+import datetime
+
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, FormView
 
 from products.models import Product, Order, Checkout
-from .forms import CustomUserCreationForm, CustomAuthenticationForm
+from products.utils import total_cart_items
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserUpdateForm
 
 
 # Create your views here.
@@ -13,7 +18,7 @@ from .forms import CustomUserCreationForm, CustomAuthenticationForm
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'users/signup.html'
-    success_url = reverse_lazy('products')
+    success_url = reverse_lazy('login')
 
 
 class SignInView(FormView):
@@ -33,11 +38,35 @@ class SignInView(FormView):
 
 
 @login_required
+def users_profile(request):
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.save()
+
+            messages.success(request, 'Your account has been updated!')
+            # return redirect(f"../{request.user}/post/")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    else:
+        form = UserUpdateForm(instance=request.user)
+
+    context = {
+        "get_cart_items": total_cart_items(request),
+        # "notification": notification,
+        # "notification_count": notification_count,
+        # 'order': order,
+        'form': form,
+        "now": datetime.datetime.now().hour,
+    }
+    return render(request, 'users/profile.html', context)
+
+
+@login_required
 def order_summary(request, order_id):
     order = get_object_or_404(Order, transaction_id=order_id, user=request.user)
-    check_out_list = Checkout.objects.filter(user=request.user, complete=False).order_by("-id")
-    get_cart_total = sum([item.get_total for item in check_out_list])
-
     # notification = Notification.objects.filter(user=request.user, is_seen=False).order_by("-id")[:10]
     # notification_count = Notification.objects.filter(user=request.user, is_seen=False).count()
 
@@ -46,9 +75,8 @@ def order_summary(request, order_id):
     similar_items = Product.objects.filter(category__in=product_category).exclude(name__in=[item.product for item in order.order_item.all()]).order_by("?")[:2]
 
     context = {
-        "check_out_list": check_out_list,
-        "get_cart_total": get_cart_total,
-        # "get_cart_items": total_cart_items(request),
+
+        "get_cart_items": total_cart_items(request),
         # "notification": notification,
         # "notification_count": notification_count,
         'order': order,

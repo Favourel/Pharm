@@ -1,12 +1,12 @@
 .u-section-1 .u-sheet-1 {
-  min-height: 1230px;
+  min-height: 1104px;
 }
 
 .u-section-1 .u-product-1 {
-  min-height: 1071px;
+  min-height: 950px;
   height: auto;
   margin-top: 140px;
-  margin-bottom: 19px;
+  margin-bottom: 14px;
 }
 
 .u-section-1 .u-container-layout-1 {
@@ -49,7 +49,7 @@
 .u-section-1 .u-text-2 {
   font-weight: 700;
   font-size: 1.125rem;
-  margin: 56px auto 0 0;
+  margin: 56px auto 0;
 }
 
 .u-section-1 .u-btn-1 {
@@ -73,16 +73,12 @@
 
 .u-section-1 .u-tabs-1 {
   min-height: 250px;
-  margin-top: 478px;
+  margin-top: 403px;
   margin-bottom: 0;
   height: auto;
 }
 
 .u-section-1 .u-container-layout-3 {
-  padding: 20px;
-}
-
-.u-section-1 .u-container-layout-4 {
   padding: 20px;
 }
 
@@ -205,11 +201,6 @@
   }
 
   .u-section-1 .u-container-layout-3 {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .u-section-1 .u-container-layout-4 {
     padding-left: 10px;
     padding-right: 10px;
   }

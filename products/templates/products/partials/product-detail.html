@@ -21,7 +21,7 @@
             <button type="button" class="btn btn-block py-2 btn-outline-secondary" data-dismiss="modal">Close</button>
         </div>
         <div class="col-6">
-            <button type="button" class="btn btn-block py-2 btn-blue" id="add-to-cart-btn">
+            <button onclick="cart()" type="button" class="btn btn-block py-2 btn-blue" id="add-to-cart-btn">
                 Add Cart
             </button>
         </div>
@@ -66,8 +66,8 @@ function changeQuantity(amount) {
     quantityInput.value = currentQuantity;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+    function cart(){
+        //e.preventDefault();
         const quantityInput = document.getElementById('quantity');
         const productId = quantityInput.getAttribute('data-product-id');
         const quantity = quantityInput.value;
@@ -93,6 +93,6 @@ document.addEventListener("DOMContentLoaded", function() {
               console.error('Error:', error);
               document.getElementById('confirmation-message').innerHTML = `<div class="alert alert-danger">Error processing request</div>`;
           });
-    });
-});
+    }
+
 </script>
