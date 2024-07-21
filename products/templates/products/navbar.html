@@ -82,8 +82,9 @@
         <a href="/" class="u-image u-logo u-image-1">
             <img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1">
         </a>
-        <span data-target="#kt_header_search_modal" type="button"
-              data-toggle="modal" class="u-dialog-link u-icon u-icon-1">
+
+        <div data-target="#kt_header_search_modal" type="button"
+              data-toggle="modal" class=" u-icon u-icon-1">
             <svg class="u-svg-link" data-target="#kt_header_search_modal" type="button"
               data-toggle="modal"
                  preserveAspectRatio="xMidYMin slice"
@@ -99,7 +100,7 @@
                 c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17
                 s-17-7.626-17-17S14.61,6,23.984,6z"></path>
             </svg>
-        </span>
+        </div>
         {% if request.user.is_authenticated %}
 
         <span class="u-icon u-icon-2" data-href="users">
@@ -314,3 +315,6 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
 
 
 </style>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

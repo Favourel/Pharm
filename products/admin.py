@@ -16,7 +16,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ["name", "price", "product_purchase", "date_posted"]
     search_fields = ["name", "description"]
-    list_filter = ['date_posted']
+    list_filter = ['date_posted', "category__name"]
     actions = ['apply_discount', "remove_discount", "export_products"]
     list_per_page = 10
 
@@ -53,7 +53,7 @@ class ProductAdmin(admin.ModelAdmin):
             writer.writerow(product)
         return response
 
-    export_products.short_description = 'Export to csv'
+    export_products.short_description = 'Download as csv'
 
 
 class CheckoutAdmin(admin.ModelAdmin):

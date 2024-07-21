@@ -39,7 +39,7 @@ def products_view(request):
         price_filter = ProductPriceFilter(request.GET, queryset=queryset)
         return price_filter.qs, price_filter
 
-    def get_paginated_products(queryset, page_size=12):
+    def get_paginated_products(queryset, page_size=10):
         paginator = Paginator(queryset, page_size)
         page_number = request.GET.get('page')
         return paginator.get_page(page_number)
@@ -57,10 +57,11 @@ def products_view(request):
     paginated_products = get_paginated_products(filtered_products)
 
     if request.user.is_authenticated:
-        get_cart_items =  total_cart_items(request)
+        get_cart_items = total_cart_items(request)
         notifications, notification_count, check_out_list, get_cart_total = get_user_data(request.user)
     else:
         get_cart_items = 0
+
     if request.GET.get('category_name'):
         category_products = Product.getProductByFilter(request.GET['category_name']).order_by('-id')
         filtered_category_products, price_filter = get_filtered_products(category_products)
@@ -142,10 +143,9 @@ def product_detail(request, pk):
     return render(request, "products/product_detail.html", context)
 
 
-@login_required
 def search_view(request):
-    notification = Notification.objects.filter(user=request.user, is_seen=False).order_by("-id")[:10]
-    notification_count = Notification.objects.filter(user=request.user, is_seen=False).count()
+    # notification = Notification.objects.filter(user=request.user, is_seen=False).order_by("-id")[:10]
+    # notification_count = Notification.objects.filter(user=request.user, is_seen=False).count()
 
     if request.method == "GET":
         # query = request.GET.get('q')
@@ -159,8 +159,8 @@ def search_view(request):
 
             lookups_product = Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query)
             result_product = Product.objects.filter(lookups_product).distinct()
-            check_out_list = Checkout.objects.filter(user=request.user, complete=False).order_by("-id")
-            get_cart_total = sum([item.get_total for item in check_out_list])
+            # check_out_list = Checkout.objects.filter(user=request.user, complete=False).order_by("-id")
+            # get_cart_total = sum([item.get_total for item in check_out_list])
 
             categories = Category.getAllCategory()
 
@@ -170,9 +170,14 @@ def search_view(request):
             price_filter = ProductPriceFilter(request.GET, queryset=result_product)
             result_product = price_filter.qs
 
+            if request.user.is_authenticated:
+                get_cart_items = total_cart_items(request)
+            else:
+                get_cart_items = 0
+
             context = {
-                "check_out_list": check_out_list,
-                "get_cart_total": get_cart_total,
+                # "check_out_list": check_out_list,
+                # "get_cart_total": get_cart_total,
                 'submitbutton': submitbutton,
                 'half_max_price': half_max_price,
                 "maximum_price": maximum_price,
@@ -180,16 +185,16 @@ def search_view(request):
                 "products": result_product,
                 "categories": categories,
                 "query": query,
-                "notification_count": notification_count,
-                "notification": notification,
-                "get_cart_items": total_cart_items(request)
+                # "notification_count": notification_count,
+                # "notification": notification,
+                "get_cart_items": get_cart_items
             }
             return render(request, "products/product.html", context)
         else:
             context = {
                 'submitbutton': submitbutton,
-                "notification_count": notification_count,
-                "notification": notification,
+                # "notification_count": notification_count,
+                # "notification": notification,
                 "get_cart_items": total_cart_items(request)
             }
             return render(request, 'products/product.html', context)

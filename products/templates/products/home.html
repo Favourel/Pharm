@@ -96,19 +96,19 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                            class="u-active-custom-color-6 u-border-2 u-border-hover-
                            palette-1-base u-border-palette-1-base u-btn u-btn-round
                            u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-btn-1 fixed-bottom">LOGOUT </a>
+                           u-text-body-alt-color u-btn-1 ">LOGOUT </a>
                         {% else %}
                         <a href="{% url 'login' %}"
                            class="u-active-custom-color-6 u-border-2 u-border-hover-
                            palette-1-base u-border-palette-1-base u-btn u-btn-round
                            u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-btn-1 fixed-bottom" style="bottom-top">LOGIN
+                           u-text-body-alt-color u-btn-1 " style="bottom-top">LOGIN
                         </a>
                         <a href="{% url 'signup' %}"
                            class="u-active-custom-color-6 u-border-2 u-border-hover-
                            palette-1-base u-border-palette-1-base u-btn u-btn-round
                            u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-btn-1 fixed-bottom" style="bottom-top">SIGN
+                           u-text-body-alt-color u-btn-1 " style="bottom-top">SIGN
                             UP </a>
                         {% endif %}
 
@@ -120,8 +120,8 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
         <a href="/" class="u-image u-logo u-image-1">
             <img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1">
         </a>
-        <span data-target="#kt_header_search_modal" type="button"
-              data-toggle="modal" class="u-dialog-link u-icon u-icon-1">
+        <div data-target="#kt_header_search_modal" type="button"
+              data-toggle="modal" class=" u-icon u-icon-1">
             <svg class="u-svg-link" data-target="#kt_header_search_modal" type="button"
               data-toggle="modal"
                  preserveAspectRatio="xMidYMin slice"
@@ -137,7 +137,7 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                 c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17
                 s-17-7.626-17-17S14.61,6,23.984,6z"></path>
             </svg>
-        </span>
+        </div>
         {% if request.user.is_authenticated %}
 
         <span class="u-icon u-icon-2" data-href="users">
@@ -287,39 +287,7 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
 
 
 </section>
-<section class="u-clearfix u-valign-top-xs u-section-3" id="carousel_d99d">
-    <div class="u-custom-color-3 u-expanded-width u-shape u-shape-rectangle u-shape-1" data-animation-name="flipIn"
-         data-animation-duration="1500" data-animation-direction="X" data-animation-delay="750"></div>
-    <div class="u-custom-color-1 u-shape u-shape-rectangle u-shape-2" data-animation-name="customAnimationIn"
-         data-animation-duration="1500" data-animation-delay="500"></div>
-    <img class="u-align-left u-image lazyload u-image-1" data-image-width="992" data-image-height="658"
-         data-animation-name="customAnimationIn" data-animation-duration="1500"
-         src="{% static 'images/Untitled-1e.jpg' %}">
-    <div class="u-align-left u-container-align-center-sm u-container-align-left-lg u-container-align-left-md u-container-align-left-xl u-container-style u-group u-white u-group-1"
-         data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500">
-        <div class="u-container-layout u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xl u-container-layout-1">
-            <h2 class="u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-md u-align-left-xl u-text u-text-1"
-                data-animation-name="" data-animation-duration="0"
-                data-animation-delay="0" data-animation-direction="">
-                Family Planning</h2>
-            <p class="u-align-center-sm u-align-center-xs u-align-left-lg
-            u-align-left-md u-align-left-xl u-text u-text-2">
-                Family planning services help individuals and couples control the number
-                and spacing of their children through contraceptive methods, fertility
-                treatments, and educational resources. Our pharmacy offers a range of
-                contraceptives like birth control pills, condoms, IUDs, and emergency
-                contraception, as well as fertility treatments and prenatal and
-                postnatal care. We provide essential products and consultations to
-                support your family planning needs, ensuring informed decisions and
-                healthy outcomes for you and your family.</p>
 
-<!--            <a href="#"-->
-<!--               class="u-active-custom-color-5 u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-md u-align-left-xl u-btn u-btn-round u-button-style u-custom-color-3 u-hover-custom-color-5 u-radius u-btn-1"-->
-<!--               data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">LEARN-->
-<!--                MORE </a>-->
-        </div>
-    </div>
-</section>
 <section class="u-clearfix u-container-align-center u-section-4" id="sec-c909">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-26 u-layout-spacing-vertical u-layout-wrap u-layout-wrap-1">
@@ -557,8 +525,8 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
                             <br>
                             <p class="u-text u-text-8">
                                 <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
-                                   href="mailto:medilifecompany@example.com?subject=Contact">
-                                    medilifecompany@example.com</a>
+                                   href="mailto:mamspharm@gmail.com?subject=Contact">
+                                    mamspharm@gmail.com</a>
                             </p>
                         </div>
                     </div>
@@ -582,6 +550,167 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
         </div>
     </div>
 </footer>
+<div class="modal modal-edit bg-white fade show" tabindex="-1" role="dialog"
+     id="kt_header_search_modal" aria-hidden="true"
+     aria-modal="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content align-items-center justify-content-center modal-custom-content"
+        >
+            <div class="container mt-0">
+                <div class="modal-header d-flex justify-content-end">
+                    <!--begin::Close-->
+                    <div data-dismiss="modal" aria-label="Close"
+                         style="cursor: pointer">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                 fill="#fff">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                      transform="rotate(-45 6 17.3137)" fill="black"></rect>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                      fill="black"></rect>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <!--begin::Search-->
+                    <form action="{% url 'search' %}" class="d-flex pb-10" autocomplete="on" method="GET"
+                          value="{{request.GET.q}}">
+                        {% csrf_token %}
+                        <!--                        <input value="{{request.GET.q}}" autofocus="" type="text"-->
+                        <!--                               class="form-control bg-transparent border-0 fs-4x text-center fw-normal"-->
+                        <!--                               name="q" placeholder="Search...">-->
 
+                        <input value="{{request.GET.q}}" autofocus="" type="text" placeholder="Search..."
+                               name="q"
+                               class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1">
+                        <div class="autocomplete" style="width:300px; display:none;">
+                            <input type="submit" name="submit" value="Search"/>
+                        </div>
+                    </form>
+                    <br>
+                    <br>
+
+                    <h4 class="text-dark mt-3 mb-3"><b>Popular search</b></h4>
+                    <!--begin::List Widget 5-->
+
+                    <!--begin::Item-->
+                    <div class="d-flex mb-6">
+                        <!--begin::Icon-->
+                        <div class="me-1">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                            <span class="svg-icon svg-icon-sm svg-icon-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <path d="M12.6343 12.5657L8.45001 16.75C8.0358
+                                    17.1642 8.0358 17.8358 8.45001 18.25C8.86423
+                                    18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z"
+                                          fill="black"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Content-->
+                        <div class="d-flex flex-column">
+                            <a href="/search/?q=Medicine&submit=Search"
+                               class="fs-6 fw-bolder text-hover-primary text-gray-800 mb-2">
+                                Medicine</a>
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex mb-6">
+                        <!--begin::Icon-->
+                        <div class="me-1">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                            <span class="svg-icon svg-icon-sm svg-icon-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <path d="M12.6343 12.5657L8.45001 16.75C8.0358 17.1642 8.0358 17.8358 8.45001 18.25C8.86423 18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z"
+                                          fill="black"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Content-->
+                        <div class="d-flex flex-column">
+                            <a href="/search/?q=Cough&submit=Search"
+                               class="fs-6 fw-bolder text-hover-primary text-gray-800 mb-2">
+                                Cough</a>
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex mb-6">
+                        <!--begin::Icon-->
+                        <div class="me-1">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                            <span class="svg-icon svg-icon-sm svg-icon-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <path d="M12.6343 12.5657L8.45001 16.75C8.0358 17.1642 8.0358 17.8358 8.45001 18.25C8.86423 18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z"
+                                          fill="black"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Content-->
+                        <div class="d-flex flex-column">
+                            <a href="/search/?q=Headache&submit=Search"
+                               class="fs-6 fw-bolder text-hover-primary text-gray-800 mb-2">
+                                Headache</a>
+                        </div>
+                        <!--end::Content-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .modal-custom-content {
+        border: 0 !important;
+        width: 100vw;
+        height: 100vh;
+        padding: 0;
+        right: 0;
+        top: 0;
+        margin-top: 0;
+    }
+
+    @media (min-width: 992px) {
+        .modal-custom-content {
+            width: 100vw;
+            height: 100vh;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .modal-custom-content {
+            width: 100vw;
+            height: 100vh;
+        }
+    }
+
+    .modal-edit .modal-dialog {
+        max-width: 100%;
+        margin: 0;
+    }
+
+
+</style>
 </body>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </html>

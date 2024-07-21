@@ -93,19 +93,19 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                            class="u-active-custom-color-6 u-border-2 u-border-hover-
                            palette-1-base u-border-palette-1-base u-btn u-btn-round
                            u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-btn-1 fixed-bottom">LOGOUT </a>
+                           u-text-body-alt-color u-btn-1 ">LOGOUT </a>
                         {% else %}
                         <a href="{% url 'login' %}"
                            class="u-active-custom-color-6 u-border-2 u-border-hover-
                            palette-1-base u-border-palette-1-base u-btn u-btn-round
                            u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-btn-1 fixed-bottom" style="bottom-top">LOGIN
+                           u-text-body-alt-color u-btn-1 " style="bottom-top">LOGIN
                         </a>
                         <a href="{% url 'signup' %}"
                            class="u-active-custom-color-6 u-border-2 u-border-hover-
                            palette-1-base u-border-palette-1-base u-btn u-btn-round
                            u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-btn-1 fixed-bottom" style="bottom-top">SIGN
+                           u-text-body-alt-color u-btn-1" style="bottom-top">SIGN
                             UP </a>
                         {% endif %}
 
@@ -117,8 +117,8 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
         <a href="#" class="u-image u-logo u-image-1">
             <img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1">
         </a>
-        <span data-target="#kt_header_search_modal" type="button"
-              data-toggle="modal" class="u-dialog-link u-icon u-icon-1">
+        <div data-target="#kt_header_search_modal" type="button"
+              data-toggle="modal" class=" u-icon u-icon-1">
             <svg class="u-svg-link" data-target="#kt_header_search_modal" type="button"
               data-toggle="modal"
                  preserveAspectRatio="xMidYMin slice"
@@ -134,17 +134,17 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                 c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17
                 s-17-7.626-17-17S14.61,6,23.984,6z"></path>
             </svg>
-        </span>
+        </div>
 
 
-        <span class="u-icon u-icon-2" data-href="users">
+        <span class="u-icon u-icon-2" data-href="users" style="color:#000 !important">
             <a href="{% url 'users_profile' %}">
             <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 55 55" style="">
                 <use xlink:href="#svg-a21e"></use>
             </svg>
 
         <svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px"
-             id="svg-a21e" style="enable-background:new 0 0 55 55;">
+             id="svg-a21e" style="enable-background:new 0 0 55 55;color:#000 !important">
             <path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
 	c0.058,0.049,0.121,0.089,0.179,0.137c0.474,0.393,0.965,0.766,1.465,1.127c0.162,0.117,0.324,0.234,0.489,0.348
 	c0.534,0.368,1.082,0.717,1.642,1.048c0.122,0.072,0.245,0.142,0.368,0.212c0.613,0.349,1.239,0.678,1.88,0.98
@@ -225,8 +225,8 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
                         </div><!--/product_price--><!--product_content-->
                         <div class="u-product-control u-product-desc u-text u-text-default u-text-2">
                             {{ product.description|striptags|truncatewords:15 }} <a style="color: #004d6e"
-                                                                                    href="product/ea647593-8d28-42f8-bc04-c486dd8486ee/#more">view
-                            more below</a>
+                                                                                    href="/product/{{product.pk}}/#more">view
+                            more </a>
                         </div><!--/product_content--><!--product_button--><!--options_json-->
                         <!--{"clickType":"buy-now","content":""}--><!--/options_json-->
                         <a href="#sec-e50a" onclick="addToCart('{{ product.id }}')"
@@ -268,7 +268,7 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
                 <!--product_tabs-->
                 <div class="u-expanded-width u-product-control u-tabs u-tabs-1">
                     <ul class="u-tab-list u-unstyled" role="tablist"><!--product_tabitem-->
-                        <li class="u-tab-item" role="presentation"><a
+                        <li id="more" class="u-tab-item" role="presentation"><a
                                 class="active u-active-custom-color-5 u-button-style u-tab-link" id="link-tab-7300"
                                 href="#tab-7300" role="tab" aria-controls="tab-7300" aria-selected="true">
                             <!--product_tabitem_title-->Description<!--/product_tabitem_title--></a>
@@ -403,12 +403,237 @@ background-color: #ffffff !important
           });
     }
 </script>
-<footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-7bae">
+<footer class="u-clearfix u-footer u-grey-70" id="sec-7bae">
     <div class="u-clearfix u-sheet u-sheet-1">
-        <p class="u-small-text u-text u-text-variant u-text-1">Sample text. Click to select the text box. Click again or
-            double click to start editing the text.</p>
+        <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-30 u-layout-wrap u-layout-wrap-1">
+            <div class="u-gutter-0 u-layout">
+                <div class="u-layout-row">
+                    <div class="u-align-left u-container-style u-layout-cell u-left-cell u-size-15 u-layout-cell-1">
+                        <div class="u-container-layout u-valign-bottom-xs u-container-layout-1">
+                            <a href="#" class="u-image u-logo u-image-1" data-image-width="80" data-image-height="40">
+                                <img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1">
+                            </a>
+                            <p class="u-text u-text-1">Your Health, Our Priority.</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-layout-cell u-size-13 u-layout-cell-2">
+                        <div class="u-container-layout u-valign-bottom-xs u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-2">
+                            <h3 class="u-text u-text-2">Categories</h3>
+                            {% for category in categories %}
+                            <p class="u-text u-text-3">{{ category }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="u-container-style u-layout-cell u-size-12 u-layout-cell-3">
+                        <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-3">
+                            <h3 class="u-text u-text-4">Services</h3>
+                            <p class="u-text u-text-5">Online purchase</p>
+                            <p class="u-text u-text-5">Swift delivery service</p>
+                            <p class="u-text u-text-5">Secure online payment</p>
+                            <p class="u-text u-text-5">Chat on WhatsApp</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-layout-cell u-right-cell u-size-20 u-layout-cell-4">
+                        <div class="u-container-layout u-valign-top u-container-layout-4">
+                            <h3 class="u-text u-text-6">
+                                <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
+                                   href="tel:(234) 814-168-6142"> (234) 814-168-6142</a>
+                            </h3>
+                            <p class="u-text u-text-7"> Monday–Friday: 9:00am – 6:00pm Saturday–Sunday: 9:00am –
+                                4:00pm<br>No 1 akinbo street Tolu road ajegunle bondary, Lagos, Nigeria. 117 orodu
+                                Street ajegunle boundary, Lagos, Nigeria.
+                                <br>
+                                <br>
+                            </p>
+                            <br>
+                            <p class="u-text u-text-8">
+                                <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
+                                   href="mailto:mamspharm@gmail.com?subject=Contact">
+                                    mamspharm@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
+        <div class="u-expanded-width-xs u-list u-list-1">
+            <div class="u-repeater u-repeater-1">
+                <div class="u-container-style u-list-item u-repeater-item">
+                    <div class="u-container-layout u-similar-container u-container-layout-5">
+                        <p class="u-text u-text-default u-text-9">About</p>
+                    </div>
+                </div>
+                <div class="u-container-style u-list-item u-repeater-item">
+                    <div class="u-container-layout u-similar-container u-container-layout-6">
+                        <p class="u-text u-text-default u-text-10">Terms &amp; Conditions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
+
+<div class="modal modal-edit bg-white fade show" tabindex="-1" role="dialog"
+     id="kt_header_search_modal" aria-hidden="true"
+     aria-modal="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content align-items-center justify-content-center modal-custom-content"
+        >
+            <div class="container mt-0">
+                <div class="modal-header d-flex justify-content-end">
+                    <!--begin::Close-->
+                    <div data-dismiss="modal" aria-label="Close"
+                         style="cursor: pointer">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                 fill="#fff">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                      transform="rotate(-45 6 17.3137)" fill="black"></rect>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                      fill="black"></rect>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <!--begin::Search-->
+                    <form action="{% url 'search' %}" class="d-flex pb-10" autocomplete="on" method="GET"
+                          value="{{request.GET.q}}">
+                        <!--                        <input value="{{request.GET.q}}" autofocus="" type="text"-->
+                        <!--                               class="form-control bg-transparent border-0 fs-4x text-center fw-normal"-->
+                        <!--                               name="q" placeholder="Search...">-->
+
+                        <input value="{{request.GET.q}}" autofocus="" type="text" placeholder="Search..."
+                               name="q"
+                               class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1">
+                        <div class="autocomplete" style="width:300px; display:none;">
+                            <input type="submit" name="submit" value="Search"/>
+                        </div>
+                    </form>
+                    <br>
+                    <br>
+
+                    <h4 class="text-dark mt-3 mb-3"><b>Popular search</b></h4>
+                    <!--begin::List Widget 5-->
+
+                    <!--begin::Item-->
+                    <div class="d-flex mb-6">
+                        <!--begin::Icon-->
+                        <div class="me-1">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                            <span class="svg-icon svg-icon-sm svg-icon-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <path d="M12.6343 12.5657L8.45001 16.75C8.0358
+                                    17.1642 8.0358 17.8358 8.45001 18.25C8.86423
+                                    18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z"
+                                          fill="black"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Content-->
+                        <div class="d-flex flex-column">
+                            <a href="/search/?q=Medicine&submit=Search"
+                               class="fs-6 fw-bolder text-hover-primary text-gray-800 mb-2">
+                                Medicine</a>
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex mb-6">
+                        <!--begin::Icon-->
+                        <div class="me-1">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                            <span class="svg-icon svg-icon-sm svg-icon-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <path d="M12.6343 12.5657L8.45001 16.75C8.0358 17.1642 8.0358 17.8358 8.45001 18.25C8.86423 18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z"
+                                          fill="black"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Content-->
+                        <div class="d-flex flex-column">
+                            <a href="/search/?q=Cough&submit=Search"
+                               class="fs-6 fw-bolder text-hover-primary text-gray-800 mb-2">
+                                Cough</a>
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex mb-6">
+                        <!--begin::Icon-->
+                        <div class="me-1">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                            <span class="svg-icon svg-icon-sm svg-icon-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <path d="M12.6343 12.5657L8.45001 16.75C8.0358 17.1642 8.0358 17.8358 8.45001 18.25C8.86423 18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z"
+                                          fill="black"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Content-->
+                        <div class="d-flex flex-column">
+                            <a href="/search/?q=Headache&submit=Search"
+                               class="fs-6 fw-bolder text-hover-primary text-gray-800 mb-2">
+                                Headache</a>
+                        </div>
+                        <!--end::Content-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .modal-custom-content {
+        border: 0 !important;
+        width: 100vw;
+        height: 100vh;
+        padding: 0;
+        right: 0;
+        top: 0;
+        margin-top: 0;
+    }
+
+    @media (min-width: 992px) {
+        .modal-custom-content {
+            width: 100vw;
+            height: 100vh;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .modal-custom-content {
+            width: 100vw;
+            height: 100vh;
+        }
+    }
+
+    .modal-edit .modal-dialog {
+        max-width: 100%;
+        margin: 0;
+    }
+
+
+</style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

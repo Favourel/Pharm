@@ -8,9 +8,10 @@ from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, FormView
 
-from products.models import Product, Order, Checkout
+from products.models import Product, Order, Checkout, Category
 from products.utils import total_cart_items
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserUpdateForm
+from .models import Notification
 
 
 # Create your views here.
@@ -39,6 +40,7 @@ class SignInView(FormView):
 
 @login_required
 def users_profile(request):
+    categories = Category.getAllCategory()
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, instance=request.user)
 
@@ -59,6 +61,7 @@ def users_profile(request):
         # "notification_count": notification_count,
         # 'order': order,
         'form': form,
+        'categories': categories,
         "now": datetime.datetime.now().hour,
     }
     return render(request, 'users/profile.html', context)
@@ -84,6 +87,31 @@ def order_summary(request, order_id):
 
     }
     return render(request, 'users/order_summary.html', context)
+
+
+@login_required
+def user_orders(request):
+    items = Order.objects.filter(user=request.user)
+
+    return render(request, 'users/partials/user_orders.html',
+                  {'items': items})
+
+
+@login_required
+def user_notifications(request):
+    """
+    user_notifications
+    """
+    queryset = []
+    for i in Notification.objects.filter(user=request.user):
+        queryset.append(i.is_seen == True)
+        i.is_seen = True
+        i.save()
+
+    notification = Notification.objects.filter(user=request.user).order_by("-id")[:10]
+
+    return render(request, 'users/partials/user_notifications.html',
+                  {'notification': notification})
 
 
 def error_404(request, exception):

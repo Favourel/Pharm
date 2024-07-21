@@ -1,0 +1,163 @@
+{% load static %}
+{% load humanize %}
+<section>
+    {% if items %}
+    <div class="cart-row d-md-flex d-none">
+        <div style="flex:4;opacity: .7" class="mr-2">
+            <h5 class="text-muted">ITEM</h5>
+        </div>
+        <div style="flex:4;opacity: .7"></div>
+        <div style="flex:2;opacity: .7"></div>
+
+        <div style="flex:3;opacity: .7"><h5 class="text-muted">PRICE</h5></div>
+        <div style="flex:4;opacity: .7"><h5 class="text-muted">QUANTITY</h5></div>
+        <div style="flex:6;opacity: .7">
+            <h5 class="text-muted">TOTAL</h5>
+        </div>
+
+    </div>
+    {% for i in items %}
+    {% for item in i.order_item.all %}
+    <div class="box-element" style="background-color:#fff !important;">
+        <div class="cart">
+            <div class="cart-body">
+                <div class="cart-item">
+                    <div class="d-flex align-items-center text-left text-md-center row">
+
+                        <div class="col-12 col-md-5">
+                            <div class="d-flex align-items-center">
+                                <a href="{{ item.get_absolute_url }}">
+                                    {% if item.product.productimage_set.all %}
+
+                                    {% for product_image in item.product.productimage_set.all %}
+                                    {% if forloop.first %}
+                                    <img height="70px" width="70px" src="{{ product_image.image.url }}"
+                                         alt=""
+                                         class="row-ima">
+                                    {% endif %}
+
+                                    {% endfor %}
+
+                                    {% else %}
+
+                                    <img height="70px" width="70px" src="{{ item.product.image.url }}"
+                                         alt=""
+                                         class="row-ima">{% endif %}
+                                </a>
+                                <div class="cart-title text-left"
+                                     style="overflow-wrap: break-word !important;">
+                                    <a class="text-dark link-animated"
+                                       style="overflow-wrap: break-word;"
+                                       href="#">
+                                        <strong style="overflow-wrap: break-word;">
+                                            {{ item.product.name }}
+                                        </strong>
+                                    </a>
+                                    <br>
+                                </div>
+                                <style>
+
+                                    .cart-title {
+                                        margin-left: 1rem;
+                                        overflow-wrap: break-word;
+
+                                    }
+                                    .text-left {
+                                        text-align: left!important;
+                                    }
+                                    .cart-remove {
+                                        color: #495057;
+                                        font-size: .975rem;
+                                        transition: .4s;
+                                    }
+                                    .cart-remove:hover {
+                                        color: #495057;
+                                        font-size: 1.2rem;
+
+                                    }
+                                    .link-animated {
+                                        position: relative;
+                                        text-decoration: none;
+                                    }
+                                    .text-dark {
+                                        color: #212529!important;
+                                    }
+                                    .text-sm {
+                                        font-size: .875rem;
+                                    }
+                                    .text-muted {
+                                        color: #868e96!important;
+                                    }
+
+                                    .text-center {
+                                        text-align: center!important;
+                                    }
+                                    .border-0 {
+                                        border: 0!important;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 mt-md-0 col-12 col-md-7">
+                            <div class="align-items-center row">
+
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <div class="d-md-none text-muted col-6">Price per item</div>
+                                        <b class="text-right text-md-center col-6 col-md-12">
+                                            ₦{{ item.product.price|floatformat:'2'|intcomma }}
+                                        </b>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="align-items-center row">
+                                        <div class="text-muted d-md-none col-7 col-sm-9">Quantity</div>
+                                        <div class="col-5 col-sm-3 col-md-12">
+                                            <div class="d-flex align-items-center">
+                                                <b class="text-center border-0 border-md input-items form-control">
+                                                    {{ item.quantity }}
+                                                </b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <div class="d-md-none text-muted col-6">Total price</div>
+                                        <b class="text-right text-md-center col-6 col-md-12">
+                                            ₦{{ item.get_total|floatformat:'2'|intcomma }}
+                                            <br>
+                                            <small>₦{{ item.product.price|floatformat:'2'|intcomma }} x
+                                                {{ item.quantity }}</small>
+                                        </b>
+                                    </div>
+                                </div>
+                                {% if i.order_status == "Delivered" %}
+                                <div class="d-md-block d-none badge badge-success text-center col-2">
+                                    {{ i.order_status }}
+                                </div>
+                                {% else %}
+                                <div class="d-md-block d-none badge badge-secondary text-center col-2">
+                                    {{ i.order_status }}
+                                </div>
+                                {% endif %}
+
+                                <hr>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+    {% endfor %}
+    {% else %}
+    <h5> Nothing to see here because you haven't purchased anything</h5>
+    {% endif %}
+
+</section>

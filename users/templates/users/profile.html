@@ -6,7 +6,8 @@
 {% block title %} MAMS | {{request.user}} profile {% endblock %}
 {% block name %} MAMS | {{request.user}} profile {% endblock %}
 {% block content %}
-<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="https://unpkg.com/htmx.org@1.5.0"></script>
+
 
 <section class="u-clearfix u-lightbox u-section-1" id="sec-16e0">
     <div class="u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
@@ -42,7 +43,7 @@
 
         <div class="row">
 
-            <div class="col-lg-9 mt-3">
+            <div class="col-lg-9 mt-3" id="user-orders">
                 <form action="{% url 'users_profile' %}" method="post">
                     {% csrf_token %}
                     {{ form | crispy }}
@@ -65,7 +66,7 @@
                         }
                     </style>
                 </form>
-
+                <br>
             </div>
             <br>
             <div class="col-lg-3 ">
@@ -73,13 +74,20 @@
                 <div class="box-element" style="background-color:#fff !important">
 
                     <a class="list-item my-1 text-dark text-decoration-none"
-                       href="#">
+                       href="{% url 'users_profile' %}">
                         <h6>Account Details</h6>
                         <hr>
                     </a>
                     <a class="list-item my-1 text-dark text-decoration-none"
-                       href="#">
+                       hx-get="{% url 'user_orders' %}" role="button"
+                                   hx-target="#user-orders">
                         <h6>Orders</h6>
+                        <hr>
+                    </a>
+                    <a class="list-item my-1 text-dark text-decoration-none"
+                       hx-get="{% url 'user_notifications' %}" role="button"
+                                   hx-target="#user-orders">
+                        <h6>Notifications</h6>
                         <hr>
                     </a>
                     <a class="list-item my-1 text-dark text-decoration-none"
