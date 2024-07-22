@@ -23,9 +23,14 @@ from .utils import total_cart_items
 
 
 def home_page(request):
+    if request.user.is_authenticated:
+        get_cart_items = total_cart_items(request)
+    else:
+        get_cart_items = 0
     categories = Category.getAllCategory()
     context = {
-        "categories": categories
+        "categories": categories,
+        "get_cart_items": get_cart_items,
     }
     return render(request, "products/home.html", context)
 
