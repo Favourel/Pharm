@@ -1,4 +1,6 @@
 {% load static %}
+
+{% if notification %}
 {% for i in notification %}
 {% if i.notification_type == 2 %}
 <div class="box-element">
@@ -26,3 +28,7 @@
 <br>
 {% endif %}
 {% endfor %}
+{% else %}
+<h5> Nothing to see here because you haven't purchased anything</h5>
+<br>
+{% endif %}

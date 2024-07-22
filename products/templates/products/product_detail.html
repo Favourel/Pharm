@@ -85,7 +85,7 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                             Home
                         </a>
                         {% if request.user.is_authenticated %}
-                        <a href="{% url 'products' %}"
+                        <a href="{% url 'users_profile' %}"
                            class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
                             Profile
                         </a>
@@ -205,7 +205,7 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
     <div class="u-clearfix u-sheet u-sheet-1"><!--product--><!--product_options_json--><!--{"source":"5"}-->
         <!--/product_options_json-->
         <div class="u-container-style u-expanded-width u-product u-product-1" data-products-datasource="site"
-             data-product-id="5">
+             data-product-id="{{ product.id}}">
             <div class="u-container-layout u-valign-top-sm u-container-layout-1"><!--product_image-->
                 <img alt=""
                      class="u-expanded-width-sm u-expanded-width-xs u-image u-image-contain u-image-default u-product-control lazyload u-image-1"
@@ -235,9 +235,8 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
                         </div><!--/product_content--><!--product_button--><!--options_json-->
                         <!--{"clickType":"buy-now","content":""}--><!--/options_json-->
                         <a href="#sec-e50a" onclick="addToCart('{{ product.id }}')"
-                           class="u-active-custom-color-5 u-btn u-button-style u-custom-color-3 u-hover-custom-color-5 u-product-control u-btn-1 u-dialog-link u-payment-button"
-                           data-product-button-click-type="buy-now" data-product-id="5"
-                           data-product="{&quot;id&quot;:&quot;5&quot;,&quot;name&quot;:&quot;flip-flops&quot;,&quot;title&quot;:&quot;Flip Flops&quot;,&quot;description&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;fullDescription&quot;:&quot;Sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.&quot;,&quot;price&quot;:&quot;7000&quot;,&quot;oldPrice&quot;:&quot;7000&quot;,&quot;quantity&quot;:1,&quot;currency&quot;:&quot;NGN&quot;,&quot;sku&quot;:&quot;&quot;,&quot;outOfStock&quot;:false,&quot;isFeatured&quot;:false,&quot;categories&quot;:[&quot;2&quot;],&quot;images&quot;:[{&quot;url&quot;:&quot;images/6f461f60.svg&quot;}],&quot;created&quot;:1720753868684,&quot;updated&quot;:1721033729099,&quot;isDefault&quot;:true,&quot;categoriesData&quot;:[{&quot;link&quot;:&quot;./products/products.html#/1///2&quot;,&quot;title&quot;:&quot;Shoes&quot;}]}">
+                           class="u-active-custom-color-5 u-btn u-button-style u-custom-color-3 u-hover-custom-color-5 u-product-control u-btn-1 u-dialog-link "
+                           data-product-button-click-type="buy-now" data-product-id="{{ product.id }}">
                             <!--product_button_content-->Add to Cart<!--/product_button_content--></a>
                         <!--/product_button-->
                     </div>
@@ -264,10 +263,10 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
                     </div>
                 </div><!--/product_quantity--><!--product_category-->
                 <div class="u-product-category u-product-control u-product-category-1"><a
-                        href="/products/?category_name={{ product.category.name }}" data-category="2">
+                        href="/products/?category_name={{ product.category.name }}" data-category="{{product.category.id}}">
                     {{product.category}}</a></div><!--/product_category-->
                 <!--product_tabs-->
-                <div class="u-expanded-width u-product-control u-tabs u-tabs-1">
+                <div style="margin-top: 1rem !important;" class="u-expanded-width u-product-control u-tabs u-tabs-1">
                     <ul class="u-tab-list u-unstyled" role="tablist"><!--product_tabitem-->
                         <li id="more" class="u-tab-item" role="presentation"><a
                                 class="active u-active-custom-color-3 u-button-style u-hover-custom-color-5 u-tab-link"
