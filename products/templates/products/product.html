@@ -113,6 +113,7 @@
                                 </h4><!--/product_title--><!--product_price-->
                                 <div class="u-align-center u-product-control u-product-price u-product-price-1"
                                      data-add-zero-cents="true">
+                                    <a href="{{product.get_absolute_url}}" class="text-decoration-none">
                                     <div class="u-price-wrapper u-spacing-10"><!--product_old_price-->
                                         <!--                            <div class="u-old-price" style="text-decoration: line-through !important;">₦{{product.price}}</div>-->
                                         <!--/product_old_price--><!--product_regular_price-->
@@ -120,7 +121,7 @@
                                              style="font-size: 1.25rem; font-weight: 700;">
                                             ₦{{product.price|floatformat:2|intcomma}}
                                         </div><!--/product_regular_price-->
-                                    </div>
+                                    </div></a>
                                 </div><!--/product_price--><!--product_button--><!--options_json-->
                                 <!--{"clickType":"buy-now","content":""}--><!--/options_json-->
                                 {% if request.user.is_authenticated %}
