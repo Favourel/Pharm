@@ -27,5 +27,9 @@ class UserAdmin(BaseUserAdmin):
     
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
-admin.site.register(Notification)
+# admin.site.register(Notification)
 admin.site.register(Prescription)
+
+admin.site.site_header = "MAMSPHARMACY Administration"
+admin.site.site_title = "MAMSPHARMACY Admin Portal"
+admin.site.index_title = "Welcome to Your MAMSPHARMACY Admin"

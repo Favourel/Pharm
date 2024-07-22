@@ -56,6 +56,11 @@ class ProductAdmin(admin.ModelAdmin):
     export_products.short_description = 'Download as csv'
 
 
+class ProductReviewAdmin(admin.ModelAdmin):
+    list_display = ["user", "product", "rating", "date_posted"]
+    list_per_page = 10
+
+
 class CheckoutAdmin(admin.ModelAdmin):
     list_display = ["user", "product", "quantity", "date_posted", "complete"]
     list_filter = ['date_posted', "complete", 'user']
@@ -73,5 +78,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(ProductReview, ProductReviewAdmin)
+
 admin.site.register(Checkout, CheckoutAdmin)
 admin.site.register(Order, OrderAdmin)

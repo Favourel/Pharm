@@ -56,6 +56,25 @@ class Product(models.Model):
         return total
 
 
+class ProductReview(models.Model):
+    RATING_TYPES = (
+        (1, "★☆☆☆☆ (1/5)"), (2, "★★☆☆☆ (2/5)"), (3, "★★★☆☆ (3/5)"),
+        (4, "★★★★☆ (4/5)"), (5, "★★★★★ (5/5)")
+    )
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
+    rating = models.IntegerField(choices=RATING_TYPES, null=True, blank=True)
+    message = models.TextField()
+    date_posted = models.DateTimeField(default=datetime.now)
+
+    class Meta:
+        ordering = ["-date_posted"]
+
+    def __str__(self):
+        return f'{self.user} review'
+
+
 class Checkout(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

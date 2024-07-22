@@ -1,0 +1,19 @@
+{% load static %}
+
+<script src="https://unpkg.com/htmx.org@1.4.1"></script>
+<link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
+<link rel="stylesheet" href="{% static 'css/ProductDetail.css' %}" media="screen">
+
+<script class="u-script" type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}" defer=""></script>
+<script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
+
+<form method="post" hx-post="{% url 'productReview' product.id %}"
+      style="padding: 10px;" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form"
+      hx-target="#reviews" hx-swap="innerHTML">
+    {% csrf_token %}
+    {{ form }}
+    <div class="u-align-left u-form-group u-form-submit">
+        <button type="submit" class="u-btn u-btn-submit u-button-style">Submit Review</button>
+    </div>
+</form>
+

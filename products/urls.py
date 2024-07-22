@@ -9,6 +9,8 @@ urlpatterns = [
     path('product/<uuid:pk>/', product_view.product_detail, name='product-detail'),
     path('product/<uuid:pk>/modal/', product_view.product_detail_modal, name='product_detail_modal'),
 
+    path("product/<uuid:pk>/review/", product_view.product_review, name="productReview"),
+
     path("search/", product_view.search_view, name="search"),
 
     path('add_to_cart/', product_view.add_to_cart, name='add_to_cart'),

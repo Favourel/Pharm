@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from statistics import mean
 
 import requests
 from django.conf import settings
@@ -11,8 +12,8 @@ from django.core.paginator import Paginator
 from django.db.models import Max, Q
 from django.views.decorators.csrf import csrf_exempt
 
-from .forms import CheckoutForm
-from .models import Category, Product, Checkout, Order
+from .forms import CheckoutForm, ReviewForm
+from .models import Category, Product, Checkout, Order, ProductReview
 from users.models import Notification
 from .filters import ProductPriceFilter
 from .utils import total_cart_items
@@ -141,6 +142,32 @@ def product_detail(request, pk):
         "get_cart_items": total_cart_items(request),
     }
     return render(request, "products/product_detail.html", context)
+
+
+@login_required
+def product_review(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.user = request.user
+            review.save()
+
+            ratings = [i.rating for i in product.productreview_set.all()]
+            product.rating_count = round(mean(ratings))
+            product.save()
+
+            # if request.htmx:
+            #     reviews = ProductReview.objects.filter(product=product).order_by('-created_at')
+            #     return render(request, 'products/partials/review_list.html', {'product': product, 'reviews': reviews})
+            #
+            return redirect('product-detail', pk=pk)
+    else:
+        form = ReviewForm()
+
+    return render(request, 'products/partials/review_form.html', {'form': form, 'product': product})
 
 
 def search_view(request):
