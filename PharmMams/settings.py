@@ -24,15 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = "LSF"
-# SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-#
-ALLOWED_HOSTS = ["127.0.0.1"]
-# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+# DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+
+# ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -196,8 +195,8 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-PAYSTACK_SECRET_KEY = "sk_test_563e1440d854e4922b211f4e35e06fdff2a4b83a"
-PAYSTACK_PUBLIC_KEY = "pk_test_465fe52c3bdbc91f47af7878f14b5e4107ead196"
+PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACK_SECRET_KEY")
+PAYSTACK_PUBLIC_KEY = os.environ.get("PAYSTACK_PUBLIC_KEY")
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dras52z6m',
