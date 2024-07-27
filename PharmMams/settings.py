@@ -11,24 +11,28 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import cloudinary_storage
+import cloudinary
+import cloudinary.api
+import cloudinary.uploader
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "LSF"
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-
-# ALLOWED_HOSTS = ["127.0.0.1"]
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+DEBUG = True
+# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+#
+ALLOWED_HOSTS = ["127.0.0.1"]
+# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -54,6 +58,8 @@ INSTALLED_APPS = [
 
     'django.contrib.humanize',
     "crispy_forms",
+    'cloudinary',
+    'cloudinary_storage',
 
 ]
 
@@ -91,7 +97,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'PharmMams.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -101,7 +106,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -121,7 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -132,7 +135,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -149,7 +151,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -159,7 +160,6 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "products"
 LOGOUT_REDIRECT_URL = "login"
-
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -196,5 +196,13 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACK_SECRET_KEY")
-PAYSTACK_PUBLIC_KEY = os.environ.get("PAYSTACK_PUBLIC_KEY")
+PAYSTACK_SECRET_KEY = "sk_test_563e1440d854e4922b211f4e35e06fdff2a4b83a"
+PAYSTACK_PUBLIC_KEY = "pk_test_465fe52c3bdbc91f47af7878f14b5e4107ead196"
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dras52z6m',
+    'API_KEY': '285112667345885',
+    'API_SECRET': 'QZL9vVTNQVnP2xpSchpWK-IOWhc',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

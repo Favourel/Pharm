@@ -44,15 +44,8 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
     <meta data-intl-tel-input-cdn-path="intlTelInput/">
 </head>
 <body id="reviews" data-path-to-root="./" data-include-products="true" class="u-body u-overlap u-xl-mode" data-lang="en">
-<link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'css/ProductDetail.css' %}" media="screen">
-
-    <script class="u-script" type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}" defer=""></script>
-    <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
-
-<header class="u-border-2 u-border-white u-clearfix u-header u-sticky u-sticky-190f u-white u-header"
-        id="sec-abaa">
-    <div  class="u-clearfix u-sheet u-sheet-1">
+<header class="u-border-2 u-border-white u-clearfix u-header u-sticky u-sticky-190f u-white u-header" id="sec-abaa">
+    <div class="u-clearfix u-sheet u-sheet-1">
         <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
             <div class="menu-collapse"
                  style="font-size: 1rem; letter-spacing: 0px; font-weight: 700; text-transform: uppercase;">
@@ -83,6 +76,14 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                         <a href="/"
                            class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
                             Home
+                        </a>
+                        <a href="{% url 'about' %}"
+                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
+                            About
+                        </a>
+                        <a href="{% url 'products' %}"
+                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
+                            All products
                         </a>
                         {% if request.user.is_authenticated %}
                         <a href="{% url 'users_profile' %}"
@@ -115,7 +116,7 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                            class="u-active-custom-color-6 u-border-2 u-border-hover-
                            palette-1-base u-border-palette-1-base u-btn u-btn-round
                            u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-btn-1" style="bottom-top">SIGN
+                           u-text-body-alt-color u-btn-1 " style="bottom-top">SIGN
                             UP </a>
                         {% endif %}
 
@@ -124,7 +125,7 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                 <div class="u-black u-menu-overlay u-opacity u-opacity-70" wfd-invisible="true"></div>
             </div>
         </nav>
-        <a href="#" class="u-image u-logo u-image-1">
+        <a href="/" class="u-image u-logo u-image-1">
             <img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1">
         </a>
         <div data-target="#kt_header_search_modal" type="button"
@@ -146,16 +147,16 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                 s-17-7.626-17-17S14.61,6,23.984,6z"></path>
             </svg>
         </div>
+        {% if request.user.is_authenticated %}
 
-
-        <span class="u-icon u-icon-2" data-href="users" style="color:#000 !important">
-            <a href="{% url 'users_profile' %}">
+        <span class="u-icon u-icon-2" data-href="users">
+            <a href="{% url 'users_profile' %}" style="color: black">
             <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 55 55" style="">
                 <use xlink:href="#svg-a21e"></use>
             </svg>
 
         <svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px"
-             id="svg-a21e" style="enable-background:new 0 0 55 55;color:#000 !important">
+             id="svg-a21e" style="enable-background:new 0 0 55 55;">
             <path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
 	c0.058,0.049,0.121,0.089,0.179,0.137c0.474,0.393,0.965,0.766,1.465,1.127c0.162,0.117,0.324,0.234,0.489,0.348
 	c0.534,0.368,1.082,0.717,1.642,1.048c0.122,0.072,0.245,0.142,0.368,0.212c0.613,0.349,1.239,0.678,1.88,0.98
@@ -173,7 +174,8 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
 	c0,1.101,0.494,2.128,1.34,2.821c0.81,3.173,2.477,5.575,3.093,6.389v2.894c0,0.816-0.445,1.566-1.162,1.958l-7.907,4.313
 	c-0.252,0.137-0.502,0.297-0.752,0.476C5.276,41.792,2,35.022,2,27.5z">
 
-            </path></svg></a></span>
+            </path></svg>
+            </a></span>
 
         <!--shopping_cart-->
 
@@ -194,6 +196,8 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                     <!--/shopping_cart_count--></span>
             </span>
         </a><!--/shopping_cart-->
+        {% else %}
+        {% endif %}
     </div>
     <style class="u-sticky-style" data-style-id="190f">.u-sticky-fixed.u-sticky-190f:before, .u-body.u-sticky-fixed .u-sticky-190f:before {
 borders: top right bottom left !important; border-color: #ffffff !important; border-width: 2px !important
@@ -234,10 +238,17 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
                             more </a>
                         </div><!--/product_content--><!--product_button--><!--options_json-->
                         <!--{"clickType":"buy-now","content":""}--><!--/options_json-->
+                        {% if request.user.is_authenticated %}
                         <a href="#sec-e50a" onclick="addToCart('{{ product.id }}')"
                            class="u-active-custom-color-5 u-btn u-button-style u-custom-color-3 u-hover-custom-color-5 u-product-control u-btn-1 u-dialog-link "
                            data-product-button-click-type="buy-now" data-product-id="{{ product.id }}">
                             <!--product_button_content-->Add to Cart<!--/product_button_content--></a>
+                        {% else %}
+                        <a href="{% url 'login' %}"
+                           class="u-active-custom-color-5 u-btn u-button-style u-custom-color-3 u-hover-custom-color-5 u-product-control u-btn-1 u-dialog-link "
+                           >
+                            <!--product_button_content-->Add to Cart<!--/product_button_content--></a>
+                        {% endif %}
                         <!--/product_button-->
                     </div>
                 </div><!--product_quantity-->
@@ -266,7 +277,7 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
                         href="/products/?category_name={{ product.category.name }}" data-category="{{product.category.id}}">
                     {{product.category}}</a></div><!--/product_category-->
                 <!--product_tabs-->
-                <div style="margin-top: 1rem !important;" class="u-expanded-width u-product-control u-tabs u-tabs-1">
+                <div class="u-expanded-width u-product-control u-tabs u-tabs-1">
                     <ul class="u-tab-list u-unstyled" role="tablist"><!--product_tabitem-->
                         <li id="more" class="u-tab-item" role="presentation"><a
                                 class="active u-active-custom-color-3 u-button-style u-hover-custom-color-5 u-tab-link"
@@ -460,7 +471,7 @@ background-color: #ffffff !important
             <div class="u-repeater u-repeater-1">
                 <div class="u-container-style u-list-item u-repeater-item">
                     <div class="u-container-layout u-similar-container u-container-layout-5">
-                        <p class="u-text u-text-default u-text-9">About</p>
+                        <p class="u-text u-text-default u-text-9"><a href="{% url 'about' %}">About</a></p>
                     </div>
                 </div>
                 <div class="u-container-style u-list-item u-repeater-item">
@@ -787,6 +798,41 @@ background-color: #ffffff !important
         </button>
     </div>
 </section>
+<a class="whatsapp shadow-lg rounded-circle" href="https://wa.me/+2348141686142">
+    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="
+    justify-content-center d-flex bi bi-whatsapp"
+         viewBox="0 0 16 16">
+        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+    </svg>
+</a>
+<style>
+    .whatsapp{
+        position:fixed;
+        border-radius: 50%;
+        box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+        right:1rem;
+        bottom:1rem;
+        display:flex;
+        width:4rem;
+        height:4rem;
+        color:#fff;
+
+        background:green;
+        padding: 8px;
+        justify-content:center;
+        align-items:center;
+    }
+    .whatsapp:focus,.whatsapp:hover{
+        color:#fff
+    }
+    .whatsapp:hover{
+        background:green;
+    }
+    .whatsapp i{
+        font-weight:800
+    }
+
+</style>
 <style>.u-dialog-section-7 .u-dialog-1 {
   width: 800px;
   min-height: 250px;

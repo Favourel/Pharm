@@ -119,7 +119,7 @@ def filter_products(request):
     return render(request, 'products/partials/product-list.html', {'products': products})
 
 
-@login_required
+# @login_required
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     categories = Category.getAllCategory()
@@ -128,23 +128,27 @@ def product_detail(request, pk):
     if 'recently_viewed_products' in request.session:
         recently_viewed_ids = request.session['recently_viewed_products']
         recently_viewed_products = Product.objects.filter(pk__in=recently_viewed_ids).exclude(pk=pk)
-
-    try:
-        cart_item = Checkout.objects.get(
-            user=request.user,
-            product=product,
-            complete=False,
-        )
-        cart_item_quantity = cart_item.quantity
-    except (Checkout.DoesNotExist):
-        cart_item_quantity = 1
+    if request.user.is_authenticated:
+        get_cart_items = total_cart_items(request)
+        try:
+            cart_item = Checkout.objects.get(
+                user=request.user,
+                product=product,
+                complete=False,
+            )
+            cart_item_quantity = cart_item.quantity
+        except (Checkout.DoesNotExist):
+            cart_item_quantity = 1
+    else:
+        cart_item_quantity = 0
+        get_cart_items = 0
 
     context = {
         "recently_viewed_products": recently_viewed_products,
         "product": product,
         "categories": categories,
         "cart_item_quantity": cart_item_quantity,
-        "get_cart_items": total_cart_items(request),
+        "get_cart_items": get_cart_items,
     }
     return render(request, "products/product_detail.html", context)
 
@@ -189,15 +193,16 @@ def search_view(request):
             # print(search_results)
             # context = {'query': query, 'search_results': search_results}
 
-            lookups_product = Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query)
+            lookups_product = (Q(name__icontains=query) | Q(description__icontains=query)
+                               | Q(category__name__icontains=query))
             result_product = Product.objects.filter(lookups_product).distinct()
             # check_out_list = Checkout.objects.filter(user=request.user, complete=False).order_by("-id")
             # get_cart_total = sum([item.get_total for item in check_out_list])
 
             categories = Category.getAllCategory()
 
-            maximum_price = Product.objects.filter(lookups_product).distinct().aggregate(Max("price"))
-            half_max_price = maximum_price["price__max"] / 2
+            # maximum_price = Product.objects.filter(lookups_product).distinct().aggregate(Max("price"))
+            # half_max_price = maximum_price["price__max"] / 2
 
             price_filter = ProductPriceFilter(request.GET, queryset=result_product)
             result_product = price_filter.qs
@@ -211,8 +216,8 @@ def search_view(request):
                 # "check_out_list": check_out_list,
                 # "get_cart_total": get_cart_total,
                 'submitbutton': submitbutton,
-                'half_max_price': half_max_price,
-                "maximum_price": maximum_price,
+                # 'half_max_price': half_max_price,
+                # "maximum_price": maximum_price,
 
                 "products": result_product,
                 "categories": categories,
@@ -233,6 +238,7 @@ def search_view(request):
     return render(request, "products/product.html", {})
 
 
+@login_required
 @csrf_exempt
 def add_to_cart(request):
     if request.method == 'POST':
@@ -398,6 +404,7 @@ def process_order(request):
     return JsonResponse({'message': 'Payment complete!', 'redirect': f'{order.get_absolute_url()}'}, safe=False)
 
 
+@login_required
 def product_detail_modal(request, pk):
     product = get_object_or_404(Product, id=pk)
     try:
@@ -417,3 +424,4 @@ def product_detail_modal(request, pk):
 
     return render(request, 'products/partials/product-detail.html',
                   context)
+

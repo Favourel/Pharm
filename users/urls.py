@@ -15,5 +15,9 @@ urlpatterns = [
     path("order-summary/<str:order_id>/", user_view.order_summary, name="order_summary"),
     path("users/user_notifications/", user_view.user_notifications, name="user_notifications"),
 
+    path('upload_prescription/', user_view.upload_prescription, name='upload_prescription'),
+
+    path("about/", user_view.about, name="about"),
+
     # path("offline/", user_view.offline, name="offline"),
 ]

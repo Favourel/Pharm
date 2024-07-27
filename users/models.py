@@ -39,7 +39,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=20, null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
-    picture_url = models.ImageField(default='2placeholder_test_b9l9NT5.png', upload_to='profile_images')
     address = models.CharField(max_length=255, null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -73,10 +72,13 @@ class Notification(models.Model):
 
 
 class Prescription(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE,
-                             )
+    # user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE,
+    #                          )
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField()
     text = models.TextField()
-    document = models.FileField(blank=True, null=True)
+    document = models.FileField(blank=True, null=True, upload_to='prescriptions/')
+    date_posted = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
-        return f"{self.user} prescription"
+        return f"Prescription by {self.full_name} at {self.date_posted}"

@@ -52,6 +52,7 @@
                 <div class="box-element" style="background-color:#fff !important" align="center">
                     <br>
                     <br>
+                    {% if similar_items %}
                     <h5><b>You may also like</b></h5>
                     <div class="row p-3">
                         {% for product in similar_items %}
@@ -97,6 +98,7 @@
                         {% endfor %}
 
                     </div>
+                    {% endif %}
                     <br>
                     <a href="{% url 'products' %}" style="letter-spacing: 0.2em; font-weight: bold;
                     text-transform: uppercase" class="btn btn-outline-blue">

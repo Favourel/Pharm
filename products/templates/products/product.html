@@ -1,5 +1,6 @@
 {% extends 'products/base.html' %}
 {% load static %}
+{% load cloudinary %}
 {% load humanize %}
 {% block title %} MAMS | Products {% endblock %}
 {% block name %} MAMS | Products {% endblock %}
@@ -102,14 +103,15 @@
                             <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
                                 <!--product_image-->
                                 <a class="u-product-title-link" href="{{product.get_absolute_url}}">
-                                    <img alt=""
+                                    <img alt="{{product.name|truncatewords:3}}"
                                          class="u-expanded-width u-image u-image-contain u-image-default
                              u-product-control lazyload u-image-1"
                                          data-src="{{product.image.url}}"
                                          src="{{product.image.url}}"></a>
                                 <!--/product_image--><!--product_title-->
                                 <h4 class="u-align-center u-product-control u-text u-text-default u-text-2">
-                                    <a class="u-product-title-link" href="{{product.get_absolute_url}}">{{product.name|truncatewords:3}}</a>
+                                    <a class="u-product-title-link" href="{{product.get_absolute_url}}">
+                                        {{product.name|truncatewords:3}}</a>
                                 </h4><!--/product_title--><!--product_price-->
                                 <div class="u-align-center u-product-control u-product-price u-product-price-1"
                                      data-add-zero-cents="true">

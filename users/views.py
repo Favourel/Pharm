@@ -1,16 +1,20 @@
 import datetime
+import os
 
+import cloudinary.uploader
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, FormView
 
 from products.models import Product, Order, Checkout, Category
 from products.utils import total_cart_items
-from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserUpdateForm
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserUpdateForm, PrescriptionUploadForm
 from .models import Notification
 
 
@@ -70,6 +74,7 @@ def users_profile(request):
 @login_required
 def order_summary(request, order_id):
     order = get_object_or_404(Order, transaction_id=order_id, user=request.user)
+    categories = Category.getAllCategory()
     # notification = Notification.objects.filter(user=request.user, is_seen=False).order_by("-id")[:10]
     # notification_count = Notification.objects.filter(user=request.user, is_seen=False).count()
 
@@ -84,6 +89,7 @@ def order_summary(request, order_id):
         # "notification_count": notification_count,
         'order': order,
         'similar_items': similar_items,
+        'categories': categories,
 
     }
     return render(request, 'users/order_summary.html', context)
@@ -114,6 +120,32 @@ def user_notifications(request):
                   {'notification': notification})
 
 
+@csrf_exempt
+def upload_prescription(request):
+    if request.method == 'POST':
+        form = PrescriptionUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'message': 'Upload successful'}, status=200)
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+    else:
+        form = PrescriptionUploadForm()
+    return render(request, 'users/partials/user_prescription.html', {'form': form})
+
+
 def error_404(request, exception):
     data = {}
     return render(request, 'users/error404.html', data)
+
+
+def about(request):
+    categories = Category.getAllCategory()
+    if request.user.is_authenticated:
+        get_cart_items = total_cart_items(request)
+    else:
+        get_cart_items = 0
+    return render(request, 'users/about.html', {
+        'categories': categories,
+        'get_cart_items': get_cart_items,
+    })

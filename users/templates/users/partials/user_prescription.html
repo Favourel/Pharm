@@ -1,0 +1,31 @@
+{% load static %}
+
+<script src="https://unpkg.com/htmx.org@1.4.1"></script>
+
+<form method="post"
+      enctype="multipart/form-data" hx-post="{% url 'upload_prescription' %}"
+      hx-swap="outerHTML" hx-on="htmx:afterRequest:resetForm"
+      style="padding: 10px;" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form"
+      >
+    {% csrf_token %}
+    {{ form }}
+    <br>
+    <div style="margin-left: 0 !important;" class=" u-form-group u-form-submit">
+        <br>
+        <button type="submit" class="u-btn u-btn-submit u-button-style">Submit</button>
+    </div>
+</form>
+
+<script>
+    document.addEventListener("htmx:afterRequest", function(event) {
+        if (event.detail.successful) {
+            const form = event.target;
+            const formElements = form.elements;
+            for (let i = 0; i < formElements.length; i++) {
+                if (formElements[i].type !== "submit" && formElements[i].type !== "hidden") {
+                    formElements[i].value = "";
+                }
+            }
+        }
+    });
+</script>
