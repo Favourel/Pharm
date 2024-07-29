@@ -15,7 +15,27 @@ import cloudinary_storage
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
+# sentry_sdk.init(
+#     dsn="your-dsn-url",  # Replace with your actual DSN from Sentry
+#     integrations=[DjangoIntegration()],
+#     traces_sample_rate=1.0,  # Adjust this value for performance monitoring
+#     send_default_pii=True  # Enable to send personally identifiable information
+# )
+# sentry_sdk.init(
+#     dsn="https://78d100ac3a1ba89116f32da22c131277@o4507685658361856.ingest.us.sentry.io/4507685669175296",
+#     # Set traces_sample_rate to 1.0 to capture 100%
+#     # of transactions for performance monitoring.
+#     integrations=[DjangoIntegration()],
+#     traces_sample_rate=1.0,
+#     # Set profiles_sample_rate to 1.0 to profile 100%
+#     # of sampled transactions.
+#     # We recommend adjusting this value in production.
+#     profiles_sample_rate=1.0,
+#     send_default_pii=True  # Enable to send personally identifiable information
+# )
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -145,8 +165,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-MEDIA_URL = '/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
@@ -184,7 +204,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_ADAPTER = 'users.adapters.MySocialAccountAdapter'
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
@@ -200,8 +220,39 @@ PAYSTACK_PUBLIC_KEY = os.environ.get("PAYSTACK_PUBLIC_KEY")
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dras52z6m',
-    'API_KEY': '285112667345885',
-    'API_SECRET': 'QZL9vVTNQVnP2xpSchpWK-IOWhc',
+    'API_KEY': '387971217745778',
+    'API_SECRET': 'XWFlT86C5R2QpJmv3c3cX1B88rI',
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_HOST_USER")
+SERVER_EMAIL = os.environ.get("EMAIL_HOST_USER")
+
+# Use HTTPS
+# SECURE_SSL_REDIRECT = True
+# SECURE_HSTS_SECONDS = 3600
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# X_FRAME_OPTIONS = 'DENY'
+#
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+#
+# # Content Security Policy
+# CSP_DEFAULT_SRC = ("'self'",)
+# CSP_SCRIPT_SRC = ("'self'", 'https://trusted.cdn.com')
+#
+# # CSRF Protection
+# CSRF_TRUSTED_ORIGINS = ['https://yourdomain.com']

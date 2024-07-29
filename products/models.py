@@ -28,8 +28,8 @@ class Product(models.Model):
     price = models.FloatField(default=0)
     description = RichTextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    # image = CloudinaryField('image')
-    image = models.ImageField(default='thumbnail-placeholder-500x334.jpg', upload_to='product_images')
+    image = CloudinaryField('image', default='thumbnail-placeholder-500x334.jpg')
+    # image = models.ImageField(default='thumbnail-placeholder-500x334.jpg', upload_to='product_images')
 
     rating_count = models.FloatField(default=0)
     product_purchase = models.IntegerField(default=0)

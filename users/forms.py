@@ -6,9 +6,10 @@ from .models import User, Prescription
 
 
 class CustomUserCreationForm(UserCreationForm):
+    first_name = forms.CharField(required=True)
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('email', 'first_name', )
 
 
 class CustomAuthenticationForm(AuthenticationForm):
@@ -30,7 +31,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 def validate_file_size(file):
-    max_size_kb = 20
+    max_size_kb = 10
     if file.size > max_size_kb * 1024:
         raise ValidationError(f"The maximum file size that can be uploaded is {max_size_kb}KB")
 
@@ -39,10 +40,10 @@ class PrescriptionUploadForm(forms.ModelForm):
     class Meta:
         model = Prescription
         fields = ['full_name', 'email', 'document']
-        widgets = {
-            'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
-            'document': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
-        }
+        # widgets = {
+        #     'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}),
+        #     'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+        #
+        # }
 
     document = forms.FileField(validators=[validate_file_size])

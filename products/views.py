@@ -153,7 +153,6 @@ def product_detail(request, pk):
     return render(request, "products/product_detail.html", context)
 
 
-@login_required
 def product_review(request, pk):
     product = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':

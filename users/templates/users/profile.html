@@ -50,9 +50,9 @@
                     <button id="submit" type="submit" class="u-active-custom-color-5 u-border-2 u-border-grey-dark-1 u-border-no-left
                            u-border-no-right u-border-no-top u-btn u-btn-rectangle u-btn-submit u-button-style
                            u-custom-color-3 u-hover-custom-color-5 u-btn-4">
-                                <div class="spinner-border text-light hidden" id="spinner" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
+                        <div class="spinner-border text-light hidden" id="spinner" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
 
                         <span id="button-text">SAVE CHANGES</span>
                     </button>
@@ -67,8 +67,64 @@
                     </style>
                 </form>
                 <br>
+                {% if products %}
+                <section
+                        class="u-align-center u-clearfix u-container-align-center-lg u-container-align-center-md u-container-align-center-sm u-container-align-center-xs u-section-2"
+                        id="carousel_3f3f">
+                    <div class="u-clearfix u-sheet u-sheet-1">
+                        <br>
+                        <br>
+                        <h3>Recommended Products</h3>
+                        <!--products--><!--products_options_json-->
+                        <!--{"type":"Recent","source":"","tags":"","count":""}-->
+                        <!--/products_options_json-->
+                        <div class="u-expanded-width u-products u-products-1" data-site-sorting-prop="created"
+                             data-site-sorting-order="desc" data-items-per-page="4" data-products-datasource="site"
+                             data-products-id="1">
+                            <div class="u-list-control"></div>
+                            <div class="u-repeater u-repeater-1">
+                                <!--product_item-->
+                                {% for product in products %}
+                                <div class="u-align-center u-container-align-center-md u-container-align-center-sm u-container-align-center-xs u-container-align-left-lg u-container-align-left-xl u-container-style u-products-item u-repeater-item"
+                                     data-product-id="4">
+                                    <div class="u-container-layout u-similar-container u-container-layout-1">
+                                        <!--product_image-->
+                                        <a class="u-product-title-link" href="{{product.get_absolute_url}}">
+                                            <img alt=""
+                                                 class="u-expanded-width u-image u-image-contain u-image-default u-product-control lazyload u-image-1"
+                                                 data-image-width="1900"
+                                                 data-image-height="2000"
+                                                 data-src="{{product.image.url}}"
+                                                 src="{{product.image.url}}">
+                                        </a>
+                                        <!--/product_image--><!--product_title-->
+                                        <h4 class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-product-control u-text u-text-2">
+                                            <a class="u-product-title-link text-truncate" href="{{product.get_absolute_url}}">{{product.name}}</a>
+                                        </h4><!--/product_title--><!--product_price-->
+                                        <div class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-product-control u-product-price u-product-price-1"
+                                             data-add-zero-cents="true">
+                                            <div class="u-price-wrapper u-spacing-10"><!--product_old_price-->
+                                                <div class="u-hide-price u-old-price"
+                                                     style=" text-decoration: line-through !important;">$25.00
+                                                </div><!--/product_old_price--><!--product_regular_price-->
+                                                <div class="u-price" style="font-size: 1.5rem; font-weight: 600;">
+                                                    ₦{{product.price}}
+                                                </div>
+                                                <!--/product_regular_price-->
+                                            </div>
+                                        </div><!--/product_price-->
+                                    </div>
+                                </div><!--/product_item--><!--product_item-->
+                                {% endfor %}
+                            </div>
+                            <div class="u-list-control"></div>
+                        </div><!--/products-->
+                    </div>
+                </section>
+                {% endif %}
             </div>
             <br>
+
             <div class="col-lg-3 ">
                 <!--            <div class="sticky-top" style="top: 9px">-->
                 <div class="box-element" style="background-color:#fff !important">
@@ -80,13 +136,13 @@
                     </a>
                     <a class="list-item my-1 text-dark text-decoration-none"
                        hx-get="{% url 'user_orders' %}" role="button"
-                                   hx-target="#user-orders">
+                       hx-target="#user-orders">
                         <h6>Orders</h6>
                         <hr>
                     </a>
                     <a class="list-item my-1 text-dark text-decoration-none"
                        hx-get="{% url 'user_notifications' %}" role="button"
-                                   hx-target="#user-orders">
+                       hx-target="#user-orders">
                         <h6>Notifications</h6>
                         <hr>
                     </a>

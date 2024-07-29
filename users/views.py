@@ -2,6 +2,7 @@ import datetime
 import os
 
 import cloudinary.uploader
+import requests
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -9,11 +10,13 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, FormView
 
 from products.models import Product, Order, Checkout, Category
-from products.utils import total_cart_items
+from products.recommendation import get_recommendations
+from products.utils import total_cart_items, throttle
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserUpdateForm, PrescriptionUploadForm
 from .models import Notification
 
@@ -25,11 +28,19 @@ class SignUpView(CreateView):
     template_name = 'users/signup.html'
     success_url = reverse_lazy('login')
 
+    @method_decorator(throttle(rate=5, period=60))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
 
 class SignInView(FormView):
     form_class = CustomAuthenticationForm
     template_name = 'users/login.html'
     success_url = reverse_lazy('products')
+
+    @method_decorator(throttle(rate=5, period=60))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         email = form.cleaned_data.get('username')  # 'username' field holds the email
@@ -45,6 +56,9 @@ class SignInView(FormView):
 @login_required
 def users_profile(request):
     categories = Category.getAllCategory()
+    recommendations = get_recommendations(request.user.id)
+    products = [product.name for product in recommendations]
+
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, instance=request.user)
 
@@ -67,6 +81,7 @@ def users_profile(request):
         'form': form,
         'categories': categories,
         "now": datetime.datetime.now().hour,
+        "products": products
     }
     return render(request, 'users/profile.html', context)
 
@@ -126,9 +141,12 @@ def upload_prescription(request):
         form = PrescriptionUploadForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return JsonResponse({'message': 'Upload successful'}, status=200)
+            # return redirect("home")
+            return JsonResponse({'success': True, 'message': 'File uploaded successfully.'})
         else:
-            return JsonResponse({'errors': form.errors}, status=400)
+            errors = dict(form.errors)
+        return JsonResponse({'failure': True, 'errors': errors["document"][0]})
+
     else:
         form = PrescriptionUploadForm()
     return render(request, 'users/partials/user_prescription.html', {'form': form})
@@ -139,13 +157,22 @@ def error_404(request, exception):
     return render(request, 'users/error404.html', data)
 
 
+def handler500(request):
+    return render(request, 'users/error404.html', status=500)
+
+
 def about(request):
     categories = Category.getAllCategory()
+
     if request.user.is_authenticated:
         get_cart_items = total_cart_items(request)
     else:
         get_cart_items = 0
-    return render(request, 'users/about.html', {
+    return render(request, 'users/About.html', {
         'categories': categories,
         'get_cart_items': get_cart_items,
     })
+
+
+def disabled_view(request):
+    return render(request, 'users/error404.html')

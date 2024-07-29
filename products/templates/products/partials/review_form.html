@@ -12,8 +12,14 @@
       hx-target="#reviews" hx-swap="innerHTML">
     {% csrf_token %}
     {{ form }}
+    {% if request.user.is_authenticated %}
     <div class="u-align-left u-form-group u-form-submit">
         <button type="submit" class="u-btn u-btn-submit u-button-style">Submit Review</button>
     </div>
+    {% else %}
+    <div class="u-align-left u-form-group u-form-submit">
+        <a href="{% url 'login' %}" class="u-btn u-btn-submit u-button-style">Submit Review</a>
+    </div>
+    {% endif %}
 </form>
 

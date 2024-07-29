@@ -1,31 +1,53 @@
 {% load static %}
-
-<script src="https://unpkg.com/htmx.org@1.4.1"></script>
+{% load crispy_forms_tags %}
+<script src="https://unpkg.com/htmx.org@1.6.1"></script>
 
 <form method="post"
-      enctype="multipart/form-data" hx-post="{% url 'upload_prescription' %}"
-      hx-swap="outerHTML" hx-on="htmx:afterRequest:resetForm"
+      id="upload-form"
+
+      action="{% url 'upload_prescription' %}"
+
       style="padding: 10px;" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form"
-      >
+      enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form }}
+    {{ form|crispy }}
+    <small>The maximum file size that can be uploaded is 10KB</small>
     <br>
     <div style="margin-left: 0 !important;" class=" u-form-group u-form-submit">
         <br>
         <button type="submit" class="u-btn u-btn-submit u-button-style">Submit</button>
     </div>
+    <div id="alert-container"></div>
 </form>
 
 <script>
-    document.addEventListener("htmx:afterRequest", function(event) {
-        if (event.detail.successful) {
-            const form = event.target;
-            const formElements = form.elements;
-            for (let i = 0; i < formElements.length; i++) {
-                if (formElements[i].type !== "submit" && formElements[i].type !== "hidden") {
-                    formElements[i].value = "";
-                }
+    document.getElementById('upload-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let form = event.target;
+        let formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);  // Debugging: check the data received
+            let alertContainer = document.getElementById('alert-container');
+            if (data.success) {
+                alertContainer.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+                form.reset();
+            } else if (data.failure) {
+
+                alertContainer.innerHTML = `<div class="alert alert-danger">${data.errors}</div>`;
+                //let errors = JSON.parse(data.errors);
+                //let errorMessage = errors.file[0].message;
+
             }
-        }
+        })
+        .catch(error => console.error('Error:', error));
     });
 </script>

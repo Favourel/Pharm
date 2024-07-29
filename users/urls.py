@@ -3,7 +3,6 @@ from . import views as user_view
 from users.middlewares.auth import LogoutCheckMiddleware
 from django.contrib.auth import views as auth_view
 
-
 urlpatterns = [
     path('signup/', user_view.SignUpView.as_view(), name='signup'),
     path('login/', LogoutCheckMiddleware(user_view.SignInView.as_view()), name='login'),
@@ -19,5 +18,23 @@ urlpatterns = [
 
     path("about/", user_view.about, name="about"),
 
+    path("password/reset/", auth_view.PasswordResetView.as_view(
+        template_name='users/password_reset.html'), name='password_reset'),
+    path("password/reset/done/", auth_view.PasswordResetDoneView.as_view(
+        template_name='users/password_reset_done.html'), name='password_reset_done'),
+    path('password/reset/key/<uidb64>/<token>/',
+         auth_view.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'),
+         name='password_reset_confirm'),
+    path('password/reset/key/done/',
+         auth_view.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
+         name='password_reset_complete'),
+
     # path("offline/", user_view.offline, name="offline"),
+    path('password/change/', user_view.disabled_view, name='account_change_password'),
+    path('email/', user_view.disabled_view, name='account_email'),
+    path('inactive/', user_view.disabled_view, name='account_inactive'),
+    path('reauthenticate/', user_view.disabled_view, name='account_inactive'),
+    path('confirm-email/', user_view.disabled_view, name='account_email_verification_sent'),
+    path('3rdparty/', user_view.disabled_view),
+
 ]

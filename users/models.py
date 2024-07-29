@@ -1,7 +1,10 @@
 from datetime import datetime
 
+from cloudinary.models import CloudinaryField
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser, PermissionsMixin
 
@@ -71,13 +74,22 @@ class Notification(models.Model):
         return f'{self.user} notification'
 
 
+def validate_file_size(file):
+    max_size_kb = 10  # Update the limit to 10KB
+    if file.size > max_size_kb * 1024:
+        raise ValidationError(f"The maximum file size that can be uploaded is {max_size_kb}KB")
+
+
 class Prescription(models.Model):
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE,
     #                          )
     full_name = models.CharField(max_length=100)
     email = models.EmailField()
     text = models.TextField()
-    document = models.FileField(blank=True, null=True, upload_to='prescriptions/')
+    # document = models.FileField(blank=True, null=True, upload_to='prescriptions', validators=[validate_file_size])
+    # document = CloudinaryField('document')
+    document = models.FileField(storage=RawMediaCloudinaryStorage(), validators=[validate_file_size])
+
     date_posted = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
