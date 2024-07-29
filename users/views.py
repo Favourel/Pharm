@@ -168,7 +168,7 @@ def about(request):
         get_cart_items = total_cart_items(request)
     else:
         get_cart_items = 0
-    return render(request, 'users/About.html', {
+    return render(request, 'users/about.html', {
         'categories': categories,
         'get_cart_items': get_cart_items,
     })
