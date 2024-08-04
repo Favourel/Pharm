@@ -9,7 +9,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Max, Q
+from django.db.models import Max, Q, Sum
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import CheckoutForm, ReviewForm
@@ -256,7 +256,12 @@ def add_to_cart(request):
                 )
                 cart_item.quantity = quantity
                 cart_item.save()
-                return JsonResponse({'success': True, 'message': f'{product.name} (x{quantity}) added to cart.'})
+
+                total_quantity = Checkout.objects.filter(user=request.user, complete=False).aggregate(Sum('quantity'))[
+                                     'quantity__sum'] or 0
+
+                return JsonResponse({'success': True, 'message': f'{product.name} (x{quantity}) added to cart.',
+                                     "total_quantity": total_quantity})
             else:
                 return JsonResponse({'success': False, 'error': 'Invalid data'})
         except json.JSONDecodeError as e:

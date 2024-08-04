@@ -61,72 +61,73 @@ background-color: #ffffff !important
 </style>
 
 
-<footer class="u-align-center u-clearfix u-footer u-white-80 u-footer bg-secondary text-light" id="sec-7bae">
+<footer class="u-clearfix u-footer u-grey-70" id="sec-7bae" style="background-color: #003952 !important">
     <div class="u-clearfix u-sheet u-sheet-1">
-        <div class="container justify-content-between py-2 ">
-            <div class="row pt-5 mt-8">
-                <div class="col-lg-9">
-                    <div class="row">
-                        <div class="col-md-5 col-sm-6">
-                            <h3 style="color:#004d6e" class="font-weight-light">MAMS Pharmacy</h3>
-                            <p>
-                                Your Health, Our Priority.
-                            </p>
+        <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-30 u-layout-wrap u-layout-wrap-1">
+            <div class="u-gutter-0 u-layout">
+                <div class="u-layout-row">
+                    <div class="u-align-left u-container-style u-layout-cell u-left-cell u-size-15 u-layout-cell-1">
+                        <div class="u-container-layout u-valign-bottom-xs u-container-layout-1">
+                            <a href="#" class="u-image u-logo u-image-1" data-image-width="80" data-image-height="40">
+                                <img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1">
+                            </a>
+                            <p class="u-text u-text-1">Your Health, Our Priority.</p>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <h3 class="font-weight-light"> Categories</h3>
-                            <br>
+                    </div>
+                    <div class="u-container-style u-layout-cell u-size-13 u-layout-cell-2">
+                        <div class="u-container-layout u-valign-bottom-xs u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-2">
+                            <h3 class="u-text u-text-2">Categories</h3>
                             {% for category in categories %}
-                            <p>{{ category }}</p>
+                            <p class="u-text u-text-3">{{ category }}</p>
                             {% endfor %}
                         </div>
-                        <br>
-                        <div class="col-md-3 col-sm-6">
-                            <h3 class="font-weight-light">Services</h3>
-                            <br>
-                            <p>Online purchase</p>
-                            <p>Swift delivery service</p>
-                            <p>Secure online payment</p>
-                            <p>Chat on WhatsApp</p>
-                        </div>
-                        <br>
                     </div>
-
-                </div>
-
-                <div class="col-md-3 border-1">
-                    <div class="widget pb-2">
-                        <a href="tel:2348141686142" style="color:#003952" class="text-decoration-none">
-                            <h3 class="font-weight-light pb-1">
-                                (234) 814-168-6142
+                    <div class="u-container-style u-layout-cell u-size-12 u-layout-cell-3">
+                        <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-3">
+                            <h3 class="u-text u-text-4">Services</h3>
+                            <p class="u-text u-text-5">Online purchase</p>
+                            <p class="u-text u-text-5">Swift delivery service</p>
+                            <p class="u-text u-text-5">Secure online payment</p>
+                            <p class="u-text u-text-5">Chat on WhatsApp</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-layout-cell u-right-cell u-size-20 u-layout-cell-4">
+                        <div class="u-container-layout u-valign-top u-container-layout-4">
+                            <h3 class="u-text u-text-6">
+                                <a style="color: white !important" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
+                                   href="tel:(234) 814-168-6142"> (234) 814-168-6142</a>
                             </h3>
-                        </a>
-                        <p>Monday–Friday: 9:00am – 6:00pm
-                            Saturday–Sunday: 9:00am – 4:00pm</p>
-                        <br>
-                        <p>
-                            No 1 akinbo street Tolu road ajegunle bondary,
-                            Lagos, Nigeria.
-
-                            117 orodu Street ajegunle boundary, Lagos, Nigeria.
-                        </p>
-                        <br>
-                        <a style="color:#003952" class="text-decoration-none"
-                           href="mailto:mamspharm@gmail.com">
-                            mamspharm@gmail.com</a>
-
+                            <p class="u-text u-text-7"> Monday–Friday: 9:00am – 6:00pm Saturday–Sunday: 9:00am –
+                                4:00pm<br>No 1 akinbo street Tolu road ajegunle bondary, Lagos, Nigeria. 117 orodu
+                                Street ajegunle boundary, Lagos, Nigeria.
+                                <br>
+                                <br>
+                            </p>
+                            <br>
+                            <p class="u-text u-text-8">
+                                <a style="color: white !important" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
+                                   href="mailto:mamspharm@gmail.com?subject=Contact">
+                                    mamspharm@gmail.com</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <ul class="list-inline font-size-sm mb-2 py-4 mb-md-0 order-md-2">
-                <hr>
-                <li class="list-inline-item nav-item my-1"><a class="text-decoration-none nav-item"
-                                                              href="{% url 'about' %}">About</a></li>
-                <li class="list-inline-item my-1"><a class="text-decoration-none" href="#">Terms &amp; Conditions</a>
-                </li>
-                <br>
-            </ul>
-
+        </div>
+        <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
+        <div class="u-expanded-width-xs u-list u-list-1">
+            <div class="u-repeater u-repeater-1">
+                <div class="u-container-style u-list-item u-repeater-item">
+                    <div class="u-container-layout u-similar-container u-container-layout-5">
+                        <p class="u-text u-text-default u-text-9"><a href="{% url 'about' %}">About</a></p>
+                    </div>
+                </div>
+                <div class="u-container-style u-list-item u-repeater-item">
+                    <div class="u-container-layout u-similar-container u-container-layout-6">
+                        <p class="u-text u-text-default u-text-10">Terms &amp; Conditions</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </footer>

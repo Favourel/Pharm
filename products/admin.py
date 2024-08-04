@@ -29,7 +29,7 @@ class ProductAdmin(admin.ModelAdmin):
             return HttpResponseRedirect(request.get_full_path())
 
         return render(request,
-                      'products/test.html',
+                      'products/operation.html',
                       context={'products': queryset})
 
     apply_discount.short_description = 'Apply 10%% discount'

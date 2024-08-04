@@ -17,6 +17,7 @@ import cloudinary.api
 import cloudinary.uploader
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+import dj_database_url
 
 # sentry_sdk.init(
 #     dsn="your-dsn-url",  # Replace with your actual DSN from Sentry
@@ -50,7 +51,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # DEBUG = True
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-# ALLOWED_HOSTS = ["127.0.0.1"]
+# ALLOWED_HOSTS = ["*"]
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
@@ -125,6 +126,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# POSTGRES_LOCALLY = False
+# if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
+# DATABASES['default'] = dj_database_url.parse(env("DATABASE_URL"))
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -231,11 +236,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+# EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_HOST_USER")
-SERVER_EMAIL = os.environ.get("EMAIL_HOST_USER")
+# DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_HOST_USER")
+# SERVER_EMAIL = os.environ.get("EMAIL_HOST_USER")
 
 # Use HTTPS
 # SECURE_SSL_REDIRECT = True
