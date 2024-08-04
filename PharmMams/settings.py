@@ -48,10 +48,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+DEBUG = True
+# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ["mamspharm.onrender.com", "localhost", "127.0.0.1", "pharm-production.up.railway.app"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "pharm-production.up.railway.app", "mamspharm.onrender.com",]
 
 
 # Application definition
@@ -255,8 +255,8 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 #
 # # Content Security Policy
-# CSP_DEFAULT_SRC = ("'self'",)
+# CSP_DEFAULT_SRC = ("'self'")
 # CSP_SCRIPT_SRC = ("'self'", 'https://trusted.cdn.com')
 #
 # CSRF Protection
-CSRF_TRUSTED_ORIGINS = ['https://pharm-production.up.railway.app/']
+# CSRF_TRUSTED_ORIGINS = ['https://pharm-production.up.railway.app/']
