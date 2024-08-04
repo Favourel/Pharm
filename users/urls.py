@@ -29,7 +29,6 @@ urlpatterns = [
          auth_view.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
          name='password_reset_complete'),
 
-    path("offline/", user_view.offline, name="offline"),
     path('password/change/', user_view.disabled_view, name='account_change_password'),
     path('email/', user_view.disabled_view, name='account_email'),
     path('inactive/', user_view.disabled_view, name='account_inactive'),
