@@ -51,7 +51,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # DEBUG = True
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ["mamspharm.onrender.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["mamspharm.onrender.com", "localhost", "127.0.0.1", "pharm-production.up.railway.app"]
 
 
 # Application definition
@@ -258,5 +258,5 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 # CSP_DEFAULT_SRC = ("'self'",)
 # CSP_SCRIPT_SRC = ("'self'", 'https://trusted.cdn.com')
 #
-# # CSRF Protection
-# CSRF_TRUSTED_ORIGINS = ['https://yourdomain.com']
+# CSRF Protection
+CSRF_TRUSTED_ORIGINS = ['https://pharm-production.up.railway.app/']
