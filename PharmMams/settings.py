@@ -48,11 +48,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+# DEBUG = True
+DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "pharm-production.up.railway.app", "mamspharm.onrender.com",]
-
 
 # Application definition
 
@@ -242,21 +241,25 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 # SERVER_EMAIL = os.environ.get("EMAIL_HOST_USER")
 
 # Use HTTPS
-# SECURE_SSL_REDIRECT = True
-# SECURE_HSTS_SECONDS = 3600
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# X_FRAME_OPTIONS = 'DENY'
-#
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-#
-# # Content Security Policy
-# CSP_DEFAULT_SRC = ("'self'")
-# CSP_SCRIPT_SRC = ("'self'", 'https://trusted.cdn.com')
-#
+SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = False
+SECURE_HSTS_SECONDS = 15768000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
+# CSRF_COOKIE_SECURE = False
+# SESSION_COOKIE_SECURE = False
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Content Security Policy
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'https://code.jquery.com', 'https://trusted.cdn.com')
+
+
 # CSRF Protection
-# CSRF_TRUSTED_ORIGINS = ['https://pharm-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://pharm-production.up.railway.app/']
