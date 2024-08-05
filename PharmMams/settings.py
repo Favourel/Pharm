@@ -262,4 +262,4 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
 
 # CSRF Protection
-CSRF_TRUSTED_ORIGINS = ['https://pharm-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://pharm-production.up.railway.app']
