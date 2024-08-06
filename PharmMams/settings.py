@@ -243,7 +243,7 @@ CLOUDINARY_STORAGE = {
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -255,6 +255,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Server Email (for error notifications)
 SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_BACKEND = 'users.email_config.CustomEmailBackend'
 
 # Use HTTPS
 # Ensure that SSL redirect is enabled in production
