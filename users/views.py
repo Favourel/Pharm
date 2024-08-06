@@ -19,6 +19,7 @@ from products.recommendation import get_recommendations
 from products.utils import total_cart_items, throttle
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserUpdateForm, PrescriptionUploadForm
 from .models import Notification
+from django.contrib.auth import views as auth_views
 
 
 # Create your views here.
@@ -33,7 +34,7 @@ class SignUpView(CreateView):
         return super().dispatch(*args, **kwargs)
 
 
-class SignInView(FormView):
+class CustomLoginView(auth_views.LoginView):
     form_class = CustomAuthenticationForm
     template_name = 'users/login.html'
     success_url = reverse_lazy('products')
@@ -42,15 +43,15 @@ class SignInView(FormView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
-    def form_valid(self, form):
-        email = form.cleaned_data.get('username')  # 'username' field holds the email
-        password = form.cleaned_data.get('password')
-        user = authenticate(self.request, username=email, password=password)
-        if user is not None:
-            login(self.request, user)
-            return redirect('products')
-        else:
-            return self.form_invalid(form)
+    # def form_valid(self, form):
+    #     email = form.cleaned_data.get('username')  # 'username' field holds the email
+    #     password = form.cleaned_data.get('password')
+    #     user = authenticate(self.request, username=email, password=password)
+    #     if user is not None:
+    #         login(self.request, user)
+    #         return redirect('products')
+    #     else:
+    #         return self.form_invalid(form)
 
 
 @login_required

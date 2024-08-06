@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime
 from statistics import mean
 
@@ -45,7 +46,7 @@ def products_view(request):
         price_filter = ProductPriceFilter(request.GET, queryset=queryset)
         return price_filter.qs, price_filter
 
-    def get_paginated_products(queryset, page_size=10):
+    def get_paginated_products(queryset, page_size=20):
         paginator = Paginator(queryset, page_size)
         page_number = request.GET.get('page')
         return paginator.get_page(page_number)
@@ -355,7 +356,9 @@ def checkout(request):
         "get_cart_total": get_cart_total,
         # "get_shipping_fee": get_shipping_fee,
         "get_cart_items": total_cart_items(request),
-        "paystack_public_key": settings.PAYSTACK_PUBLIC_KEY
+        "paystack_public_key": settings.PAYSTACK_PUBLIC_KEY,
+        "ALGOLIA_APP_ID": os.environ.get("ALGOLIA_APP_ID"),
+        "ALGOLIA_API_KEY": os.environ.get("ALGOLIA_API_KEY")
     }
     return render(request, "products/checkout.html", context)
 

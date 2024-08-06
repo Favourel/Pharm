@@ -7,6 +7,7 @@ from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser, PermissionsMixin
+from django_recaptcha.fields import ReCaptchaField
 
 from products.models import Checkout
 
@@ -89,7 +90,7 @@ class Prescription(models.Model):
     # document = models.FileField(blank=True, null=True, upload_to='prescriptions', validators=[validate_file_size])
     # document = CloudinaryField('document')
     document = models.FileField(storage=RawMediaCloudinaryStorage(), validators=[validate_file_size])
-
+    captcha = ReCaptchaField()
     date_posted = models.DateTimeField(default=datetime.now)
 
     def __str__(self):

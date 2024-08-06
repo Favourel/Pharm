@@ -12,6 +12,9 @@
       hx-target="#reviews" hx-swap="innerHTML">
     {% csrf_token %}
     {{ form }}
+    {% for error in form.captcha.error %}
+    <p>{{ error }}</p>
+    {% endfor %}
     {% if request.user.is_authenticated %}
     <div class="u-align-left u-form-group u-form-submit">
         <button type="submit" class="u-btn u-btn-submit u-button-style">Submit Review</button>

@@ -5,7 +5,9 @@ from django.contrib.auth import views as auth_view
 
 urlpatterns = [
     path('signup/', user_view.SignUpView.as_view(), name='signup'),
-    path('login/', LogoutCheckMiddleware(user_view.SignInView.as_view()), name='login'),
+    # path('login/', LogoutCheckMiddleware(user_view.SignInView.as_view()), name='login'),
+    path("login/", LogoutCheckMiddleware(auth_view.LoginView.as_view(template_name="users/login.html")), name="login"),
+
     path("logout/", auth_view.LogoutView.as_view(), name="logout"),
 
     # path("update_notification/", user_view.update_notification, name="update_notification"),

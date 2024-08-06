@@ -3,13 +3,13 @@
 {% load humanize %}
 
 {% load crispy_forms_tags %}
-{% block title %} MAMS | Cart & Checkout {% endblock %}
-{% block name %} MAMS | Cart & Checkout {% endblock %}
+{% block title %} MAMSPharmacy | Cart & Checkout {% endblock %}
+{% block name %} MAMSPharmacy | Cart & Checkout {% endblock %}
 {% block content %}
 <script src="https://js.paystack.co/v1/inline.js"></script>
 
 <section class="u-clearfix u-lightbox u-section-1" id="sec-16e0">
-    <div class="u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
+    <div class="py-5 u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
         <div class="u-container-layout u-valign-middle u-container-layout-1">
             <h3 class="u-text u-text-default u-text-1">
                 Cart & Checkout</h3>
@@ -308,6 +308,25 @@
     </div><!--/products-->
 
 </section>
+
+<!-- Include the Algolia Places JavaScript library -->
+<script src="https://cdn.jsdelivr.net/npm/places.js@1.19.2/dist/cdn/places.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var input = document.getElementById('div_id_address');
+        var places = window.places({
+            appId: '{{ ALGOLIA_APP_ID }}',
+            apiKey: '{{ ALGOLIA_API_KEY }}',
+            container: input,
+            countries: ['NG'] // Restrict to Nigeria
+        });
+
+        places.on('change', function (e) {
+            // You can handle additional fields from the e.suggestion object if needed
+            console.log(e.suggestion);
+        });
+    });
+</script>
 
 <style>
     .hide {

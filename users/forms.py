@@ -1,24 +1,25 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
+from django_recaptcha.fields import ReCaptchaField
 
 from .models import User, Prescription
 
 
 class CustomUserCreationForm(UserCreationForm):
     first_name = forms.CharField(required=True)
+    captcha = ReCaptchaField()
+
     class Meta:
         model = User
-        fields = ('email', 'first_name', )
+        fields = ('email', 'first_name', 'password1', 'password2', 'captcha')
 
 
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.EmailField(widget=forms.EmailInput(attrs={'autofocus': True}))
-    password = forms.CharField(
-        label="Password",
-        strip=False,
-        widget=forms.PasswordInput,
-    )
+    captcha = ReCaptchaField()
+
+    class Meta:
+        fields = ['email', 'password', 'captcha']
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -37,6 +38,7 @@ def validate_file_size(file):
 
 
 class PrescriptionUploadForm(forms.ModelForm):
+
     class Meta:
         model = Prescription
         fields = ['full_name', 'email', 'document']
@@ -47,3 +49,4 @@ class PrescriptionUploadForm(forms.ModelForm):
         # }
 
     document = forms.FileField(validators=[validate_file_size])
+    captcha = ReCaptchaField()

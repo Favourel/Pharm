@@ -11,6 +11,9 @@
       enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
+    {% for error in form.captcha.error %}
+    <p>{{ error }}</p>
+    {% endfor %}
     <small>The maximum file size that can be uploaded is 10KB</small>
     <br>
     <div style="margin-left: 0 !important;" class=" u-form-group u-form-submit">

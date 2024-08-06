@@ -5,6 +5,7 @@ import uuid
 from django.urls import reverse
 from django.conf import settings
 from ckeditor.fields import RichTextField
+from django_recaptcha.fields import ReCaptchaField
 
 
 # Create your models here.
@@ -68,6 +69,7 @@ class ProductReview(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
     rating = models.IntegerField(choices=RATING_TYPES, null=True, blank=True)
     message = models.TextField()
+    captcha = ReCaptchaField()
     date_posted = models.DateTimeField(default=datetime.now)
 
     class Meta:

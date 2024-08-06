@@ -18,6 +18,9 @@ import cloudinary.uploader
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # sentry_sdk.init(
 #     dsn="your-dsn-url",  # Replace with your actual DSN from Sentry
@@ -51,17 +54,18 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # DEBUG = True
 DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", 'https://mamspharmacy.com', "mamspharmacy.com", "pharm-production.up.railway.app", "mamspharm.onrender.com",]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", 'https://mamspharmacy.com', "mamspharmacy.com",
+                 "pharm-production.up.railway.app", "mamspharm.onrender.com", ]
 # CSRF Protection
 CSRF_TRUSTED_ORIGINS = ['https://mamspharmacy.com', 'https://pharm-production.up.railway.app']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
 
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
@@ -80,6 +84,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     'cloudinary',
     'cloudinary_storage',
+    'django_recaptcha',
 
 ]
 
@@ -94,7 +99,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'products.middlewares.viewedproducts.RecentlyViewedProductsMiddleware',
-    "allauth.account.middleware.AccountMiddleware",
+    # "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'PharmMams.urls'
@@ -126,10 +131,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# POSTGRES_LOCALLY = False
-# if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
-# DATABASES['default'] = dj_database_url.parse(env("DATABASE_URL"))
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': "railway",
+#         'USER': "postgres",
+#         'PASSWORD': os.environ.get("DB_PASSWORD_MMP"),
+#         'HOST': os.environ.get("DB_HOST"),
+#         'PORT': os.environ.get("DB_PORT", '5432'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -185,12 +196,12 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "products"
 LOGOUT_REDIRECT_URL = "login"
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# )
 
-SITE_ID = 1
+# SITE_ID = 1
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
@@ -198,17 +209,17 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {
-        "SCOPE": ["profile", "email"],
-        "AUTH_PARAMS": {
-            "access_type": "online",
-        }
-    }
-}
-
-SOCIALACCOUNT_LOGIN_ON_GET = True
-SOCIALACCOUNT_ADAPTER = 'users.adapters.MySocialAccountAdapter'
+# SOCIALACCOUNT_PROVIDERS = {
+#     "google": {
+#         "SCOPE": ["profile", "email"],
+#         "AUTH_PARAMS": {
+#             "access_type": "online",
+#         }
+#     }
+# }
+#
+# SOCIALACCOUNT_LOGIN_ON_GET = True
+# SOCIALACCOUNT_ADAPTER = 'users.adapters.MySocialAccountAdapter'
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
@@ -224,9 +235,9 @@ PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACK_SECRET_KEY")
 PAYSTACK_PUBLIC_KEY = os.environ.get("PAYSTACK_PUBLIC_KEY")
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dras52z6m',
-    'API_KEY': '387971217745778',
-    'API_SECRET': 'XWFlT86C5R2QpJmv3c3cX1B88rI',
+    'CLOUD_NAME': os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    'API_KEY': os.environ.get("CLOUDINARY_API_KEY"),
+    'API_SECRET': os.environ.get("CLOUDINARY_API_SECRET"),
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -236,28 +247,35 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-# EMAIL_USE_SSL = False
+EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
-# DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_HOST_USER")
-# SERVER_EMAIL = os.environ.get("EMAIL_HOST_USER")
+# Default From Email
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Server Email (for error notifications)
+SERVER_EMAIL = EMAIL_HOST_USER
 
 # Use HTTPS
-# SECURE_SSL_REDIRECT = True
-# # SECURE_SSL_REDIRECT = False
-# SECURE_HSTS_SECONDS = 15768000
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# X_FRAME_OPTIONS = 'DENY'
-# # CSRF_COOKIE_SECURE = False
-# # SESSION_COOKIE_SECURE = False
-#
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-#
-# # Content Security Policy
-# CSP_DEFAULT_SRC = ("'self'",)
-# CSP_SCRIPT_SRC = ("'self'", 'https://code.jquery.com', 'https://trusted.cdn.com')
+# Ensure that SSL redirect is enabled in production
+SECURE_SSL_REDIRECT = False
+
+# Ensure cookies are set to be sent only over HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 15768000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+X_FRAME_OPTIONS = 'DENY'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Content Security Policy
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'https://code.jquery.com', 'https://trusted.cdn.com')
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")

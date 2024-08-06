@@ -1,5 +1,6 @@
 from django import forms
 from .models import Order, ProductReview
+from django_recaptcha.fields import ReCaptchaField
 
 
 class ReviewForm(forms.ModelForm):
@@ -23,6 +24,7 @@ class ReviewForm(forms.ModelForm):
         "required": True,
         'class': 'u-form-group u-form-message',
     }))
+    captcha = ReCaptchaField()
 
     class Meta:
         model = ProductReview
@@ -37,6 +39,7 @@ class CheckoutForm(forms.ModelForm):
         "required": True,
         "id": "my-address"
     }))
+    captcha = ReCaptchaField()
 
     class Meta:
         model = Order
