@@ -105,7 +105,8 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                     </div>
                 </div>
                 <div class="carousel-item" data-interval="5000">
-                    <img src="https://img.freepik.com/free-photo/scene-from-care-job-with-young-child-patient-being-take-care_23-2151224132.jpg?t=st=1720775242~exp=1720778842~hmac=1e804f02ca8f451aef917a9d74c0b01b0218224f5b46fdccc3d74f470a861710&amp;w=1060" class="d-block w-100" alt="Third slide">
+                    <img src="https://img.freepik.com/free-photo/scene-from-care-job-with-young-child-patient-being-take-care_23-2151224132.jpg?t=st=1720775242~exp=1720778842~hmac=1e804f02ca8f451aef917a9d74c0b01b0218224f5b46fdccc3d74f470a861710&amp;w=1060"
+                         class="d-block w-100" alt="Third slide">
                     <div class="carousel-caption d-none d-md-flex">
                         <h1 class="text-light" style="font-weight: 300;">
                             Reliable, convenient, and affordable pharmacy services.
@@ -148,6 +149,9 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                             <span class="slider round"></span>
                         </label>
                     </div>
+                    {% for error in form.captcha.error %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
 
                     <br>
                     <button style="height: 59" id="submit" type="submit" class="btn py-3 btn-block">
@@ -171,14 +175,14 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
                     </p>
                 </div>
                 <br>
-<!--                <div class="or-container">-->
-<!--                    <hr>-->
-<!--                    <span>OR</span>-->
-<!--                </div>-->
-<!--                <br>-->
-<!--                <a href="" class="py-3 mt-2 btn btn-block" style="height: 59">-->
-<!--                    <img src="{% static 'images/300221.png' %}" CLASS="mr-2" width="32" height="32" alt="">-->
-<!--                    CONTINUE WITH GOOGLE</a>-->
+                <!--                <div class="or-container">-->
+                <!--                    <hr>-->
+                <!--                    <span>OR</span>-->
+                <!--                </div>-->
+                <!--                <br>-->
+                <!--                <a href="" class="py-3 mt-2 btn btn-block" style="height: 59">-->
+                <!--                    <img src="{% static 'images/300221.png' %}" CLASS="mr-2" width="32" height="32" alt="">-->
+                <!--                    CONTINUE WITH GOOGLE</a>-->
                 <br>
                 <br>
             </div>
