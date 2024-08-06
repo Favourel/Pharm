@@ -6,7 +6,7 @@
 {% block title %} MAMSPharmacy | Cart & Checkout {% endblock %}
 {% block name %} MAMSPharmacy | Cart & Checkout {% endblock %}
 {% block content %}
-<script src="https://js.paystack.co/v1/inline.js"></script>
+<!--<script src="https://js.paystack.co/v1/inline.js"></script>-->
 
 <section class="u-clearfix u-lightbox u-section-1" id="sec-16e0">
     <div class="py-5 u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
@@ -211,7 +211,7 @@
                     <h5><b>Delivery address</b></h5>
                     <br>
                     <div class="box-element">
-                        <form action="" method="post" id="myFormAddress">
+                        <form action="" method="post" id="FormAddress">
                             {% csrf_token %}
                             {{ form | crispy }}
                         </form>
@@ -253,7 +253,7 @@
                         </tr>
                         <tr>
                             <th><h5 class="mt-2">Summary: </h5></th>
-                            <th><h5 id="amount" class="mt-2">
+                            <th><h5 id="totalAmount" class="mt-2">
                                 ₦{{ get_cart_total|floatformat:2|intcomma }}</h5></th>
                         </tr>
                     </table>
@@ -266,8 +266,7 @@
                     </li>
                     <br>
                     {% if items|length > 0 %}
-                    <a type="submit" onclick="payWithPaystack()"
-                       id="make-payment"
+                    <a type="submit" id="make-paystack-payment"
                        class="btn py-3 btn-block">
                         <div class="spinner-border text-light hide" id="spinner" role="status">
                             <span class="sr-only">Loading...</span>
@@ -349,35 +348,42 @@
         border-color: #004d6e; !important;
     }
 </style>
-<script type="text/javascript">
-    var user = '{{ request.user }}'
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    const csrftoken = getCookie('csrftoken');
-</script>
 <script>
-    const inputElement = document.getElementById('my-address');
-    const paymentForm = document.getElementById('make-payment');
-    paymentForm.addEventListener("click", payWithPaystack, false);
+document.getElementById('make-paystack-payment').addEventListener('click', function(event) {
+    event.preventDefault();
+    var button = document.getElementById('make-paystack-payment');
+    var spinner = document.getElementById('spinner');
+    var buttonText = document.getElementById('button-text');
 
-    function payWithPaystack(e) {
-      e.preventDefault();
+    // Disable the button
+    button.setAttribute('disabled', 'disabled');
+    button.classList.add('disabled');
 
-      const form = document.getElementById('myFormAddress');
+    // Show the spinner
+    spinner.classList.remove('hide');
+    spinner.classList.add('show');
+
+    // Optionally hide the text or change it
+    buttonText.innerText = 'Processing...';
+
+    // Proceed with payment initialization
+    submitPayment();
+});
+
+document.getElementById('FormAddress').addEventListener('submit', function(event) {
+    event.preventDefault();
+    submitPayment();
+});
+
+function submitPayment() {
+    //const address = document.getElementById('my-address').value;
+    //if (!address) {
+        //alert('Address is required.');
+       // return;
+    //}
+
+    const form = document.getElementById('FormAddress');
 
       // Check form validity before proceeding
       if (!form.checkValidity()) {
@@ -388,52 +394,27 @@
         }
       }
 
-      let handler = PaystackPop.setup({
-        key: '{{paystack_public_key}}', // Replace with your public key
-        email: '{{ request.user.email }}',
-        currency: 'NGN',
-        amount: '{{ get_cart_total }}' * 100,
-        ref: '{{ payment.ref }}', // Replace with a unique reference if needed
-        //onClose: function(){
-        //  alert('There was an error with processing payment. Kindly refresh page and run again');
-        //},
-        callback: function(response){
-          let message = 'Payment complete! Reference: ' + response.reference;
+    const totalAmount = document.getElementById('totalAmount').innerText;
+    const address = document.getElementById('my-address').value;
 
-          var userData = {
-                    'reference':response.reference
-                }
-            var url = '{% url 'process_order' %}'
-
-            const enteredValue = inputElement.value; // Replace with logic to get address value
-
-            fetch(url,
-                {
-                    method: 'POST',
-                    headers: {'Content-Type': '/application/json', 'X-CSRFToken':csrftoken,},
-                    body:JSON.stringify({'ref': userData, address: enteredValue})
-                }
-            )
-
-            .then((response) =>{
-                    return response.json()
-                })
-
-            .then((data) =>{
-                    console.log('Success:', data);
-                    //window.location.href = '/'
-                    if (data.redirect) { // Check for 'redirect' key in response
-                    window.location.href = data.redirect; // Redirect using client-side JavaScript
-                  }
-
-                })
-
-          //console.log(message);
-        }
+    fetch("{% url 'initialize_payment' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            address: address,
+            amount: {{ get_cart_total }}
+        })
+    }).then(response => response.json())
+      .then(data => {
+          if (data.redirect_url) {
+              window.location.href = data.redirect_url;
+          } else {
+              alert('Payment initialization failed');
+          }
       });
-
-      handler.openIframe();
-    }
-
+}
 </script>
 {% endblock %}

@@ -82,3 +82,4 @@ admin.site.register(ProductReview, ProductReviewAdmin)
 
 admin.site.register(Checkout, CheckoutAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(Payment)

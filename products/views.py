@@ -1,20 +1,22 @@
 import json
 import os
+import uuid
 from datetime import datetime
 from statistics import mean
 
 import requests
 from django.conf import settings
 from django.contrib import messages
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Max, Q, Sum
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import CheckoutForm, ReviewForm
-from .models import Category, Product, Checkout, Order, ProductReview
+from .models import Category, Product, Checkout, Order, ProductReview, Payment
 from users.models import Notification
 from .filters import ProductPriceFilter
 from .utils import total_cart_items
@@ -363,17 +365,26 @@ def checkout(request):
     return render(request, "products/checkout.html", context)
 
 
+@csrf_exempt
 @login_required
-def process_order(request):
-    data = json.loads(request.body)
+def process_order(request, reference):
+    payment = Payment.objects.get(reference=reference)
+    data = {
+        'ref': {'reference': reference},
+        'address': payment.address
+    }
     transaction_id = datetime.now().timestamp()
     reference = str(data['ref']['reference'])
+
+    # data = json.loads(request.body)
+    # transaction_id = datetime.now().timestamp()
+    # reference = str(data['ref']['reference'])
     address = data.get('address')
+
+    # address = data.get('address')
     check_out_list = Checkout.objects.filter(user=request.user, complete=False).order_by("-id")
 
-    queryset = []
     for item in check_out_list:
-        queryset.append(item.complete == True)
         item.complete = True
         item.save()
 
@@ -395,9 +406,7 @@ def process_order(request):
     request.user.address = address
     request.user.save()
 
-    product_queryset = []
     for item in check_out_list:
-        product_queryset.append(item.product.product_purchase + item.quantity)
         item.product.product_purchase += item.quantity
         item.product.save()
 
@@ -408,7 +417,94 @@ def process_order(request):
     notification.orders.set([item for item in check_out_list])
     notification.save()
 
-    return JsonResponse({'message': 'Payment complete!', 'redirect': f'{order.get_absolute_url()}'}, safe=False)
+    return redirect(order.get_absolute_url())
+
+
+@csrf_exempt
+@login_required
+def initialize_payment(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        amount = int(float(data['amount'])) * 100  # Convert to kobo
+        email = request.user.email
+        address = data['address']
+        reference = str(uuid.uuid4())  # Generate a unique reference
+        callback_url = request.build_absolute_uri(
+            reverse('verify_payment', args=[reference])
+        )
+        url = f"{settings.PAYSTACK_BASE_URL}/transaction/initialize"
+
+        headers = {
+            "Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}",
+            "Content-Type": "application/json"
+        }
+        data = {
+            "email": email,
+            "amount": amount,
+            "callback_url": callback_url,
+            "reference": reference
+        }
+        response = requests.post(url, json=data, headers=headers)
+
+        if response.status_code == 200:
+            response_data = response.json()
+            Payment.objects.create(
+                user=request.user,
+                amount=amount / 100,  # Convert back to naira
+                reference=reference,
+                address=address
+            )
+            return JsonResponse({'redirect_url': response_data['data']['authorization_url']})
+        else:
+            return JsonResponse(response.json(), status=response.status_code)
+
+    return render(request, 'products/initialize_payment.html')
+
+
+@csrf_exempt
+@login_required
+def verify_payment(request, reference):
+    if reference:
+        url = f"{settings.PAYSTACK_BASE_URL}/transaction/verify/{reference}"
+        headers = {
+            "Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}",
+            "Content-Type": "application/json"
+        }
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 200:
+            response_data = response.json()
+            if response_data['data']['status'] == 'success':
+                payment = Payment.objects.get(reference=reference)
+                payment.status = 'completed'
+                payment.save()
+
+                # Call process_order here
+                return process_order(request, reference)
+            else:
+                return render(request, 'products/payment_failed.html', {'response': response_data})
+        else:
+            return JsonResponse(response.json(), status=response.status_code)
+    else:
+        return HttpResponse('Reference not found', status=400)
+
+
+@csrf_exempt
+@login_required
+def paystack_webhook(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        event = data.get('event')
+        if event == 'charge.success':
+            reference = data['data']['reference']
+            try:
+                payment = Payment.objects.get(reference=reference)
+                payment.status = 'completed'
+                payment.save()
+            except Payment.DoesNotExist:
+                pass  # handle the error as needed
+        return JsonResponse({'status': 'success'}, status=200)
+    return JsonResponse({'status': 'failed'}, status=400)
 
 
 @login_required
@@ -431,4 +527,5 @@ def product_detail_modal(request, pk):
 
     return render(request, 'products/partials/product-detail.html',
                   context)
+
 

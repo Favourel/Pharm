@@ -22,4 +22,7 @@ urlpatterns = [
     path("<uuid:pk>/add_to_checkout/", product_view.add_to_checkout, name="add_to_checkout"),
     path("<uuid:pk>/remove_from_checkout/", product_view.remove_from_checkout, name="remove_from_checkout"),
 
+    path('paystack/initialize/', product_view.initialize_payment, name='initialize_payment'),
+    path('paystack/verify/<str:reference>/', product_view.verify_payment, name='verify_payment'),
+    path('paystack/webhook/', product_view.paystack_webhook, name='paystack_webhook'),
 ]
