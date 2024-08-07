@@ -228,7 +228,9 @@
             </div>
             <div class="col-lg-3 ">
                 <!--            <div class="sticky-top" style="top: 9px">-->
-                <div class="box-element" style="background-color:#fff !important">
+                <div class="box-element"
+                     style="background-color:#fff !important;
+                     word-wrap: break-word !important;overflow: hidden;">
                     <h5><b>Order Summary</b></h5>
                     <style>
                         .card-header:first-child {
@@ -241,7 +243,7 @@
                             border-bottom: 0 solid transparent;
                         }
                     </style>
-                    <table class="table table-hover">
+                    <table class="table table-hover ">
                         <tr>
                             <th><h5>Items: </h5></th>
                             <th><h5>{{ get_cart_items }}</h5></th>

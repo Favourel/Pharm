@@ -14,11 +14,11 @@
     {% for error in form.captcha.error %}
     <p>{{ error }}</p>
     {% endfor %}
-    <small>The maximum file size that can be uploaded is 10KB</small>
+    <small>The maximum file size that can be uploaded is 20KB</small>
     <br>
     <div style="margin-left: 0 !important;" class=" u-form-group u-form-submit">
         <br>
-        <button type="submit" class="u-btn u-btn-submit u-button-style">Submit</button>
+        <button id="prescriptionbtn" type="submit" class="u-btn u-btn-submit u-button-style">Submit</button>
     </div>
     <div id="alert-container"></div>
 </form>
@@ -26,6 +26,14 @@
 <script>
     document.getElementById('upload-form').addEventListener('submit', function(event) {
         event.preventDefault();
+        var button = document.getElementById('prescriptionbtn');
+
+        // Disable the button
+        button.setAttribute('disabled', 'disabled');
+        button.classList.add('disabled');
+        // Optionally hide the text or change it
+        button.innerText = 'Processing...';
+
         let form = event.target;
         let formData = new FormData(form);
 

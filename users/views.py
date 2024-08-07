@@ -146,7 +146,8 @@ def upload_prescription(request):
             return JsonResponse({'success': True, 'message': 'File uploaded successfully.'})
         else:
             errors = dict(form.errors)
-        return JsonResponse({'failure': True, 'errors': errors["document"][0]})
+            print(next(iter(errors.items())))
+        return JsonResponse({'failure': True, 'errors': next(iter(errors.items()))})
 
     else:
         form = PrescriptionUploadForm()

@@ -32,7 +32,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 def validate_file_size(file):
-    max_size_kb = 10
+    max_size_kb = 20
     if file.size > max_size_kb * 1024:
         raise ValidationError(f"The maximum file size that can be uploaded is {max_size_kb}KB")
 

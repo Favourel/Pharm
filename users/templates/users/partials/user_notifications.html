@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 
 {% if notification %}
 {% for i in notification %}
@@ -20,7 +21,10 @@
                 {{ i.date_posted }}
             </div>
             <span class="font-weight-bold">
-                you made an order!
+                you made an order! Total amount:
+                {% for order in i.orders.all %}
+                ₦{{ order.get_total|floatformat:2|intcomma }}
+                {% endfor %}
             </span>
         </div>
     </a>

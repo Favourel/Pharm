@@ -248,6 +248,11 @@ def add_to_cart(request):
             data = json.loads(request.body)
             product_id = data.get('product_id')
             quantity = data.get('quantity')
+            print(quantity)
+
+            # Ensure quantity is at least 1
+            if int(quantity) < 1:
+                return JsonResponse({'success': False, 'error': 'Quantity must be at least 1'}, status=400)
 
             if product_id and quantity:
                 product = get_object_or_404(Product, id=product_id)
@@ -493,18 +498,26 @@ def verify_payment(request, reference):
 @login_required
 def paystack_webhook(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        event = data.get('event')
-        if event == 'charge.success':
-            reference = data['data']['reference']
+        try:
+            event = json.loads(request.body)
+        except ValueError as e:
+            return JsonResponse({'status': 'error', 'message': 'Invalid payload'}, status=400)
+
+        if event['event'] == 'charge.success':
+            data = event['data']
+            reference = data['reference']
             try:
                 payment = Payment.objects.get(reference=reference)
                 payment.status = 'completed'
                 payment.save()
             except Payment.DoesNotExist:
-                pass  # handle the error as needed
-        return JsonResponse({'status': 'success'}, status=200)
-    return JsonResponse({'status': 'failed'}, status=400)
+                return JsonResponse({'status': 'error', 'message': 'Payment not found'}, status=404)
+
+            return JsonResponse({'status': 'success'}, status=200)
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Unhandled event'}, status=400)
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
 
 @login_required
