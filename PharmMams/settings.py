@@ -51,7 +51,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", 'https://mamspharmacy.com', "mamspharmacy.com",
@@ -260,7 +259,7 @@ EMAIL_BACKEND = 'users.email_config.CustomEmailBackend'
 
 # Use HTTPS
 # Ensure that SSL redirect is enabled in production
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = False
 
 # Ensure cookies are set to be sent only over HTTPS
 CSRF_COOKIE_SECURE = True
