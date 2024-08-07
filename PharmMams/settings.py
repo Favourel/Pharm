@@ -260,11 +260,12 @@ EMAIL_BACKEND = 'users.email_config.CustomEmailBackend'
 
 # Use HTTPS
 # Ensure that SSL redirect is enabled in production
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = True
 
 # Ensure cookies are set to be sent only over HTTPS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
 SECURE_HSTS_SECONDS = 15768000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
