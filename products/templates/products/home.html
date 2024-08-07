@@ -199,7 +199,12 @@ Discover a wide range of health and wellness products at our online pharmacy. Qu
             S6,15.3,6,14.5S5.3,13,4.5,13L4.5,13z"></path></svg>
 
                 <span class="u-custom-color-5 u-icon-circle u-shopping-cart-count" style="font-size: 0.75rem;">
-                    <!--shopping_cart_count-->{{get_cart_items|intword}}
+                    <!--shopping_cart_count-->
+                    {% if get_cart_items > 10 %}
+                    +9
+                    {% else %}
+                    {{get_cart_items|intword}}
+                    {% endif %}
                     <!--/shopping_cart_count--></span>
             </span>
         </a><!--/shopping_cart-->

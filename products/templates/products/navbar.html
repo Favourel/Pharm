@@ -156,7 +156,12 @@
                 <span class="u-custom-color-5 u-icon-circle u-shopping-cart-count"
                       id="cart-quantity"
                       style="font-size: 0.75rem;">
-                    <!--shopping_cart_count-->{{get_cart_items|intword}}
+                    <!--shopping_cart_count-->
+                    {% if get_cart_items > 10 %}
+                    +9
+                    {% else %}
+                    {{get_cart_items|intword}}
+                    {% endif %}
                     <!--/shopping_cart_count--></span>
             </span>
         </a><!--/shopping_cart-->
