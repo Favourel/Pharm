@@ -52,7 +52,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
-print(DEBUG)
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", 'https://mamspharmacy.com', "mamspharmacy.com",
                  "pharm-production.up.railway.app", "mamspharm.onrender.com", ]
@@ -86,7 +85,17 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django_recaptcha',
 
+    'haystack', # haystack application from django-haystack
+    'rest_framework'
+
 ]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index')
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,7 +147,7 @@ DATABASES = {
 #         'USER': "postgres",
 #         'PASSWORD': os.environ.get("DB_PASSWORD_MMP"),
 #         'HOST': os.environ.get("DB_HOST"),
-#         'PORT': os.environ.get("DB_PORT", '5432'),
+#         'PORT': os.environ.get("DB_PORT"),
 #     }
 # }
 

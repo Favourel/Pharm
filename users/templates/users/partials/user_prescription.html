@@ -10,15 +10,19 @@
       style="padding: 10px;" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form"
       enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form|crispy }}
+    {{ form.full_name }}
+    {{ form.email }}
+    {{ form.document }}
+    {{ form.captcha }}
     {% for error in form.captcha.error %}
-    <p>{{ error }}</p>
+    <p class="text-danger">{{ error }}</p>
     {% endfor %}
     <small>The maximum file size that can be uploaded is 20KB</small>
     <br>
     <div style="margin-left: 0 !important;" class=" u-form-group u-form-submit">
         <br>
-        <button id="prescriptionbtn" type="submit" class="u-btn u-btn-submit u-button-style">Submit</button>
+        <button id="prescriptionbtn" style="background-color: #009649!important;"
+                type="submit" class="u-btn u-btn-submit u-button-style">Submit</button>
     </div>
     <div id="alert-container"></div>
 </form>

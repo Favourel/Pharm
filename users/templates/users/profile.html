@@ -10,9 +10,10 @@
 
 
 <section class="u-clearfix u-lightbox u-section-1" id="sec-16e0">
-    <div class="u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
+    <div style="background-color: #009649!important;"
+         class="py-5 u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
         <div class="u-container-layout u-valign-middle u-container-layout-1">
-            <h3 class="u-text u-text-default u-text-1">
+            <h3 class="u-text u-text-default u-text-1 mt-2">
                 {% if 0 >= now %}
                 Good morning,
                 {% elif now < 11.1 %}
@@ -46,10 +47,18 @@
             <div class="col-lg-9 mt-3" id="user-orders">
                 <form action="{% url 'users_profile' %}" method="post">
                     {% csrf_token %}
-                    {{ form | crispy }}
+                    {{ form.email }}
+                    {{ form.first_name }}
+                    {{ form.address }}
+                    {{ form.phone_number }}
+                    {{ form.captcha }}
+                    {% for error in form.captcha.error %}
+                    <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
                     <button id="submit" type="submit" class="u-active-custom-color-5 u-border-2 u-border-grey-dark-1 u-border-no-left
                            u-border-no-right u-border-no-top u-btn u-btn-rectangle u-btn-submit u-button-style
-                           u-custom-color-3 u-hover-custom-color-5 u-btn-4">
+                           u-custom-color-3 u-hover-custom-color-5 u-btn-4"
+                            style="background-color: #009649 !important;">
                         <div class="spinner-border text-light hidden" id="spinner" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
@@ -99,7 +108,8 @@
                                         </a>
                                         <!--/product_image--><!--product_title-->
                                         <h4 class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-product-control u-text u-text-2">
-                                            <a class="u-product-title-link text-truncate" href="{{product.get_absolute_url}}">{{product.name}}</a>
+                                            <a class="u-product-title-link text-truncate"
+                                               href="{{product.get_absolute_url}}">{{product.name}}</a>
                                         </h4><!--/product_title--><!--product_price-->
                                         <div class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-product-control u-product-price u-product-price-1"
                                              data-add-zero-cents="true">
@@ -176,15 +186,14 @@
         padding: 8px;
     }
     .btn-outline-blue {
-        color: #004d6e; !important;
-        border: 1px solid #004d6e; !important;
+        color: #009649; !important;
+        border: 1px solid #009649; !important;
         border-radius: 3px !important;
     }
     .btn-outline-blue:hover {
         color: #fff !important;
-        background: #004d6e; !important;
-        border-color: #004d6e; !important;
+        background: #009649; !important;
+        border-color: #009649; !important;
     }
 </style>
-
 {% endblock %}

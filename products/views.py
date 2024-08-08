@@ -14,11 +14,14 @@ from django.core.paginator import Paginator
 from django.db.models import Max, Q, Sum
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from haystack.query import SearchQuerySet
+from rest_framework import mixins, viewsets
 
 from .forms import CheckoutForm, ReviewForm
 from .models import Category, Product, Checkout, Order, ProductReview, Payment
 from users.models import Notification
 from .filters import ProductPriceFilter
+from .serializers import ProductSearchSerializer
 from .utils import total_cart_items
 
 
@@ -238,6 +241,39 @@ def search_view(request):
             }
             return render(request, 'products/product.html', context)
     return render(request, "products/product.html", {})
+
+
+class ProductSearchViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = ProductSearchSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        params = self.request.query_params
+        query = SearchQuerySet().all()
+        keywords = params.get('q')
+        if keywords:
+            query = query.filter(Q(name=keywords) | Q(description=keywords))
+
+            print(keywords)
+        print(query)
+        print(query.load_all())
+        print([i for i in query])
+
+        return query
+
+
+def product_search_page(request):
+    return render(request, 'products/product_search.html')
+
+
+def haystack_search(request):
+    products = SearchQuerySet().autocomplete(content_auto=request.POST.get("search_text", ""))
+    if request.user.is_authenticated:
+        get_cart_items = total_cart_items(request)
+    else:
+        get_cart_items = 0
+
+    return render(request, "products/product.html", {
+        "products": products, "get_cart_items": get_cart_items})
 
 
 @login_required

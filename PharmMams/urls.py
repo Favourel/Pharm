@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include("products.urls")),
     path('', include("users.urls")),
     # path('', include("allauth.urls")),
+    path('search/haystack/', include("haystack.urls")),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 #

@@ -28,59 +28,70 @@
             </div>
 
             <div class="u-custom-menu u-nav-container-collapse">
-                <div class="u-border-2 u-border-custom-color-3 u-container-style u-custom-color-4 u-inner-container-layout u-opacity u-opacity-80 u-sidenav u-sidenav-1"
+                <div style="border-color: #009649; !important;" class="u-border-2 u-border-custom-color-3 u-container-style u-custom-color-4 u-inner-container-layout u-opacity u-opacity-80 u-sidenav u-sidenav-1"
                      data-offcanvas-width="331.25">
-                    <div class="u-inner-container-layout u-sidenav-overflow">
+                    <div style="background-color: #009649;border-color: #009649; !important;" class="u-inner-container-layout u-sidenav-overflow">
                         <div class="u-menu-close u-menu-close-1"></div>
                         <h3 class="u-text u-text-1">LOGO</h3>
 
                         <br><br>
                         <a href="/"
-                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
+                           class="btn-mams u-align-left u-btn u-button-style
+                                u-btn-1">
                             Home
                         </a>
                         <a href="{% url 'about' %}"
-                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
+                           class="btn-mams u-align-left u-btn u-button-style
+                                u-btn-1">
                             About
-                        </a>
-                        <a href="{% url 'products' %}"
-                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
-                            All products
                         </a>
                         {% if request.user.is_authenticated %}
                         <a href="{% url 'users_profile' %}"
-                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius u-text-body-alt-color u-text-hover-white u-btn-1">
+                           class="btn-mams u-align-left u-btn u-button-style
+                                u-btn-1">
                             Profile
                         </a>
                         {% endif %}
+                        <a href="{% url 'products' %}"
+                           class="btn-mams u-align-left u-btn u-button-style
+                                u-btn-1">
+                            All products
+                        </a>
+
                         {% for category in categories %}
                         <a href="/products/?category_name={{ category.name }}"
-                           class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base
-                           u-btn u-btn-round u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-text-hover-white u-btn-1">
+                           class="btn-mams u-align-left u-btn u-button-style
+                                u-btn-1">
                             {{category}}
                         </a>
                         {% endfor %}
                         {% if request.user.is_authenticated %}
                         <a href="{% url 'logout' %}"
-                           class="u-active-custom-color-6 u-border-2 u-border-hover-
-                           palette-1-base u-border-palette-1-base u-btn u-btn-round
-                           u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-btn-1 fixed-bottom">LOGOUT </a>
+                           class="btn-mams u-align-left u-btn u-button-style
+                                u-btn-1">LOGOUT </a>
                         {% else %}
                         <a href="{% url 'login' %}"
-                           class="u-active-custom-color-6 u-border-2 u-border-hover-
-                           palette-1-base u-border-palette-1-base u-btn u-btn-round
-                           u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-btn-1 fixed-bottom" style="bottom-top">LOGIN
+                           class="btn-mams u-align-left u-btn u-button-style
+                                u-btn-1" style="bottom-top">LOGIN
                         </a>
                         <a href="{% url 'signup' %}"
-                           class="u-active-custom-color-6 u-border-2 u-border-hover-
-                           palette-1-base u-border-palette-1-base u-btn u-btn-round
-                           u-button-style u-hover-custom-color-6 u-none u-radius
-                           u-text-body-alt-color u-btn-1 fixed-bottom" style="bottom-top">SIGN
+                           class="btn-mams  u-align-left u-btn u-button-style
+                                u-btn-1" style="bottom-top">SIGN
                             UP </a>
                         {% endif %}
+                        <style>
+                            .btn-mams{
+                                color: #009649 !important;
+                                border: 1px solid #009649 !important;
+                                border-radius: 3px !important;
+                            }
+                            .btn-mams:hover{
+                                color: #fff !important;
+                                background: #009649 !important;
+                                border-color: #009649 !important;
+                                box-shadow: 0 0 0 1px #C6C6C6;
+                            }
+                        </style>
 
                     </div>
                 </div>
@@ -88,19 +99,20 @@
             </div>
         </nav>
         <a href="/" class="u-image u-logo u-image-1">
-            <img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1">
+            <img src="{% static 'images/mamslogo4.png' %}" class="u-logo-image u-logo-image-1">
         </a>
 
         <div data-target="#kt_header_search_modal" type="button"
-              data-toggle="modal" class=" u-icon u-icon-1">
+             data-toggle="modal" class=" u-icon u-icon-1">
             <svg class="u-svg-link" data-target="#kt_header_search_modal" type="button"
-              data-toggle="modal"
+                 data-toggle="modal"
                  preserveAspectRatio="xMidYMin slice"
-                 viewBox="0 0 56.966 56.966" style=""><use
-                    xlink:href="#svg-47cb"></use>
+                 viewBox="0 0 56.966 56.966" style="">
+                <use
+                        xlink:href="#svg-47cb"></use>
             </svg>
             <svg data-target="#kt_header_search_modal" type="button"
-              data-toggle="modal" class="u-svg-content" viewBox="0 0 56.966 56.966" x="0px" y="0px"
+                 data-toggle="modal" class="u-svg-content" viewBox="0 0 56.966 56.966" x="0px" y="0px"
                  id="svg-47cb" style="enable-background:new 0 0 56.966 56.966;">
                 <path
                         d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23
@@ -174,7 +186,34 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
     </style>
 </header>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('search-input');
+        const resultsContainer = document.getElementById('search-results');
 
+        searchInput.addEventListener('keyup', function () {
+            const query = searchInput.value;
+            if (query.length > 0) {
+                fetch(`/api/product-search/?q=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        resultsContainer.innerHTML = '';
+                        data.forEach(item => {
+                            const productDiv = document.createElement('div');
+                            productDiv.innerHTML = `<a href="/products/${item.id}/">${item.object.name}</a>`;
+                            resultsContainer.appendChild(productDiv);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching search results:', error);
+                        resultsContainer.innerHTML = '<p>An error occurred while searching.</p>';
+                    });
+            } else {
+                resultsContainer.innerHTML = '';
+            }
+        });
+    });
+</script>
 <div class="modal modal-edit bg-white fade show" tabindex="-1" role="dialog"
      id="kt_header_search_modal" aria-hidden="true"
      aria-modal="true">
@@ -200,20 +239,21 @@ borders: top right bottom left !important; border-color: #ffffff !important; bor
                 </div>
                 <div class="modal-body">
                     <!--begin::Search-->
-                    <form action="{% url 'search' %}" class="d-flex pb-10" autocomplete="on" method="GET"
-                          value="{{request.GET.q}}">
-                        <!--                        <input value="{{request.GET.q}}" autofocus="" type="text"-->
-                        <!--                               class="form-control bg-transparent border-0 fs-4x text-center fw-normal"-->
-                        <!--                               name="q" placeholder="Search...">-->
+                    <!--                    <form action="{% url 'search' %}" class="d-flex pb-10" autocomplete="on" method="GET"-->
+                    <!--                          value="{{request.GET.q}}">-->
 
-                        <input value="{{request.GET.q}}" autofocus="" type="text" placeholder="Search..."
-                               name="q"
-                               class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1">
-                        <div class="autocomplete" style="width:300px; display:none;">
-                            <input type="submit" name="submit" value="Search"/>
-                        </div>
+                    <!--                        <input value="{{request.GET.q}}" autofocus="" type="text" placeholder="Search..."-->
+                    <!--                               name="q"-->
+                    <!--                               class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1">-->
+                    <!--                        <div class="autocomplete" style="width:300px; display:none;">-->
+                    <!--                            <input type="submit" name="submit" value="Search"/>-->
+                    <!--                        </div>-->
+                    <!--                    </form>-->
+                    <form onsubmit="return false;">
+                        <input type="text" id="search-input" placeholder="Search for products...">
                     </form>
                     <br>
+                    <div id="search-results"></div>
                     <br>
 
                     <h4 class="text-dark mt-3 mb-3"><b>Popular search</b></h4>

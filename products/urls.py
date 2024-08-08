@@ -1,5 +1,11 @@
-from django.urls import path
+from django.urls import path, include
 from . import views as product_view
+from rest_framework.routers import DefaultRouter
+
+from .views import ProductSearchViewSet
+
+router = DefaultRouter()
+router.register(r'product-search', ProductSearchViewSet, basename='product-search')
 
 urlpatterns = [
     path('', product_view.home_page, name='home'),
@@ -11,7 +17,10 @@ urlpatterns = [
 
     path("product/<uuid:pk>/review/", product_view.product_review, name="productReview"),
 
-    path("search/", product_view.search_view, name="search"),
+    path("search/g/", product_view.search_view, name="search"),
+
+    path('search/', product_view.products_view, name='product_search_page'),
+    path('api/', include(router.urls)),
 
     path('add_to_cart/', product_view.add_to_cart, name='add_to_cart'),
     path("<uuid:pk>/delete_from_checkout/", product_view.delete_from_checkout, name="delete_from_checkout"),

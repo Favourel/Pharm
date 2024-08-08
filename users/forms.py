@@ -23,6 +23,40 @@ class CustomAuthenticationForm(AuthenticationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={
+        "name": "email",
+        "placeholder": "Enter email address",
+        'type': 'email',
+        "required": True,
+        "id": "email",
+        "class": "form-control mb-3"
+    }))
+    first_name = forms.CharField(max_length=500, required=True, widget=forms.TextInput(attrs={
+        "name": "first_name",
+        "placeholder": "Enter first name",
+        'type': 'text',
+        "required": True,
+        "id": "first_name",
+        "class": "form-control mb-3"
+    }))
+    address = forms.CharField(max_length=500, required=True, widget=forms.TextInput(attrs={
+        "name": "address",
+        "placeholder": "Enter address",
+        'type': 'text',
+        "required": True,
+        "id": "address",
+        "class": "form-control mb-3"
+    }))
+    phone_number = forms.CharField(max_length=12, required=True, widget=forms.TextInput(attrs={
+        "name": "phone_number",
+        "placeholder": "Enter phone_number",
+        'type': 'number',
+        "required": True,
+        "id": "phone_number",
+        "class": "form-control mb-3"
+    }))
+    captcha = ReCaptchaField()
+
     class Meta:
         model = User
         fields = ["email", "first_name",
@@ -38,6 +72,23 @@ def validate_file_size(file):
 
 
 class PrescriptionUploadForm(forms.ModelForm):
+    full_name = forms.CharField(max_length=500, required=True, widget=forms.TextInput(attrs={
+        "name": "full_name",
+        "placeholder": "Enter full name",
+        'type': 'text',
+        "required": True,
+        "id": "full_name",
+        "class": "form-control mb-3"
+    }))
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={
+        "name": "email",
+        "placeholder": "Enter email address",
+        'type': 'email',
+        "required": True,
+        "id": "email",
+        "class": "form-control mb-3"
+    }))
+    captcha = ReCaptchaField()
 
     class Meta:
         model = Prescription
@@ -49,4 +100,3 @@ class PrescriptionUploadForm(forms.ModelForm):
         # }
 
     document = forms.FileField(validators=[validate_file_size])
-    captcha = ReCaptchaField()

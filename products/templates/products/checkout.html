@@ -9,9 +9,10 @@
 <!--<script src="https://js.paystack.co/v1/inline.js"></script>-->
 
 <section class="u-clearfix u-lightbox u-section-1" id="sec-16e0">
-    <div class="py-5 u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
+    <div style="background-color: #009649!important;"
+         class="py-5 u-container-style u-custom-color-3 u-expanded-width u-group u-group-1">
         <div class="u-container-layout u-valign-middle u-container-layout-1">
-            <h3 class="u-text u-text-default u-text-1">
+            <h3 class="u-text u-text-default u-text-1 mt-2">
                 Cart & Checkout</h3>
         </div>
     </div><!--products--><!--products_options_json--><!--{"type":"Recent","source":"","tags":"","count":""}-->
@@ -23,7 +24,7 @@
         <div class="row">
 
             <div class="col-lg-9 mt-3">
-                <a href="{% url 'products' %}"
+                <a href="{% url 'products' %}" style="background-color: #009649!important;"
                    class="btn mb-3 ">Continue
                     browsing
                 </a>
@@ -213,7 +214,11 @@
                     <div class="box-element">
                         <form action="" method="post" id="FormAddress">
                             {% csrf_token %}
-                            {{ form | crispy }}
+                            {{ form.address }}
+                            {{ form.captcha }}
+                            {% for error in form.captcha.error %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
                         </form>
                     </div>
                     <br>
@@ -268,7 +273,7 @@
                     </li>
                     <br>
                     {% if items|length > 0 %}
-                    <a type="submit" id="make-paystack-payment"
+                    <a type="submit" id="make-paystack-payment" style="background-color: #009649!important;"
                        class="btn py-3 btn-block">
                         <div class="spinner-border text-light hide" id="spinner" role="status">
                             <span class="sr-only">Loading...</span>
@@ -340,83 +345,83 @@
         padding: 8px;
     }
     .btn-outline-blue {
-        color: #004d6e; !important;
-        border: 1px solid #004d6e; !important;
+        color: #009649; !important;
+        border: 1px solid #009649; !important;
         border-radius: 3px !important;
     }
     .btn-outline-blue:hover {
         color: #fff !important;
-        background: #004d6e; !important;
-        border-color: #004d6e; !important;
+        background: #009649; !important;
+        border-color: #009649; !important;
     }
 </style>
 
 <script>
-document.getElementById('make-paystack-payment').addEventListener('click', function(event) {
-    event.preventDefault();
-    var button = document.getElementById('make-paystack-payment');
-    var spinner = document.getElementById('spinner');
-    var buttonText = document.getElementById('button-text');
+    document.getElementById('make-paystack-payment').addEventListener('click', function(event) {
+        event.preventDefault();
+        var button = document.getElementById('make-paystack-payment');
+        var spinner = document.getElementById('spinner');
+        var buttonText = document.getElementById('button-text');
 
-    // Disable the button
-    button.setAttribute('disabled', 'disabled');
-    button.classList.add('disabled');
+        // Disable the button
+        button.setAttribute('disabled', 'disabled');
+        button.classList.add('disabled');
 
-    // Show the spinner
-    spinner.classList.remove('hide');
-    spinner.classList.add('show');
+        // Show the spinner
+        spinner.classList.remove('hide');
+        spinner.classList.add('show');
 
-    // Optionally hide the text or change it
-    buttonText.innerText = 'Processing...';
+        // Optionally hide the text or change it
+        buttonText.innerText = 'Processing...';
 
-    // Proceed with payment initialization
-    submitPayment();
-});
+        // Proceed with payment initialization
+        submitPayment();
+    });
 
-document.getElementById('FormAddress').addEventListener('submit', function(event) {
-    event.preventDefault();
-    submitPayment();
-});
+    document.getElementById('FormAddress').addEventListener('submit', function(event) {
+        event.preventDefault();
+        submitPayment();
+    });
 
-function submitPayment() {
-    //const address = document.getElementById('my-address').value;
-    //if (!address) {
-        //alert('Address is required.');
-       // return;
-    //}
+    function submitPayment() {
+        //const address = document.getElementById('my-address').value;
+        //if (!address) {
+            //alert('Address is required.');
+           // return;
+        //}
 
-    const form = document.getElementById('FormAddress');
+        const form = document.getElementById('FormAddress');
 
-      // Check form validity before proceeding
-      if (!form.checkValidity()) {
-        const firstInvalid = form.querySelector(':required:invalid');
-        if (firstInvalid) {
-          firstInvalid.focus();
-          return; // Prevent opening Paystack if form is invalid
-        }
-      }
-
-    const totalAmount = document.getElementById('totalAmount').innerText;
-    const address = document.getElementById('my-address').value;
-
-    fetch("{% url 'initialize_payment' %}", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'
-        },
-        body: JSON.stringify({
-            address: address,
-            amount: {{ get_cart_total }}
-        })
-    }).then(response => response.json())
-      .then(data => {
-          if (data.redirect_url) {
-              window.location.href = data.redirect_url;
-          } else {
-              alert('Payment initialization failed');
+          // Check form validity before proceeding
+          if (!form.checkValidity()) {
+            const firstInvalid = form.querySelector(':required:invalid');
+            if (firstInvalid) {
+              firstInvalid.focus();
+              return; // Prevent opening Paystack if form is invalid
+            }
           }
-      });
-}
+
+        const totalAmount = document.getElementById('totalAmount').innerText;
+        const address = document.getElementById('my-address').value;
+
+        fetch("{% url 'initialize_payment' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                address: address,
+                amount: {{ get_cart_total }}
+            })
+        }).then(response => response.json())
+          .then(data => {
+              if (data.redirect_url) {
+                  window.location.href = data.redirect_url;
+              } else {
+                  alert('Payment initialization failed');
+              }
+          });
+    }
 </script>
 {% endblock %}

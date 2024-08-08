@@ -37,7 +37,8 @@ class CheckoutForm(forms.ModelForm):
         "placeholder": "Enter house / apartment number and street address",
         'type': 'text',
         "required": True,
-        "id": "my-address"
+        "id": "my-address",
+        "class": "form-control"
     }))
     captcha = ReCaptchaField()
 

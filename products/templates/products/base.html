@@ -32,12 +32,13 @@
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i|Palanquin+Dark:400,500,600,700">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="icon" href="{% static 'images/mamsicon.png' %}">
 
     <script type="application/ld+json">{
         "@context": "http://schema.org",
         "@type": "Organization",
-        "name": "WebSite6300048",
-        "logo": "images/default-logo.png"
+        "name": "MAMSPHARMACY",
+        "logo": "{% static 'images/mamsicon.png' %}"
     }</script>
     <meta name="theme-color" content="#1f2645">
     <meta property="og:title" content="{% block name %}{% endblock %}">
@@ -61,15 +62,15 @@ background-color: #ffffff !important
 </style>
 
 
-<footer class="u-clearfix u-footer u-grey-70" id="sec-7bae" style="background-color: #003952 !important">
+<footer class="u-clearfix u-footer text-dark u-grey-70" id="sec-7bae" style="background-color: #f0f0f0!important;">
     <div class="u-clearfix u-sheet u-sheet-1">
         <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-30 u-layout-wrap u-layout-wrap-1">
             <div class="u-gutter-0 u-layout">
                 <div class="u-layout-row">
                     <div class="u-align-left u-container-style u-layout-cell u-left-cell u-size-15 u-layout-cell-1">
                         <div class="u-container-layout u-valign-bottom-xs u-container-layout-1">
-                            <a href="#" class="u-image u-logo u-image-1" data-image-width="80" data-image-height="40">
-                                <img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1">
+                            <a href="#" class="u-image u-logo u-image-1" data-image-width="100" data-image-height="40">
+                                <img src="{% static 'images/mamslogo4.png' %}" class="u-logo-image u-logo-image-1">
                             </a>
                             <p class="u-text u-text-1">Your Health, Our Priority.</p>
                         </div>
@@ -89,14 +90,15 @@ background-color: #ffffff !important
                             <p class="u-text u-text-5">Swift delivery service</p>
                             <p class="u-text u-text-5">Secure online payment</p>
                             <p class="u-text u-text-5">
-                                <a href="https://wa.me/+2348141686142">Chat on WhatsApp</a>
+                                <a style="color: #000" href="https://wa.me/+2348141686142">Chat on WhatsApp</a>
                             </p>
                         </div>
                     </div>
                     <div class="u-container-style u-layout-cell u-right-cell u-size-20 u-layout-cell-4">
                         <div class="u-container-layout u-valign-top u-container-layout-4">
                             <h3 class="u-text u-text-6">
-                                <a style="color: white !important" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
+                                <a style="color: black !important"
+                                   class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
                                    href="tel:(234) 814-168-6142"> (234) 814-168-6142</a>
                             </h3>
                             <p class="u-text u-text-7"> Monday–Friday: 9:00am – 6:00pm Saturday–Sunday: 9:00am –
@@ -107,7 +109,8 @@ background-color: #ffffff !important
                             </p>
                             <br>
                             <p class="u-text u-text-8">
-                                <a style="color: white !important" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
+                                <a style="color: black !important"
+                                   class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
                                    href="mailto:mamspharm@gmail.com?subject=Contact">
                                     mamspharm@gmail.com</a>
                             </p>
@@ -121,7 +124,7 @@ background-color: #ffffff !important
             <div class="u-repeater u-repeater-1">
                 <div class="u-container-style u-list-item u-repeater-item">
                     <div class="u-container-layout u-similar-container u-container-layout-5">
-                        <p class="u-text u-text-default u-text-9"><a href="{% url 'about' %}">About</a></p>
+                        <p class="u-text u-text-default u-text-9"><a style="color: #000" href="{% url 'about' %}">About</a></p>
                     </div>
                 </div>
                 <div class="u-container-style u-list-item u-repeater-item">
@@ -189,14 +192,14 @@ background-color: #ffffff !important
         padding: 8px;
     }
     .btn-outline-blue {
-        color: #004d6e !important;
-        border: 1px solid #004d6e !important;
+        color: #009649 !important;
+        border: 1px solid #009649 !important;
         border-radius: 3px !important;
     }
     .btn-outline-blue:hover {
         color: #fff !important;
-        background: #004d6e !important;
-        border-color: #004d6e !important;
+        background: #009649 !important;
+        border-color: #009649 !important;
     }
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
